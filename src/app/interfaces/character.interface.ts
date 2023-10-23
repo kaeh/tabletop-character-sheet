@@ -43,3 +43,7 @@ export interface Character {
         willpower: Skill;
     };
 }
+
+export const Character = {
+    computeMaxVitality: (strength: number, endurance: number, willpower: number): number => Math.floor(((strength + endurance) / 5) + (willpower / 10))
+};

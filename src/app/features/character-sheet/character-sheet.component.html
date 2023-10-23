@@ -1,29 +1,19 @@
 <h1 translate>CHARACTER.SHEET</h1>
 
-<pre>{{ currentColdBlood$$() }}</pre>
-<pre>{{ coldBloodState$$() }}</pre>
-
 <section>
   <h3>Sang froid</h3>
-  <section
-    style="
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: flex-end;
-    "
-  >
-    <mat-icon *ngFor="let coldBlood of coldBloodState$$()">{{
-      coldBlood ? 'radio_button_checked' : 'radio_button_unchecked'
-    }}</mat-icon>
-  </section>
+  <app-variable-characteristic
+    icon="circle"
+    [actual]="character.coldBlood.actual"
+    [max]="character.coldBlood.max"
+  />
 
-  <!-- <h3>Vitality</h3>
-  <mat-icon *ngFor="let vitality of vitalityState">{{
-    vitality ? 'radio_button_checked' : 'radio_button_unchecked'
-  }}</mat-icon> -->
-
-  <button (click)="addColdBlood()">addColdBlood</button>
-  <button (click)="removeColdBlood()">removeColdBlood</button>
+  <h3>Vitality</h3>
+  <app-variable-characteristic
+    icon="square"
+    [actual]="character.vitality.actual"
+    [max]="character.vitality.max"
+  />
 </section>
 
 <section>
