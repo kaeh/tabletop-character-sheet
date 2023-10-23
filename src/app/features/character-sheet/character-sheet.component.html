@@ -1,2 +1,36 @@
 <h1 translate>CHARACTER.SHEET</h1>
-<p>character-sheet works!</p>
+
+<pre>{{ currentColdBlood$$() }}</pre>
+<pre>{{ coldBloodState$$() }}</pre>
+
+<section>
+  <h3>Sang froid</h3>
+  <section
+    style="
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    "
+  >
+    <mat-icon *ngFor="let coldBlood of coldBloodState$$()">{{
+      coldBlood ? 'radio_button_checked' : 'radio_button_unchecked'
+    }}</mat-icon>
+  </section>
+
+  <!-- <h3>Vitality</h3>
+  <mat-icon *ngFor="let vitality of vitalityState">{{
+    vitality ? 'radio_button_checked' : 'radio_button_unchecked'
+  }}</mat-icon> -->
+
+  <button (click)="addColdBlood()">addColdBlood</button>
+  <button (click)="removeColdBlood()">removeColdBlood</button>
+</section>
+
+<section>
+  <p>Nom : {{ character.name }}</p>
+  <p>Caractère : {{ character.temper }}</p>
+  <p>
+    Carrière actuelle : {{ character.careers[character.careers.length - 1] }}
+  </p>
+  <p>Caractère : {{ character.archetype }}</p>
+</section>

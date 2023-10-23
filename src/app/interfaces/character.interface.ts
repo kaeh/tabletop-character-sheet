@@ -4,28 +4,27 @@ import { VariableCharacteristic } from "./variable-characteristic.interface";
 export interface Character {
     // General
     name: string;
-    sex: 'M' | 'F';
-    age: number;
-    height: number;
-    weight: number;
-    description: string;
-    image: string;
-
+    careers: string[];
+    temper: string;
     archetype: string;
-    career: string;
-    standardOfLiving: string;
-    vice: string;
-    virtue: string;
     motivation: string;
-
-    vitality: VariableCharacteristic;
-    composure: VariableCharacteristic;
-    destinyPoints: VariableCharacteristic;
-    protection: number;
-    experience: number;
+    vices: string;
+    virtues: string;
     money: number;
+    standardOfLiving: string;
 
-    // Attributes
+    // Characteristics
+    coldBlood: VariableCharacteristic;
+    vitality: VariableCharacteristic;
+    destinyPoints: VariableCharacteristic;
+    experience: number;
+    initiative: number;
+    armor: number;
+    advantages: string[];
+
+    meleeWeapons: string[];
+    rangedWeapons: string[];
+    equipment: string[];
 
     // Skills
     skills: {
@@ -38,8 +37,9 @@ export interface Character {
         magic: Skill;
         movement: Skill;
         perception: Skill;
+        social: Skill;
         survival: Skill;
         shooting: Skill;
         willpower: Skill;
-    }
+    };
 }
