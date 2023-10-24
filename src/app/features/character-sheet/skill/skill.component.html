@@ -1,0 +1,13 @@
+<p>Niveau : {{ current }}</p>
+
+<section class="progression">
+  <fa-icon
+    *ngFor="let x of dotsNumber | toIterator; let i = index"
+    [icon]="i | toSkillDotIcon : currentProgression : maxProgression"
+    [title]="i + 1 + ''"
+    [class.progression__unavailable]="i >= maxProgression"
+    (click)="onClick(i + 1)"
+  />
+</section>
+
+<p>Base : {{ base }}</p>

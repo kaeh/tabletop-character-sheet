@@ -1,26 +1,56 @@
 <h1 translate>CHARACTER.SHEET</h1>
 
 <section>
-  <h3>Sang froid</h3>
+  <!-- <h3>Sang froid</h3>
   <app-variable-characteristic
     icon="circle"
     [actual]="character.coldBlood.actual"
     [max]="character.coldBlood.max"
-  />
+  /> -->
 
   <h3>Vitality</h3>
   <app-variable-characteristic
     icon="square"
-    [actual]="character.vitality.actual"
+    [current]="character.vitality.current"
     [max]="character.vitality.max"
+    (update)="character.vitality.current = $event"
   />
 </section>
 
-<section>
+<!-- <section>
   <p>Nom : {{ character.name }}</p>
   <p>Caractère : {{ character.temper }}</p>
   <p>
     Carrière actuelle : {{ character.careers[character.careers.length - 1] }}
   </p>
   <p>Caractère : {{ character.archetype }}</p>
+</section> -->
+
+<section>
+  <h3>Strength</h3>
+  <app-skill
+    [current]="character.skills.strength.level"
+    [base]="character.skills.strength.base"
+    [currentProgression]="character.skills.strength.progression.current"
+    [maxProgression]="character.skills.strength.progression.max"
+    (update)="updateSkillProgressionLevel('strength', $event)"
+  />
+
+  <h3>Endurance</h3>
+  <app-skill
+    [current]="character.skills.endurance.level"
+    [base]="character.skills.endurance.base"
+    [currentProgression]="character.skills.endurance.progression.current"
+    [maxProgression]="character.skills.endurance.progression.max"
+    (update)="updateSkillProgressionLevel('endurance', $event)"
+  />
+
+  <h3>Willpower</h3>
+  <app-skill
+    [current]="character.skills.willpower.level"
+    [base]="character.skills.willpower.base"
+    [currentProgression]="character.skills.willpower.progression.current"
+    [maxProgression]="character.skills.willpower.progression.max"
+    (update)="updateSkillProgressionLevel('willpower', $event)"
+  />
 </section>

@@ -1,40 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { Character } from 'src/app/interfaces/character.interface';
-import { character } from './character';
+import { CharacterRepository } from '../character-repository/character-repository.service';
+import { SkillComponent } from './skill/skill.component';
 import { VariableCharacteristicComponent } from './variable-characteristic/variable-characteristic.component';
 
 @Component({
   selector: 'app-character-sheet',
   standalone: true,
-  imports: [CommonModule, TranslateModule, MatIconModule, VariableCharacteristicComponent],
+  imports: [CommonModule, TranslateModule, MatIconModule, VariableCharacteristicComponent, SkillComponent],
   templateUrl: './character-sheet.component.html',
   styleUrls: ['./character-sheet.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CharacterSheetComponent implements OnInit {
+export class CharacterSheetComponent {
   // Generate a warrior character
-  character: Character = character;
+  character: Character = inject(CharacterRepository).character;
 
-  ngOnInit(): void {
-    this.character.vitality.max = Character.computeMaxVitality(this.character.skills.strength.actual, this.character.skills.endurance.actual, this.character.skills.willpower.actual);
+  private readonly characterRepository: CharacterRepository = inject(CharacterRepository);
 
-    console.log(this.character.vitality.max);
+  public updateSkillProgressionLevel(skillName: keyof Character['skills'], newProgression: number): void {
+    this.characterRepository.updateSkillProgressionLevel(skillName, newProgression);
   }
-
-  // Vitality
-  // For/5 + End/5 + Vol/10
-  // protected readonly vitalityState: number[] = [...Array(this.character.vitality.max).keys()];
-  // protected readonly currentVitality$$ = signal(this.character.vitality.actual);
-  // protected readonly vitalityState$$ = computed(() => this.vitalityState.map((index) => index < this.currentVitality$$()));
-
-  // protected addVitality(): void {
-  //   this.currentVitality$$.update((value) => value < this.vitalityState.length ? value + 1 : value);
-  // }
-
-  // protected removeVitality(): void {
-  //   this.currentVitality$$.update((value) => value > 0 ? value - 1 : value);
-  // }
 }

@@ -1,0 +1,10 @@
+:host {
+  .progression {
+    display: flex;
+    gap: 5px;
+
+    &__unavailable {
+      color: rgba($color: #000000, $alpha: 0.3);
+    }
+  }
+}

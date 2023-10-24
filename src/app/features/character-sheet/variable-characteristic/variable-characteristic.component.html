@@ -1,4 +1,6 @@
 <fa-icon
-  *ngFor="let x of iterator; let i = index"
-  [icon]="actual <= i ? faEmptyIcon : faFilledIcon"
+  *ngFor="let x of max | toIterator; let i = index"
+  [icon]="current <= i ? faEmptyIcon : faFilledIcon"
+  [title]="i + 1 + ''"
+  (click)="onClick(i + 1)"
 />
