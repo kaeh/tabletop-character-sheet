@@ -1,62 +1,28 @@
-import { Injectable } from "@angular/core";
-import { Character } from "src/app/interfaces/character.interface";
+import { Injectable, computed, signal } from "@angular/core";
 import { Skill } from "src/app/interfaces/skill.interface";
 import { Rules } from "../rules";
+
+const extractTensDigit = (value: number): number => Math.floor(value / 10);
 
 @Injectable({
     providedIn: 'root'
 })
 export class CharacterRepository {
-    public get character(): Character {
-        return this._character;
-    }
+    public readonly strength = signal<Skill>(new Skill());
+    public readonly endurance = signal<Skill>(new Skill());
+    public readonly willpower = signal<Skill>(new Skill());
+    public readonly knowledge = signal<Skill>(new Skill());
+    public readonly combat = signal<Skill>(new Skill());
+    public readonly movement = signal<Skill>(new Skill());
+    public readonly perception = signal<Skill>(new Skill());
 
-    private _character: Character = {} as Character;
-
-    public initCharacter(character: Character): void {
-        this._character = character;
-
-        // Init Skills levels
-        // this.updateCharacterSkills();
-        Object.entries(this.character.skills).forEach(([skillName, skill]) => {
-            this.updateCharacterSkillLevel(skill, false)
-            // TODO : Compute the real value
-            switch (skillName) {
-                case 'strength':
-                    skill.progression.max = 6;
-                    break;
-                case 'endurance':
-                    skill.progression.max = 5;
-                    break;
-                case 'willpower':
-                    skill.progression.max = 3;
-                    break;
-                default:
-                    skill.progression.max = 6;
-                    break;
-            }
-        });
-
-        // Init Max Vitality
-        this.updateCharacterVitality();
-    }
-
-    public updateSkillProgressionLevel(skillName: keyof Character['skills'], newProgression: number): void {
-        const skill: Skill = (this.character.skills as any)[skillName];
-        skill.progression.current = newProgression;
-
-        this.updateCharacterSkillLevel(skill);
-    }
-
-    private updateCharacterVitality(): void {
-        this.character.vitality.max = Rules.character.computeMaxVitality(this.character.skills.strength.level, this.character.skills.endurance.level, this.character.skills.willpower.level);
-    }
-
-    private updateCharacterSkillLevel(skill: Skill, doComputation = true): void {
-        skill.level = Rules.character.skills.computeSkillLevel(skill);
-
-        if (doComputation) {
-            this.updateCharacterVitality();
-        }
-    }
+    public readonly vitality = {
+        current: 0,
+        max: computed(() => Rules.character.computeMaxVitality(this.strength().level(), this.endurance().level(), this.willpower().level()))
+    };
+    public readonly coldBlood = {
+        current: 0,
+        max: computed(() => Rules.character.computeMaxColdBlood(this.willpower().level(), this.knowledge().level(), this.combat().level()))
+    };
+    public readonly initiative = computed(() => Rules.character.computeInitiative(extractTensDigit(this.combat().level()), extractTensDigit(this.movement().level()), extractTensDigit(this.perception().level())));
 }

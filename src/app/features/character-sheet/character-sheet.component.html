@@ -1,56 +1,100 @@
 <h1 translate>CHARACTER.SHEET</h1>
 
 <section>
-  <!-- <h3>Sang froid</h3>
-  <app-variable-characteristic
-    icon="circle"
-    [actual]="character.coldBlood.actual"
-    [max]="character.coldBlood.max"
-  /> -->
-
   <h3>Vitality</h3>
   <app-variable-characteristic
     icon="square"
     [current]="character.vitality.current"
-    [max]="character.vitality.max"
+    [max]="character.vitality.max()"
     (update)="character.vitality.current = $event"
   />
+
+  <h3>Cold Blood</h3>
+  <app-variable-characteristic
+    icon="circle"
+    [current]="character.coldBlood.current"
+    [max]="character.coldBlood.max()"
+    (update)="character.coldBlood.current = $event"
+  />
+
+  <h3>Initiative : {{ character.initiative() }}</h3>
 </section>
 
-<!-- <section>
-  <p>Nom : {{ character.name }}</p>
-  <p>Caractère : {{ character.temper }}</p>
-  <p>
-    Carrière actuelle : {{ character.careers[character.careers.length - 1] }}
-  </p>
-  <p>Caractère : {{ character.archetype }}</p>
-</section> -->
+<section id="skills">
+  <div>
+    <h3>Strength</h3>
+    <app-skill
+      [current]="character.strength().level()"
+      [base]="character.strength().base()"
+      [currentProgression]="character.strength().progression().current()"
+      [maxProgression]="character.strength().progression().max"
+      (update)="character.strength().progression().updateCurrent($event)"
+    />
+  </div>
 
-<section>
-  <h3>Strength</h3>
-  <app-skill
-    [current]="character.skills.strength.level"
-    [base]="character.skills.strength.base"
-    [currentProgression]="character.skills.strength.progression.current"
-    [maxProgression]="character.skills.strength.progression.max"
-    (update)="updateSkillProgressionLevel('strength', $event)"
-  />
+  <div>
+    <h3>Endurance</h3>
+    <app-skill
+      [current]="character.endurance().level()"
+      [base]="character.endurance().base()"
+      [currentProgression]="character.endurance().progression().current()"
+      [maxProgression]="character.endurance().progression().max"
+      (update)="character.endurance().progression().updateCurrent($event)"
+    />
+  </div>
 
-  <h3>Endurance</h3>
-  <app-skill
-    [current]="character.skills.endurance.level"
-    [base]="character.skills.endurance.base"
-    [currentProgression]="character.skills.endurance.progression.current"
-    [maxProgression]="character.skills.endurance.progression.max"
-    (update)="updateSkillProgressionLevel('endurance', $event)"
-  />
+  <div>
+    <h3>Willpower</h3>
+    <app-skill
+      [current]="character.willpower().level()"
+      [base]="character.willpower().base()"
+      [currentProgression]="character.willpower().progression().current()"
+      [maxProgression]="character.willpower().progression().max"
+      (update)="character.willpower().progression().updateCurrent($event)"
+    />
+  </div>
 
-  <h3>Willpower</h3>
-  <app-skill
-    [current]="character.skills.willpower.level"
-    [base]="character.skills.willpower.base"
-    [currentProgression]="character.skills.willpower.progression.current"
-    [maxProgression]="character.skills.willpower.progression.max"
-    (update)="updateSkillProgressionLevel('willpower', $event)"
-  />
+  <div>
+    <h3>Knowledge</h3>
+    <app-skill
+      [current]="character.knowledge().level()"
+      [base]="character.knowledge().base()"
+      [currentProgression]="character.knowledge().progression().current()"
+      [maxProgression]="character.knowledge().progression().max"
+      (update)="character.knowledge().progression().updateCurrent($event)"
+    />
+  </div>
+
+  <div>
+    <h3>Combat</h3>
+    <app-skill
+      [current]="character.combat().level()"
+      [base]="character.combat().base()"
+      [currentProgression]="character.combat().progression().current()"
+      [maxProgression]="character.combat().progression().max"
+      (update)="character.combat().progression().updateCurrent($event)"
+    />
+  </div>
+
+  <div>
+    <h3>Movement</h3>
+    <app-skill
+      [current]="character.movement().level()"
+      [base]="character.movement().base()"
+      [currentProgression]="character.movement().progression().current()"
+      [maxProgression]="character.movement().progression().max"
+      (update)="character.movement().progression().updateCurrent($event)"
+    />
+  </div>
+
+  <div>
+    <h3>Perception</h3>
+    <app-skill
+      [current]="character.perception().level()"
+      [base]="character.perception().base()"
+      [currentProgression]="character.perception().progression().current()"
+      [maxProgression]="character.perception().progression().max"
+      (update)="character.perception().progression().updateCurrent($event)"
+    />
+  </div>
 </section>
