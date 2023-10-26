@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
 import { extractTensDigit } from 'src/app/functions/extract-tens-digit';
 import { PersistedCharacter } from 'src/app/interfaces/persistence/persisted-character.interface';
 import { PersistedSkill } from 'src/app/interfaces/persistence/persisted-skill.interface';
@@ -14,7 +13,7 @@ import { VariableCharacteristicComponent } from './variable-characteristic/varia
 @Component({
   selector: 'app-character-sheet',
   standalone: true,
-  imports: [CommonModule, TranslateModule, MatIconModule, VariableCharacteristicComponent, SkillComponent],
+  imports: [CommonModule, MatIconModule, VariableCharacteristicComponent, SkillComponent],
   templateUrl: './character-sheet.component.html',
   styleUrls: ['./character-sheet.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
