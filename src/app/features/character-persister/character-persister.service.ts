@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { PersistedCharacter, PersistedCharacterList } from "src/app/interfaces/persistence/persisted-character.interface";
+import { PersistedCharacter, PersistedCharacterList } from "@models/persistence/persisted-character.interface";
 import { LocalStorageConfigs } from "./local-storage-configs";
 
 @Injectable({

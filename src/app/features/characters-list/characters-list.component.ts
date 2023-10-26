@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { PersistedCharacterList } from '@models/persistence/persisted-character.interface';
 import { RoutesConfigs } from 'src/app/app.routes';
-import { PersistedCharacterList } from 'src/app/interfaces/persistence/persisted-character.interface';
 import { CharacterPersisterService } from '../character-persister/character-persister.service';
 
 @Component({

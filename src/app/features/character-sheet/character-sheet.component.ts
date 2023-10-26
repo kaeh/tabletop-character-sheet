@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
+import { extractTensDigit } from '@functions/extract-tens-digit';
+import { PersistedCharacter } from '@models/persistence/persisted-character.interface';
+import { PersistedSkill } from '@models/persistence/persisted-skill.interface';
+import { Skill } from '@models/skill.interface';
 import { map } from 'rxjs';
-import { extractTensDigit } from 'src/app/functions/extract-tens-digit';
-import { PersistedCharacter } from 'src/app/interfaces/persistence/persisted-character.interface';
-import { PersistedSkill } from 'src/app/interfaces/persistence/persisted-skill.interface';
-import { Skill } from 'src/app/interfaces/skill.interface';
 import { CharacterPersisterService } from '../character-persister/character-persister.service';
 import { Rules } from '../rules';
 import { SkillComponent } from './skill/skill.component';
@@ -22,7 +22,7 @@ import { VariableCharacteristicComponent } from './variable-characteristic/varia
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterSheetComponent {
-  // TODO : Generate a unique key for each character
+  // TODO : Ensure that it does not break anything when the character is changed during component lifecycle
   private readonly characterUniqueKey = toSignal(inject(ActivatedRoute).params.pipe(map(({ uniqKey }) => uniqKey)));
   private readonly characterPersisterService = inject(CharacterPersisterService);
 
