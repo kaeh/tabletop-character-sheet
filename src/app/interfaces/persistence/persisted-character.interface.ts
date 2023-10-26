@@ -12,3 +12,5 @@ export interface PersistedCharacter {
     vitality: number;
     coldBlood: number;
 }
+
+export type PersistedCharacterList = { character: PersistedCharacter, uniqKey: string }[];

@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 import { extractTensDigit } from 'src/app/functions/extract-tens-digit';
 import { PersistedCharacter } from 'src/app/interfaces/persistence/persisted-character.interface';
 import { PersistedSkill } from 'src/app/interfaces/persistence/persisted-skill.interface';
@@ -20,7 +23,7 @@ import { VariableCharacteristicComponent } from './variable-characteristic/varia
 })
 export class CharacterSheetComponent {
   // TODO : Generate a unique key for each character
-  private readonly characterUniqueKey = 'character';
+  private readonly characterUniqueKey = toSignal(inject(ActivatedRoute).params.pipe(map(({ uniqKey }) => uniqKey)));
   private readonly characterPersisterService = inject(CharacterPersisterService);
 
   public readonly skills = {
@@ -44,7 +47,7 @@ export class CharacterSheetComponent {
   public readonly initiative = computed(() => Rules.character.computeInitiative(extractTensDigit(this.skills.combat.level()), extractTensDigit(this.skills.movement.level()), extractTensDigit(this.skills.perception.level())));
 
   constructor() {
-    const persistedCharacter = this.characterPersisterService.get(this.characterUniqueKey);
+    const persistedCharacter = this.characterPersisterService.get(this.characterUniqueKey());
 
     this.initSkills(persistedCharacter);
 
@@ -70,13 +73,13 @@ export class CharacterSheetComponent {
   }
 
   private initPersistenceEffects(): void {
-    effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, 'vitality', this.vitality.current()));
-    effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, 'coldBlood', this.coldBlood.current()));
+    effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey(), 'vitality', this.vitality.current()));
+    effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey(), 'coldBlood', this.coldBlood.current()));
 
     // Init skills persistence
     Object.keys(this.skills).forEach((skillKey: string) => {
       const skill = (this.skills as Record<string, Skill>)[skillKey];
-      effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, skillKey, {
+      effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey(), skillKey, {
         base: skill.base(),
         currentProgression: skill.progression.current()
       }));

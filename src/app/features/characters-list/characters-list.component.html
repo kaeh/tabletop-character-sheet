@@ -1,0 +1,11 @@
+<ul>
+  <li *ngFor="let item of charactersList">
+    <a [routerLink]="['/', characterSheetRoute, item.uniqKey]">
+      {{ item.character | json }}
+    </a>
+  </li>
+</ul>
+
+<button (click)="navigateToCharacterCreation()">
+  Créer un nouveau personnage
+</button>
