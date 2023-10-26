@@ -53,5 +53,14 @@
     }
   },
   "defaultProject": "kaeh",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "NmRiNTRhNzItNzFiZi00NjNjLTg4OWItYTU1ODU1YjhlMTNlfHJlYWQtd3JpdGU="
+      }
+    }
+  },
   "nxCloudAccessToken": "NmRiNTRhNzItNzFiZi00NjNjLTg4OWItYTU1ODU1YjhlMTNlfHJlYWQtd3JpdGU="
 }
