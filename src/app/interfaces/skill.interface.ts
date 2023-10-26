@@ -8,9 +8,9 @@ interface SkillConstructorData {
 }
 
 export class Skill {
-    readonly progression = signal(new VariableCharacteristic());
+    readonly progression = new VariableCharacteristic();
     readonly base = signal(0);
-    readonly level = computed(() => Rules.character.skills.computeSkillLevel(this.base(), this.progression().current()));
+    readonly level = computed(() => Rules.character.skills.computeSkillLevel(this.base(), this.progression.current()));
 
     constructor(skill: SkillConstructorData = {}) {
         if (skill.base) {
@@ -18,7 +18,7 @@ export class Skill {
         }
 
         if (skill.currentProgression) {
-            this.progression.update((p) => p.updateCurrent(skill.currentProgression!));
+            this.progression.updateCurrent(skill.currentProgression);
         }
     }
 }
