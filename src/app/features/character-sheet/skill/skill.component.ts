@@ -21,8 +21,8 @@ export class SkillComponent {
 
   protected readonly dotsNumber = 6;
 
-  protected onClick(value: number): void {
-    const newValue = value === this.current ? value - 1 : value;
+  protected onProgressionDotClick(value: number): void {
+    const newValue = value === this.currentProgression ? value - 1 : value;
     this.update.emit(newValue);
   }
 }

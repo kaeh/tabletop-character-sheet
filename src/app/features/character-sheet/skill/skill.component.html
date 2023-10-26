@@ -6,7 +6,7 @@
     [icon]="i | toSkillDotIcon : currentProgression : maxProgression"
     [title]="i + 1 + ''"
     [class.progression__unavailable]="i >= maxProgression"
-    (click)="onClick(i + 1)"
+    (click)="onProgressionDotClick(i + 1)"
   />
 </section>
 

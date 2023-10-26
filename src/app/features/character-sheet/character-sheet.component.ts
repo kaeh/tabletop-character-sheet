@@ -15,5 +15,5 @@ import { VariableCharacteristicComponent } from './variable-characteristic/varia
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterSheetComponent {
-  character = inject(CharacterRepository);
+  protected readonly character = inject(CharacterRepository);
 }

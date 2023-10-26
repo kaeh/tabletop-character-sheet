@@ -1,4 +1,4 @@
-import { Injectable, computed, inject } from "@angular/core";
+import { Injectable, computed, effect, inject, signal } from "@angular/core";
 import { PersistedCharacter } from "src/app/interfaces/persistence/persisted-character.interface";
 import { PersistedSkill } from "src/app/interfaces/persistence/persisted-skill.interface";
 import { Skill } from "src/app/interfaces/skill.interface";
@@ -28,11 +28,11 @@ export class CharacterRepository {
     }
 
     public readonly vitality = {
-        current: 0,
+        current: signal(0),
         max: computed(() => Rules.character.computeMaxVitality(this.skills.strength.level(), this.skills.endurance.level(), this.skills.willpower.level()))
     };
     public readonly coldBlood = {
-        current: 0,
+        current: signal(0),
         max: computed(() => Rules.character.computeMaxColdBlood(this.skills.willpower.level(), this.skills.knowledge.level(), this.skills.combat.level()))
     };
     public readonly initiative = computed(() => Rules.character.computeInitiative(extractTensDigit(this.skills.combat.level()), extractTensDigit(this.skills.movement.level()), extractTensDigit(this.skills.perception.level())));
@@ -42,8 +42,10 @@ export class CharacterRepository {
 
         this.initSkills(persistedCharacter);
 
-        this.vitality.current = persistedCharacter.vitality;
-        this.coldBlood.current = persistedCharacter.coldBlood;
+        this.vitality.current.set(persistedCharacter.vitality ?? 0);
+        this.coldBlood.current.set(persistedCharacter.coldBlood ?? 0);
+
+        this.initPersistenceEffects();
     }
 
     private initSkills(persistedCharacter: PersistedCharacter): void {
@@ -55,9 +57,23 @@ export class CharacterRepository {
             }
 
             const { base, currentProgression } = persistedSkill;
-            const skill = (this.skills as any)[skillKey];
+            const skill = (this.skills as Record<string, Skill>)[skillKey];
             skill.base.set(base);
             skill.progression.current.set(currentProgression);
+        });
+    }
+
+    private initPersistenceEffects(): void {
+        effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, 'vitality', this.vitality.current()));
+        effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, 'coldBlood', this.coldBlood.current()));
+
+        // Init skills persistence
+        Object.keys(this.skills).forEach((skillKey: string) => {
+            const skill = (this.skills as Record<string, Skill>)[skillKey];
+            effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, skillKey, {
+                base: skill.base(),
+                currentProgression: skill.progression.current()
+            }));
         });
     }
 }

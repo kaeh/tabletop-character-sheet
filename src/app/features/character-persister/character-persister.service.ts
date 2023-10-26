@@ -5,9 +5,9 @@ import { PersistedCharacter } from "src/app/interfaces/persistence/persisted-cha
     providedIn: 'root'
 })
 export class CharacterPersisterService {
-    public saveProperty(characterUniqKey: string, savedProperty: { key: string, value: unknown }): void {
+    public saveProperty(characterUniqKey: string, propKey: string, propValue: unknown): void {
         const localStorageObject = this.get(characterUniqKey);
-        (localStorageObject as any)[savedProperty.key] = savedProperty.value;
+        (localStorageObject as any)[propKey] = propValue;
         localStorage.setItem(characterUniqKey, JSON.stringify(localStorageObject));
     }
 
