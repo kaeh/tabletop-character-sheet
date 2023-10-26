@@ -4,97 +4,97 @@
   <h3>Vitality</h3>
   <app-variable-characteristic
     icon="square"
-    [current]="character.vitality.current()"
-    [max]="character.vitality.max()"
-    (update)="character.vitality.current.set($event)"
+    [current]="vitality.current()"
+    [max]="vitality.max()"
+    (update)="vitality.current.set($event)"
   />
 
   <h3>Cold Blood</h3>
   <app-variable-characteristic
     icon="circle"
-    [current]="character.coldBlood.current()"
-    [max]="character.coldBlood.max()"
-    (update)="character.coldBlood.current.set($event)"
+    [current]="coldBlood.current()"
+    [max]="coldBlood.max()"
+    (update)="coldBlood.current.set($event)"
   />
 
-  <h3>Initiative : {{ character.initiative() }}</h3>
+  <h3>Initiative : {{ initiative() }}</h3>
 </section>
 
 <section id="skills">
   <div>
     <h3>Strength</h3>
     <app-skill
-      [current]="character.skills.strength.level()"
-      [base]="character.skills.strength.base()"
-      [currentProgression]="character.skills.strength.progression.current()"
-      [maxProgression]="character.skills.strength.progression.max"
-      (update)="character.skills.strength.progression.updateCurrent($event)"
+      [current]="skills.strength.level()"
+      [base]="skills.strength.base()"
+      [currentProgression]="skills.strength.progression.current()"
+      [maxProgression]="skills.strength.progression.max"
+      (update)="skills.strength.progression.updateCurrent($event)"
     />
   </div>
 
   <div>
     <h3>Endurance</h3>
     <app-skill
-      [current]="character.skills.endurance.level()"
-      [base]="character.skills.endurance.base()"
-      [currentProgression]="character.skills.endurance.progression.current()"
-      [maxProgression]="character.skills.endurance.progression.max"
-      (update)="character.skills.endurance.progression.updateCurrent($event)"
+      [current]="skills.endurance.level()"
+      [base]="skills.endurance.base()"
+      [currentProgression]="skills.endurance.progression.current()"
+      [maxProgression]="skills.endurance.progression.max"
+      (update)="skills.endurance.progression.updateCurrent($event)"
     />
   </div>
 
   <div>
     <h3>Willpower</h3>
     <app-skill
-      [current]="character.skills.willpower.level()"
-      [base]="character.skills.willpower.base()"
-      [currentProgression]="character.skills.willpower.progression.current()"
-      [maxProgression]="character.skills.willpower.progression.max"
-      (update)="character.skills.willpower.progression.updateCurrent($event)"
+      [current]="skills.willpower.level()"
+      [base]="skills.willpower.base()"
+      [currentProgression]="skills.willpower.progression.current()"
+      [maxProgression]="skills.willpower.progression.max"
+      (update)="skills.willpower.progression.updateCurrent($event)"
     />
   </div>
 
   <div>
     <h3>Knowledge</h3>
     <app-skill
-      [current]="character.skills.knowledge.level()"
-      [base]="character.skills.knowledge.base()"
-      [currentProgression]="character.skills.knowledge.progression.current()"
-      [maxProgression]="character.skills.knowledge.progression.max"
-      (update)="character.skills.knowledge.progression.updateCurrent($event)"
+      [current]="skills.knowledge.level()"
+      [base]="skills.knowledge.base()"
+      [currentProgression]="skills.knowledge.progression.current()"
+      [maxProgression]="skills.knowledge.progression.max"
+      (update)="skills.knowledge.progression.updateCurrent($event)"
     />
   </div>
 
   <div>
     <h3>Combat</h3>
     <app-skill
-      [current]="character.skills.combat.level()"
-      [base]="character.skills.combat.base()"
-      [currentProgression]="character.skills.combat.progression.current()"
-      [maxProgression]="character.skills.combat.progression.max"
-      (update)="character.skills.combat.progression.updateCurrent($event)"
+      [current]="skills.combat.level()"
+      [base]="skills.combat.base()"
+      [currentProgression]="skills.combat.progression.current()"
+      [maxProgression]="skills.combat.progression.max"
+      (update)="skills.combat.progression.updateCurrent($event)"
     />
   </div>
 
   <div>
     <h3>Movement</h3>
     <app-skill
-      [current]="character.skills.movement.level()"
-      [base]="character.skills.movement.base()"
-      [currentProgression]="character.skills.movement.progression.current()"
-      [maxProgression]="character.skills.movement.progression.max"
-      (update)="character.skills.movement.progression.updateCurrent($event)"
+      [current]="skills.movement.level()"
+      [base]="skills.movement.base()"
+      [currentProgression]="skills.movement.progression.current()"
+      [maxProgression]="skills.movement.progression.max"
+      (update)="skills.movement.progression.updateCurrent($event)"
     />
   </div>
 
   <div>
     <h3>Perception</h3>
     <app-skill
-      [current]="character.skills.perception.level()"
-      [base]="character.skills.perception.base()"
-      [currentProgression]="character.skills.perception.progression.current()"
-      [maxProgression]="character.skills.perception.progression.max"
-      (update)="character.skills.perception.progression.updateCurrent($event)"
+      [current]="skills.perception.level()"
+      [base]="skills.perception.base()"
+      [currentProgression]="skills.perception.progression.current()"
+      [maxProgression]="skills.perception.progression.max"
+      (update)="skills.perception.progression.updateCurrent($event)"
     />
   </div>
 </section>
