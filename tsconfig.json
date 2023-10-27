@@ -14,8 +14,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@models/*": ["src/app/models/*"],
-      "@functions/*": ["src/app/functions/*"]
+      "@functions/*": ["src/app/functions/*"],
+      "@models/*": ["src/app/models/*"]
     },
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
