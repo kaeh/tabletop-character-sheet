@@ -2,10 +2,8 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Route, Router } from '@angular/router';
 import { v4 as uuidv4, validate } from 'uuid';
 import { CharacterPersisterService } from './features/character-persister/character-persister.service';
-import { LocalStorageConfigs } from './features/character-persister/local-storage-configs';
 
 export const RoutesConfigs = {
-    charactersList: 'characters-list',
     characterSheet: {
         path: 'character-sheet',
         uniqKey: 'uniqKey',
@@ -14,14 +12,6 @@ export const RoutesConfigs = {
 
 export const appRoutes: Route[] = [
     {
-        path: `${RoutesConfigs.charactersList}`,
-        loadComponent: () => import('./features/characters-list/characters-list.component').then(m => m.CharactersListComponent),
-        title: () => 'Liste des personnages',
-        canActivate: [
-            () => inject(CharacterPersisterService).hasCharacters() || inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`)
-        ]
-    },
-    {
         path: `${RoutesConfigs.characterSheet.path}`,
         title: () => 'Feuille de personnage',
         children: [
@@ -29,11 +19,11 @@ export const appRoutes: Route[] = [
                 path: '',
                 loadComponent: () => import('./features/character-sheet/character-sheet.component').then(m => m.CharacterSheetComponent),
                 canActivate: [
-                    // Create a new character and redirect immediately to its sheet
+                    // If there is a last updated character, redirect to it
+                    // Else create a new character
                     () => {
                         const characterPersisterService = inject(CharacterPersisterService);
-                        const uniqKey = uuidv4();
-                        characterPersisterService.saveProperty(uniqKey, 'name', LocalStorageConfigs.defaultCharacterName);
+                        const uniqKey = characterPersisterService.getLastUpdated() || uuidv4();
 
                         return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}/${uniqKey}`);
                     }
@@ -60,6 +50,6 @@ export const appRoutes: Route[] = [
     },
     {
         path: '**',
-        redirectTo: RoutesConfigs.charactersList,
+        redirectTo: RoutesConfigs.characterSheet.path,
     }
 ];

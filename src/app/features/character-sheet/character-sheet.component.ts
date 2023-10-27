@@ -82,13 +82,9 @@ export class CharacterSheetComponent {
 
   private initSkills(persistedCharacter: PersistedCharacter): void {
     Object.keys(this.skills).forEach((skillKey: string) => {
-      const persistedSkill: PersistedSkill = (persistedCharacter as any)[skillKey];
+      const persistedSkill: PersistedSkill | null | undefined = (persistedCharacter as any)[skillKey];
 
-      if (persistedSkill === null || persistedSkill === undefined) {
-        return;
-      }
-
-      const { base, currentProgression } = persistedSkill;
+      const { base = 0, currentProgression = 0 } = persistedSkill ?? {};
       const skill = (this.skills as Record<string, Skill>)[skillKey];
       skill.base.set(base);
       skill.progression.current.set(currentProgression);

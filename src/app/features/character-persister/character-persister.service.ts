@@ -14,11 +14,6 @@ export class CharacterPersisterService {
         return !!localStorage.getItem(`${LocalStorageConfigs.characterPrefix}${characterUniqKey}`);
     }
 
-    public hasCharacters(): boolean {
-        return Object.keys(localStorage)
-            .some(keyContainsCharacter);
-    }
-
     public saveProperty(characterUniqKey: string, propKey: PersistedCharacterPropertyKey, propValue: unknown): void {
         const localStorageObject = this.get(characterUniqKey);
         const localStorageKey = `${LocalStorageConfigs.characterPrefix}${characterUniqKey}`;
@@ -27,6 +22,7 @@ export class CharacterPersisterService {
         localStorage.setItem(localStorageKey, JSON.stringify(localStorageObject));
 
         this.allCharacters().set(characterUniqKey, localStorageObject);
+        localStorage.setItem(LocalStorageConfigs.lastUpdatedKey, characterUniqKey);
     }
 
     public get(characterUniqKey: string): PersistedCharacter {
@@ -34,6 +30,12 @@ export class CharacterPersisterService {
         const localStorageValue = localStorage.getItem(localStorageKey) ?? "{}";
 
         return JSON.parse(localStorageValue);
+    }
+
+    public getLastUpdated(): PersistedCharacter | undefined {
+        const lastUpdatedCharacterUniqKey = localStorage.getItem(LocalStorageConfigs.lastUpdatedKey);
+
+        return lastUpdatedCharacterUniqKey ? this.get(lastUpdatedCharacterUniqKey) : undefined;
     }
 
     public getAll(): PersistedCharacterList {
