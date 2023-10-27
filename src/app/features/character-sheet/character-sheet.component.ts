@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { extractTensDigit } from '@functions/extract-tens-digit';
@@ -32,6 +32,9 @@ import { VariableCharacteristicComponent } from './variable-characteristic/varia
 export class CharacterSheetComponent {
   protected readonly name = new FormControl<string>('', { nonNullable: true });;
 
+  @ViewChild(MatSidenav)
+  private matSideNav?: MatSidenav;
+
   private characterUniqueKey!: string;
   private readonly characterPersisterService = inject(CharacterPersisterService);
 
@@ -56,7 +59,11 @@ export class CharacterSheetComponent {
   public readonly initiative = computed(() => Rules.character.computeInitiative(extractTensDigit(this.skills.combat.level()), extractTensDigit(this.skills.movement.level()), extractTensDigit(this.skills.perception.level())));
 
   constructor() {
-    inject(ActivatedRoute).params.pipe(takeUntilDestroyed()).subscribe((params) => this.initCharacter(params[RoutesConfigs.characterSheet.uniqKey]));
+    inject(ActivatedRoute).params
+      .pipe(
+        tap(() => this.matSideNav?.close()),
+        takeUntilDestroyed())
+      .subscribe((params) => this.initCharacter(params[RoutesConfigs.characterSheet.uniqKey]));
 
     this.initPersistence();
   }
