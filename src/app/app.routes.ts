@@ -17,6 +17,9 @@ export const appRoutes: Route[] = [
         path: `${RoutesConfigs.charactersList}`,
         loadComponent: () => import('./features/characters-list/characters-list.component').then(m => m.CharactersListComponent),
         title: () => 'Liste des personnages',
+        canActivate: [
+            () => inject(CharacterPersisterService).hasCharacters() || inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`)
+        ]
     },
     {
         path: `${RoutesConfigs.characterSheet.path}`,

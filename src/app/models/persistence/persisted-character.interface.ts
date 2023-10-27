@@ -15,5 +15,5 @@ export interface PersistedCharacter {
     coldBlood: number;
 }
 
-export type PersistedCharacterList = { character: PersistedCharacter, uniqKey: string }[];
+export type PersistedCharacterList = Map<string, PersistedCharacter>;
 export type PersistedCharacterPropertyKey = keyof PersistedCharacter;

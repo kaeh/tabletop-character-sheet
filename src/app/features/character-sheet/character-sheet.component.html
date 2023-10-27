@@ -1,106 +1,124 @@
-<section>
-  <button [routerLink]="['/']">Retour à la liste</button>
-</section>
+<mat-sidenav-container id="container">
+  <mat-sidenav #sideNav>
+    <app-characters-list horizontal />
+  </mat-sidenav>
 
-<section>
-  <input [formControl]="name" />
-</section>
+  <mat-sidenav-content>
+    <section>
+      <button
+        mat-fab
+        color="primary"
+        (click)="sideNav.toggle()"
+        matTooltip="Liste des personnages"
+      >
+        <mat-icon>groups</mat-icon>
+      </button>
+    </section>
 
-<section>
-  <h3>Vitality</h3>
-  <app-variable-characteristic
-    icon="square"
-    [current]="vitality.current()"
-    [max]="vitality.max()"
-    (update)="vitality.current.set($event)"
-  />
+    <section>
+      <mat-form-field>
+        <mat-label>Nom du personnage</mat-label>
+        <input matInput [formControl]="name" />
+      </mat-form-field>
+    </section>
 
-  <h3>Cold Blood</h3>
-  <app-variable-characteristic
-    icon="circle"
-    [current]="coldBlood.current()"
-    [max]="coldBlood.max()"
-    (update)="coldBlood.current.set($event)"
-  />
+    <section>
+      <h3>Vitality</h3>
+      <app-variable-characteristic
+        icon="square"
+        [current]="vitality.current()"
+        [max]="vitality.max()"
+        (update)="vitality.current.set($event)"
+      />
 
-  <h3>Initiative : {{ initiative() }}</h3>
-</section>
+      <h3>Cold Blood</h3>
+      <app-variable-characteristic
+        icon="circle"
+        [current]="coldBlood.current()"
+        [max]="coldBlood.max()"
+        (update)="coldBlood.current.set($event)"
+      />
 
-<section id="skills">
-  <div>
-    <h3>Strength</h3>
-    <app-skill
-      [current]="skills.strength.level()"
-      [base]="skills.strength.base()"
-      [currentProgression]="skills.strength.progression.current()"
-      [maxProgression]="skills.strength.progression.max"
-      (update)="skills.strength.progression.updateCurrent($event)"
-    />
-  </div>
+      <h3>Initiative : {{ initiative() }}</h3>
+    </section>
 
-  <div>
-    <h3>Endurance</h3>
-    <app-skill
-      [current]="skills.endurance.level()"
-      [base]="skills.endurance.base()"
-      [currentProgression]="skills.endurance.progression.current()"
-      [maxProgression]="skills.endurance.progression.max"
-      (update)="skills.endurance.progression.updateCurrent($event)"
-    />
-  </div>
+    <section id="skills">
+      <div>
+        <h3>Strength</h3>
+        <app-skill
+          [current]="skills.strength.level()"
+          [base]="skills.strength.base()"
+          [currentProgression]="skills.strength.progression.current()"
+          [maxProgression]="skills.strength.progression.max"
+          (update)="skills.strength.progression.updateCurrent($event)"
+        />
+      </div>
 
-  <div>
-    <h3>Willpower</h3>
-    <app-skill
-      [current]="skills.willpower.level()"
-      [base]="skills.willpower.base()"
-      [currentProgression]="skills.willpower.progression.current()"
-      [maxProgression]="skills.willpower.progression.max"
-      (update)="skills.willpower.progression.updateCurrent($event)"
-    />
-  </div>
+      <div>
+        <h3>Endurance</h3>
+        <app-skill
+          [current]="skills.endurance.level()"
+          [base]="skills.endurance.base()"
+          [currentProgression]="skills.endurance.progression.current()"
+          [maxProgression]="skills.endurance.progression.max"
+          (update)="skills.endurance.progression.updateCurrent($event)"
+        />
+      </div>
 
-  <div>
-    <h3>Knowledge</h3>
-    <app-skill
-      [current]="skills.knowledge.level()"
-      [base]="skills.knowledge.base()"
-      [currentProgression]="skills.knowledge.progression.current()"
-      [maxProgression]="skills.knowledge.progression.max"
-      (update)="skills.knowledge.progression.updateCurrent($event)"
-    />
-  </div>
+      <div>
+        <h3>Willpower</h3>
+        <app-skill
+          [current]="skills.willpower.level()"
+          [base]="skills.willpower.base()"
+          [currentProgression]="skills.willpower.progression.current()"
+          [maxProgression]="skills.willpower.progression.max"
+          (update)="skills.willpower.progression.updateCurrent($event)"
+        />
+      </div>
 
-  <div>
-    <h3>Combat</h3>
-    <app-skill
-      [current]="skills.combat.level()"
-      [base]="skills.combat.base()"
-      [currentProgression]="skills.combat.progression.current()"
-      [maxProgression]="skills.combat.progression.max"
-      (update)="skills.combat.progression.updateCurrent($event)"
-    />
-  </div>
+      <div>
+        <h3>Knowledge</h3>
+        <app-skill
+          [current]="skills.knowledge.level()"
+          [base]="skills.knowledge.base()"
+          [currentProgression]="skills.knowledge.progression.current()"
+          [maxProgression]="skills.knowledge.progression.max"
+          (update)="skills.knowledge.progression.updateCurrent($event)"
+        />
+      </div>
 
-  <div>
-    <h3>Movement</h3>
-    <app-skill
-      [current]="skills.movement.level()"
-      [base]="skills.movement.base()"
-      [currentProgression]="skills.movement.progression.current()"
-      [maxProgression]="skills.movement.progression.max"
-      (update)="skills.movement.progression.updateCurrent($event)"
-    />
-  </div>
+      <div>
+        <h3>Combat</h3>
+        <app-skill
+          [current]="skills.combat.level()"
+          [base]="skills.combat.base()"
+          [currentProgression]="skills.combat.progression.current()"
+          [maxProgression]="skills.combat.progression.max"
+          (update)="skills.combat.progression.updateCurrent($event)"
+        />
+      </div>
 
-  <div>
-    <h3>Perception</h3>
-    <app-skill
-      [current]="skills.perception.level()"
-      [base]="skills.perception.base()"
-      [currentProgression]="skills.perception.progression.current()"
-      [maxProgression]="skills.perception.progression.max"
-      (update)="skills.perception.progression.updateCurrent($event)"
-    />
-  </div>
-</section>
+      <div>
+        <h3>Movement</h3>
+        <app-skill
+          [current]="skills.movement.level()"
+          [base]="skills.movement.base()"
+          [currentProgression]="skills.movement.progression.current()"
+          [maxProgression]="skills.movement.progression.max"
+          (update)="skills.movement.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Perception</h3>
+        <app-skill
+          [current]="skills.perception.level()"
+          [base]="skills.perception.base()"
+          [currentProgression]="skills.perception.progression.current()"
+          [maxProgression]="skills.perception.progression.max"
+          (update)="skills.perception.progression.updateCurrent($event)"
+        />
+      </div>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
