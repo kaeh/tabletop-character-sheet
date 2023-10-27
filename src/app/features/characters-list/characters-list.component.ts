@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { PersistedCharacterList } from '@models/persistence/persisted-character.interface';
 import { RoutesConfigs } from 'src/app/app.routes';
-import { v4 as uuidv4 } from 'uuid';
 import { CharacterPersisterService } from '../character-persister/character-persister.service';
 
 @Component({
@@ -18,8 +17,10 @@ export class CharactersListComponent {
   protected readonly characterSheetRoute = RoutesConfigs.characterSheet.path;
 
   private readonly router = inject(Router);
+  private readonly characterPersisterService = inject(CharacterPersisterService);
 
   protected navigateToCharacterCreation(): void {
-    this.router.navigate(['/', RoutesConfigs.characterSheet.path, uuidv4()]);
+    const uniqKey = this.characterPersisterService.createCharacter();
+    this.router.navigate(['/', RoutesConfigs.characterSheet.path, uniqKey]);
   }
 }

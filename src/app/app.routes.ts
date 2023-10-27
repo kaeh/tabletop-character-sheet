@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Route, Router } from '@angular/router';
-import { v4 as uuidv4, validate } from 'uuid';
 import { CharacterPersisterService } from './features/character-persister/character-persister.service';
 
 export const RoutesConfigs = {
@@ -33,7 +32,7 @@ export const appRoutes: Route[] = [
                     // Else create a new character
                     () => {
                         const characterPersisterService = inject(CharacterPersisterService);
-                        const uniqKey = characterPersisterService.getLastUpdated() || uuidv4();
+                        const uniqKey = characterPersisterService.getLastUpdatedUniqKey() || characterPersisterService.createCharacter();
 
                         return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}/${uniqKey}`);
                     }
@@ -48,7 +47,7 @@ export const appRoutes: Route[] = [
                         const characterPersisterService = inject(CharacterPersisterService);
                         const uniqKey = route.params[RoutesConfigs.characterSheet.uniqKey];
 
-                        if (uniqKey && !characterPersisterService.exists(uniqKey) && !validate(uniqKey)) {
+                        if (uniqKey && !characterPersisterService.exists(uniqKey)) {
                             return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`)
                         }
 

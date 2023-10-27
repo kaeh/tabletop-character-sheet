@@ -1,5 +1,6 @@
 import { Injectable, signal } from "@angular/core";
 import { PersistedCharacter, PersistedCharacterList, PersistedCharacterPropertyKey } from "@models/persistence/persisted-character.interface";
+import { v4 as uuidv4, validate } from 'uuid';
 import { LocalStorageConfigs } from "./local-storage-configs";
 
 const keyContainsCharacter = (key: string) => key.startsWith(LocalStorageConfigs.characterPrefix);
@@ -11,11 +12,18 @@ export class CharacterPersisterService {
     private readonly allCharacters = signal<PersistedCharacterList>(new Map());
 
     public exists(characterUniqKey: string): boolean {
-        return !!localStorage.getItem(`${LocalStorageConfigs.characterPrefix}${characterUniqKey}`);
+        return !!localStorage.getItem(`${LocalStorageConfigs.characterPrefix}${characterUniqKey}`) && validate(characterUniqKey);
     }
 
     public anyExists(): boolean {
         return Object.keys(localStorage).some(keyContainsCharacter);
+    }
+
+    public createCharacter(): string {
+        const uniqKey = uuidv4();
+        this.saveProperty(uniqKey, 'name', LocalStorageConfigs.defaultCharacterName);
+
+        return uniqKey;
     }
 
     public saveProperty(characterUniqKey: string, propKey: PersistedCharacterPropertyKey, propValue: unknown): void {
@@ -36,10 +44,10 @@ export class CharacterPersisterService {
         return JSON.parse(localStorageValue);
     }
 
-    public getLastUpdated(): PersistedCharacter | undefined {
+    public getLastUpdatedUniqKey(): string | undefined {
         const lastUpdatedCharacterUniqKey = localStorage.getItem(LocalStorageConfigs.lastUpdatedKey);
 
-        return lastUpdatedCharacterUniqKey ? this.get(lastUpdatedCharacterUniqKey) : undefined;
+        return lastUpdatedCharacterUniqKey && this.exists(lastUpdatedCharacterUniqKey) ? lastUpdatedCharacterUniqKey : undefined;
     }
 
     public getAll(): PersistedCharacterList {
