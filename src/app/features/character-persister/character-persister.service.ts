@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { PersistedCharacter, PersistedCharacterList } from "@models/persistence/persisted-character.interface";
+import { PersistedCharacter, PersistedCharacterList, PersistedCharacterPropertyKey } from "@models/persistence/persisted-character.interface";
 import { LocalStorageConfigs } from "./local-storage-configs";
 
 @Injectable({
@@ -10,17 +10,12 @@ export class CharacterPersisterService {
         return !!localStorage.getItem(`${LocalStorageConfigs.characterPrefix}${characterUniqKey}`);
     }
 
-    public saveProperty(characterUniqKey: string, propKey: string, propValue: unknown): void {
+    public saveProperty(characterUniqKey: string, propKey: PersistedCharacterPropertyKey, propValue: unknown): void {
         const localStorageObject = this.get(characterUniqKey);
         const localStorageKey = `${LocalStorageConfigs.characterPrefix}${characterUniqKey}`;
 
         (localStorageObject as any)[propKey] = propValue;
         localStorage.setItem(localStorageKey, JSON.stringify(localStorageObject));
-
-        localStorage.setItem(LocalStorageConfigs.lastUpdatedCharacterKey, localStorageKey);
-
-        console.log(`Saved ${propKey} for character ${characterUniqKey}`);
-        console.log(`Last updated character is ${characterUniqKey}`);
     }
 
     public get(characterUniqKey: string): PersistedCharacter {
