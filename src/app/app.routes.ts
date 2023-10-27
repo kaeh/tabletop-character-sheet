@@ -8,9 +8,19 @@ export const RoutesConfigs = {
         path: 'character-sheet',
         uniqKey: 'uniqKey',
     },
+    charactersList: 'characters-list',
 }
 
 export const appRoutes: Route[] = [
+    {
+        path: `${RoutesConfigs.charactersList}`,
+        loadComponent: () => import('./features/characters-list/characters-list.component').then(m => m.CharactersListComponent),
+        canActivate: [
+            // If any character exists, continue
+            // Else create a new character
+            () => inject(CharacterPersisterService).anyExists() || inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`)
+        ]
+    },
     {
         path: `${RoutesConfigs.characterSheet.path}`,
         title: () => 'Feuille de personnage',

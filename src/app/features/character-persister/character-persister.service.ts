@@ -14,6 +14,10 @@ export class CharacterPersisterService {
         return !!localStorage.getItem(`${LocalStorageConfigs.characterPrefix}${characterUniqKey}`);
     }
 
+    public anyExists(): boolean {
+        return Object.keys(localStorage).some(keyContainsCharacter);
+    }
+
     public saveProperty(characterUniqKey: string, propKey: PersistedCharacterPropertyKey, propValue: unknown): void {
         const localStorageObject = this.get(characterUniqKey);
         const localStorageKey = `${LocalStorageConfigs.characterPrefix}${characterUniqKey}`;
@@ -55,5 +59,21 @@ export class CharacterPersisterService {
         }
 
         return this.allCharacters();
+    }
+
+    public delete(characterUniqKeys: string[]): void {
+        characterUniqKeys.forEach((characterUniqKey) => this.deleteOne(characterUniqKey));
+    }
+
+    public deleteOne(characterUniqKey: string): void {
+        const localStorageKey = `${LocalStorageConfigs.characterPrefix}${characterUniqKey}`;
+
+        localStorage.removeItem(localStorageKey);
+
+        this.allCharacters().delete(characterUniqKey);
+
+        if (localStorage.getItem(LocalStorageConfigs.lastUpdatedKey) === characterUniqKey) {
+            localStorage.removeItem(LocalStorageConfigs.lastUpdatedKey);
+        }
     }
 }

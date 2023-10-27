@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { extractTensDigit } from '@functions/extract-tens-digit';
 import { PersistedCharacter, PersistedCharacterPropertyKey } from '@models/persistence/persisted-character.interface';
 import { PersistedSkill } from '@models/persistence/persisted-skill.interface';
@@ -32,13 +32,7 @@ import { VariableCharacteristicComponent } from './variable-characteristic/varia
 export class CharacterSheetComponent {
   protected readonly name = new FormControl<string>('', { nonNullable: true });;
 
-  @ViewChild(MatSidenav)
-  private matSideNav?: MatSidenav;
-
-  private characterUniqueKey!: string;
-  private readonly characterPersisterService = inject(CharacterPersisterService);
-
-  public readonly skills = {
+  protected readonly skills = {
     strength: new Skill(),
     endurance: new Skill(),
     willpower: new Skill(),
@@ -48,15 +42,22 @@ export class CharacterSheetComponent {
     perception: new Skill(),
   }
 
-  public readonly vitality = {
+  protected readonly vitality = {
     current: signal(0),
     max: computed(() => Rules.character.computeMaxVitality(this.skills.strength.level(), this.skills.endurance.level(), this.skills.willpower.level()))
   };
-  public readonly coldBlood = {
+  protected readonly coldBlood = {
     current: signal(0),
     max: computed(() => Rules.character.computeMaxColdBlood(this.skills.willpower.level(), this.skills.knowledge.level(), this.skills.combat.level()))
   };
-  public readonly initiative = computed(() => Rules.character.computeInitiative(extractTensDigit(this.skills.combat.level()), extractTensDigit(this.skills.movement.level()), extractTensDigit(this.skills.perception.level())));
+  protected readonly initiative = computed(() => Rules.character.computeInitiative(extractTensDigit(this.skills.combat.level()), extractTensDigit(this.skills.movement.level()), extractTensDigit(this.skills.perception.level())));
+
+  @ViewChild(MatSidenav)
+  private matSideNav?: MatSidenav;
+
+  private characterUniqueKey!: string;
+  private readonly characterPersisterService = inject(CharacterPersisterService);
+  private readonly router = inject(Router);
 
   constructor() {
     inject(ActivatedRoute).params
@@ -66,6 +67,11 @@ export class CharacterSheetComponent {
       .subscribe((params) => this.initCharacter(params[RoutesConfigs.characterSheet.uniqKey]));
 
     this.initPersistence();
+  }
+
+  protected deleteCharacter(): void {
+    this.characterPersisterService.deleteOne(this.characterUniqueKey);
+    this.router.navigate(['/', RoutesConfigs.charactersList]);
   }
 
   private initCharacter(uniqKey: string): void {
