@@ -1,7 +1,7 @@
 <ul>
   <li *ngFor="let item of charactersList">
     <a [routerLink]="['/', characterSheetRoute, item.uniqKey]">
-      {{ item.character | json }}
+      {{ item.character.name }}
     </a>
   </li>
 </ul>

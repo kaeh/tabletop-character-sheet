@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Route, Router } from '@angular/router';
 import { v4 as uuidv4, validate } from 'uuid';
 import { CharacterPersisterService } from './features/character-persister/character-persister.service';
+import { LocalStorageConfigs } from './features/character-persister/local-storage-configs';
 
 export const RoutesConfigs = {
     charactersList: 'characters-list',
@@ -29,7 +30,7 @@ export const appRoutes: Route[] = [
                     () => {
                         const characterPersisterService = inject(CharacterPersisterService);
                         const uniqKey = uuidv4();
-                        characterPersisterService.saveProperty(uniqKey, 'name', 'Nouveau personnage');
+                        characterPersisterService.saveProperty(uniqKey, 'name', LocalStorageConfigs.defaultCharacterName);
 
                         return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}/${uniqKey}`);
                     }

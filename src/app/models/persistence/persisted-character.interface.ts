@@ -1,6 +1,8 @@
 import { PersistedSkill } from "./persisted-skill.interface";
 
 export interface PersistedCharacter {
+    name: string;
+
     strength: PersistedSkill;
     endurance: PersistedSkill;
     willpower: PersistedSkill;
@@ -14,3 +16,4 @@ export interface PersistedCharacter {
 }
 
 export type PersistedCharacterList = { character: PersistedCharacter, uniqKey: string }[];
+export type PersistedCharacterPropertyKey = keyof PersistedCharacter;

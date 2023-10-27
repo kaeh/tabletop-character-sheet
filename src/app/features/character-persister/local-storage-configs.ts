@@ -1,4 +1,5 @@
 export const LocalStorageConfigs = {
     characterPrefix: 'character_',
-    lastUpdatedCharacterKey: 'last_updated_character'
+    defaultCharacterName: 'Nouveau personnage',
+    defaultNameIfEmpty: (name: string) => name?.trim() || 'Nouveau personnage',
 };
