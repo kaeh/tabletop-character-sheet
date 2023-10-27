@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'kaeh',
+  displayName: 'table-top-character-sheet',
   preset: './jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: './coverage/kaeh',
+  coverageDirectory: './coverage/table-top-character-sheet',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

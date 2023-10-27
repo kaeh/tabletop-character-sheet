@@ -1,5 +1,5 @@
 {
-  "name": "kaeh",
+  "name": "table-top-character-sheet",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
@@ -10,7 +10,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/kaeh",
+        "outputPath": "dist/table-top-character-sheet",
         "index": "./src/index.html",
         "main": "./src/main.ts",
         "polyfills": ["zone.js"],
@@ -53,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "kaeh:build:production"
+          "browserTarget": "table-top-character-sheet:build:production"
         },
         "development": {
-          "browserTarget": "kaeh:build:development"
+          "browserTarget": "table-top-character-sheet:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -64,7 +64,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "kaeh:build"
+        "browserTarget": "table-top-character-sheet:build"
       }
     },
     "lint": {
@@ -87,6 +87,9 @@
           "codeCoverage": true
         }
       }
+    },
+    "deploy": {
+      "executor": "angular-cli-ghpages:deploy"
     }
   }
 }

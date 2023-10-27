@@ -52,7 +52,7 @@
       "style": "scss"
     }
   },
-  "defaultProject": "kaeh",
+  "defaultProject": "table-top-character-sheet",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
