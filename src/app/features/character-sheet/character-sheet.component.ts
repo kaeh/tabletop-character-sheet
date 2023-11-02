@@ -33,13 +33,19 @@ export class CharacterSheetComponent {
   protected readonly name = new FormControl<string>('', { nonNullable: true });;
 
   protected readonly skills = {
-    strength: new Skill(),
-    endurance: new Skill(),
-    willpower: new Skill(),
-    knowledge: new Skill(),
     combat: new Skill(),
+    knowledge: new Skill(),
+    stealth: new Skill(),
+    endurance: new Skill(),
+    strength: new Skill(),
+    dexterity: new Skill(),
+    magic: new Skill(),
     movement: new Skill(),
     perception: new Skill(),
+    sociability: new Skill(),
+    survival: new Skill(),
+    shooting: new Skill(),
+    willpower: new Skill(),
   }
 
   protected readonly vitality = {
@@ -66,7 +72,7 @@ export class CharacterSheetComponent {
         takeUntilDestroyed())
       .subscribe((params) => this.initCharacter(params[RoutesConfigs.characterSheet.uniqKey]));
 
-    this.initPersistence();
+    this.initPersistency();
   }
 
   protected deleteCharacter(): void {
@@ -80,24 +86,23 @@ export class CharacterSheetComponent {
 
     this.name.setValue(persistedCharacter.name);
 
-    this.initSkills(persistedCharacter);
+    this.updateSkills(persistedCharacter);
 
     this.vitality.current.set(persistedCharacter.vitality ?? 0);
     this.coldBlood.current.set(persistedCharacter.coldBlood ?? 0);
   }
 
-  private initSkills(persistedCharacter: PersistedCharacter): void {
-    Object.keys(this.skills).forEach((skillKey: string) => {
+  private updateSkills(persistedCharacter: PersistedCharacter): void {
+    Object.entries(this.skills).forEach(([skillKey, skill]: [string, Skill]) => {
       const persistedSkill: PersistedSkill | null | undefined = (persistedCharacter as any)[skillKey];
 
       const { base = 0, currentProgression = 0 } = persistedSkill ?? {};
-      const skill = (this.skills as Record<string, Skill>)[skillKey];
       skill.base.set(base);
       skill.progression.current.set(currentProgression);
     });
   }
 
-  private initPersistence(): void {
+  private initPersistency(): void {
     this.name.valueChanges
       .pipe(
         distinctUntilChanged(),

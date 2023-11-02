@@ -12,9 +12,9 @@
   }
 
   #skills {
+    // Display 4 by rows
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0 -1rem;
+    flex-wrap: nowrap;
+    gap: 50px;
   }
 }

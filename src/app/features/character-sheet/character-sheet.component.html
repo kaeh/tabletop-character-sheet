@@ -53,13 +53,35 @@
 
     <section id="skills">
       <div>
-        <h3>Strength</h3>
+        <h3>Combat</h3>
         <app-skill
-          [current]="skills.strength.level()"
-          [base]="skills.strength.base()"
-          [currentProgression]="skills.strength.progression.current()"
-          [maxProgression]="skills.strength.progression.max"
-          (update)="skills.strength.progression.updateCurrent($event)"
+          [current]="skills.combat.level()"
+          [base]="skills.combat.base()"
+          [currentProgression]="skills.combat.progression.current()"
+          [maxProgression]="skills.combat.progression.max"
+          (update)="skills.combat.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Connaissance</h3>
+        <app-skill
+          [current]="skills.knowledge.level()"
+          [base]="skills.knowledge.base()"
+          [currentProgression]="skills.knowledge.progression.current()"
+          [maxProgression]="skills.knowledge.progression.max"
+          (update)="skills.knowledge.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Discrétion</h3>
+        <app-skill
+          [current]="skills.stealth.level()"
+          [base]="skills.stealth.base()"
+          [currentProgression]="skills.stealth.progression.current()"
+          [maxProgression]="skills.stealth.progression.max"
+          (update)="skills.stealth.progression.updateCurrent($event)"
         />
       </div>
 
@@ -75,40 +97,40 @@
       </div>
 
       <div>
-        <h3>Willpower</h3>
+        <h3>Force</h3>
         <app-skill
-          [current]="skills.willpower.level()"
-          [base]="skills.willpower.base()"
-          [currentProgression]="skills.willpower.progression.current()"
-          [maxProgression]="skills.willpower.progression.max"
-          (update)="skills.willpower.progression.updateCurrent($event)"
+          [current]="skills.strength.level()"
+          [base]="skills.strength.base()"
+          [currentProgression]="skills.strength.progression.current()"
+          [maxProgression]="skills.strength.progression.max"
+          (update)="skills.strength.progression.updateCurrent($event)"
         />
       </div>
 
       <div>
-        <h3>Knowledge</h3>
+        <h3>Habileté</h3>
         <app-skill
-          [current]="skills.knowledge.level()"
-          [base]="skills.knowledge.base()"
-          [currentProgression]="skills.knowledge.progression.current()"
-          [maxProgression]="skills.knowledge.progression.max"
-          (update)="skills.knowledge.progression.updateCurrent($event)"
+          [current]="skills.dexterity.level()"
+          [base]="skills.dexterity.base()"
+          [currentProgression]="skills.dexterity.progression.current()"
+          [maxProgression]="skills.dexterity.progression.max"
+          (update)="skills.dexterity.progression.updateCurrent($event)"
         />
       </div>
 
       <div>
-        <h3>Combat</h3>
+        <h3>Magie</h3>
         <app-skill
-          [current]="skills.combat.level()"
-          [base]="skills.combat.base()"
-          [currentProgression]="skills.combat.progression.current()"
-          [maxProgression]="skills.combat.progression.max"
-          (update)="skills.combat.progression.updateCurrent($event)"
+          [current]="skills.magic.level()"
+          [base]="skills.magic.base()"
+          [currentProgression]="skills.magic.progression.current()"
+          [maxProgression]="skills.magic.progression.max"
+          (update)="skills.magic.progression.updateCurrent($event)"
         />
       </div>
 
       <div>
-        <h3>Movement</h3>
+        <h3>Mouvement</h3>
         <app-skill
           [current]="skills.movement.level()"
           [base]="skills.movement.base()"
@@ -126,6 +148,50 @@
           [currentProgression]="skills.perception.progression.current()"
           [maxProgression]="skills.perception.progression.max"
           (update)="skills.perception.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Sociabilité</h3>
+        <app-skill
+          [current]="skills.sociability.level()"
+          [base]="skills.sociability.base()"
+          [currentProgression]="skills.sociability.progression.current()"
+          [maxProgression]="skills.sociability.progression.max"
+          (update)="skills.sociability.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Survie</h3>
+        <app-skill
+          [current]="skills.survival.level()"
+          [base]="skills.survival.base()"
+          [currentProgression]="skills.survival.progression.current()"
+          [maxProgression]="skills.survival.progression.max"
+          (update)="skills.survival.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Tir</h3>
+        <app-skill
+          [current]="skills.shooting.level()"
+          [base]="skills.shooting.base()"
+          [currentProgression]="skills.shooting.progression.current()"
+          [maxProgression]="skills.shooting.progression.max"
+          (update)="skills.shooting.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Volonté</h3>
+        <app-skill
+          [current]="skills.willpower.level()"
+          [base]="skills.willpower.base()"
+          [currentProgression]="skills.willpower.progression.current()"
+          [maxProgression]="skills.willpower.progression.max"
+          (update)="skills.willpower.progression.updateCurrent($event)"
         />
       </div>
     </section>
