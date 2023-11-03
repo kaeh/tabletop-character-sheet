@@ -15,14 +15,8 @@
         "main": "apps/tabletop-character-sheet/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/tabletop-character-sheet/tsconfig.app.json",
-        "assets": [
-          "apps/tabletop-character-sheet/src/favicon.ico",
-          "apps/tabletop-character-sheet/src/assets"
-        ],
-        "styles": [
-          "@angular/material/prebuilt-themes/indigo-pink.css",
-          "apps/tabletop-character-sheet/src/styles.scss"
-        ],
+        "assets": ["apps/tabletop-character-sheet/src/favicon.ico", "apps/tabletop-character-sheet/src/assets"],
+        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css", "apps/tabletop-character-sheet/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -74,10 +68,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/tabletop-character-sheet/**/*.ts",
-          "apps/tabletop-character-sheet/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/tabletop-character-sheet/**/*.ts", "apps/tabletop-character-sheet/**/*.html"]
       }
     },
     "test": {

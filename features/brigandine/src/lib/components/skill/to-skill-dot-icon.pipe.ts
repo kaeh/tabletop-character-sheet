@@ -11,11 +11,7 @@ export class ToSkillDotIconPipe implements PipeTransform {
   private readonly faFilledIcon = faCircleSolid;
   private readonly faEmptyIcon = faCircleRegular;
 
-  transform(
-    index: number,
-    currentProgression: number,
-    maxProgression: number
-  ): IconProp {
+  transform(index: number, currentProgression: number, maxProgression: number): IconProp {
     if (index < currentProgression) {
       return this.faFilledIcon;
     }

@@ -40,11 +40,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/ui/**/*.ts",
-          "libs/ui/**/*.html",
-          "libs/ui/package.json"
-        ]
+        "lintFilePatterns": ["libs/ui/**/*.ts", "libs/ui/**/*.html", "libs/ui/package.json"]
       }
     }
   }

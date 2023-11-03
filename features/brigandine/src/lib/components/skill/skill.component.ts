@@ -7,12 +7,7 @@ import { ToSkillDotIconPipe } from './to-skill-dot-icon.pipe';
 @Component({
   selector: 'kaeh-skill',
   standalone: true,
-  imports: [
-    CommonModule,
-    FontAwesomeModule,
-    ToIteratorPipe,
-    ToSkillDotIconPipe,
-  ],
+  imports: [CommonModule, FontAwesomeModule, ToIteratorPipe, ToSkillDotIconPipe],
   templateUrl: './skill.component.html',
   styleUrls: ['./skill.component.scss'],
 })

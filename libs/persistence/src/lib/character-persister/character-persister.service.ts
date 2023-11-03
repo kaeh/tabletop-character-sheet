@@ -1,15 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 import { Parsable } from '@kaeh/models';
 import { v4 as uuidv4, validate } from 'uuid';
-import {
-  PersistedCharacter,
-  PersistedCharacterList,
-  PersistedCharacterPropertyKey,
-} from './persisted-character.interface';
+import { PersistedCharacter, PersistedCharacterList, PersistedCharacterPropertyKey } from './persisted-character.interface';
 import { PersisterConfigs } from './persister-config';
 
-const keyContainsCharacter = (key: string) =>
-  key.startsWith(PersisterConfigs.characterPrefix);
+const keyContainsCharacter = (key: string) => key.startsWith(PersisterConfigs.characterPrefix);
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +13,7 @@ export class CharacterPersisterService {
   private readonly allCharacters = signal<PersistedCharacterList>(new Map());
 
   public exists(characterUniqKey: string): boolean {
-    return (
-      !!localStorage.getItem(
-        `${PersisterConfigs.characterPrefix}${characterUniqKey}`
-      ) && validate(characterUniqKey)
-    );
+    return !!localStorage.getItem(`${PersisterConfigs.characterPrefix}${characterUniqKey}`) && validate(characterUniqKey);
   }
 
   public anyExists(): boolean {
@@ -36,11 +27,7 @@ export class CharacterPersisterService {
     return uniqKey;
   }
 
-  public saveProperty(
-    characterUniqKey: string,
-    propKey: PersistedCharacterPropertyKey,
-    propValue: unknown
-  ): void {
+  public saveProperty(characterUniqKey: string, propKey: PersistedCharacterPropertyKey, propValue: unknown): void {
     const localStorageObject = this.get(characterUniqKey);
     const localStorageKey = `${PersisterConfigs.characterPrefix}${characterUniqKey}`;
 
@@ -59,14 +46,9 @@ export class CharacterPersisterService {
   }
 
   public getLastUpdatedUniqKey(): string | undefined {
-    const lastUpdatedCharacterUniqKey = localStorage.getItem(
-      PersisterConfigs.lastUpdatedKey
-    );
+    const lastUpdatedCharacterUniqKey = localStorage.getItem(PersisterConfigs.lastUpdatedKey);
 
-    return lastUpdatedCharacterUniqKey &&
-      this.exists(lastUpdatedCharacterUniqKey)
-      ? lastUpdatedCharacterUniqKey
-      : undefined;
+    return lastUpdatedCharacterUniqKey && this.exists(lastUpdatedCharacterUniqKey) ? lastUpdatedCharacterUniqKey : undefined;
   }
 
   public getAll(): PersistedCharacterList {
@@ -76,10 +58,7 @@ export class CharacterPersisterService {
       Object.keys(localStorage)
         .filter(keyContainsCharacter)
         .forEach((key: string) => {
-          const characterUniqKey = key.replace(
-            PersisterConfigs.characterPrefix,
-            ''
-          );
+          const characterUniqKey = key.replace(PersisterConfigs.characterPrefix, '');
           const character = this.get(characterUniqKey);
 
           allCharacters.set(characterUniqKey, character);
@@ -92,9 +71,7 @@ export class CharacterPersisterService {
   }
 
   public delete(characterUniqKeys: string[]): void {
-    characterUniqKeys.forEach((characterUniqKey) =>
-      this.deleteOne(characterUniqKey)
-    );
+    characterUniqKeys.forEach((characterUniqKey) => this.deleteOne(characterUniqKey));
   }
 
   public deleteOne(characterUniqKey: string): void {
@@ -104,9 +81,7 @@ export class CharacterPersisterService {
 
     this.allCharacters().delete(characterUniqKey);
 
-    if (
-      localStorage.getItem(PersisterConfigs.lastUpdatedKey) === characterUniqKey
-    ) {
+    if (localStorage.getItem(PersisterConfigs.lastUpdatedKey) === characterUniqKey) {
       localStorage.removeItem(PersisterConfigs.lastUpdatedKey);
     }
   }

@@ -5,21 +5,11 @@
 
   <mat-sidenav-content>
     <section>
-      <button
-        mat-fab
-        color="primary"
-        (click)="sideNav.toggle()"
-        matTooltip="Liste des personnages"
-      >
+      <button mat-fab color="primary" (click)="sideNav.toggle()" matTooltip="Liste des personnages">
         <mat-icon>groups</mat-icon>
       </button>
 
-      <button
-        mat-fab
-        color="warn"
-        (click)="deleteCharacter()"
-        matTooltip="Supprimer le personnage"
-      >
+      <button mat-fab color="warn" (click)="deleteCharacter()" matTooltip="Supprimer le personnage">
         <mat-icon>delete_forever</mat-icon>
       </button>
     </section>
@@ -33,20 +23,10 @@
 
     <section>
       <h3>Vitality</h3>
-      <kaeh-variable-characteristic
-        icon="square"
-        [current]="vitality.current()"
-        [max]="vitality.max()"
-        (update)="vitality.current.set($event)"
-      />
+      <kaeh-variable-characteristic icon="square" [current]="vitality.current()" [max]="vitality.max()" (update)="vitality.current.set($event)" />
 
       <h3>Cold Blood</h3>
-      <kaeh-variable-characteristic
-        icon="circle"
-        [current]="coldBlood.current()"
-        [max]="coldBlood.max()"
-        (update)="coldBlood.current.set($event)"
-      />
+      <kaeh-variable-characteristic icon="circle" [current]="coldBlood.current()" [max]="coldBlood.max()" (update)="coldBlood.current.set($event)" />
 
       <h3>Initiative : {{ initiative() }}</h3>
     </section>

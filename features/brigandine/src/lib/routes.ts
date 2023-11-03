@@ -11,16 +11,11 @@ export const routes = [
   },
   {
     path: `${RoutesConfigs.charactersList}`,
-    loadComponent: () =>
-      import('./components/characters-list/characters-list.component').then(
-        (m) => m.CharactersListComponent
-      ),
+    loadComponent: () => import('./components/characters-list/characters-list.component').then((m) => m.CharactersListComponent),
     canActivate: [
       // If any character exists, continue
       // Else create a new character
-      () =>
-        inject(CharacterPersisterService).anyExists() ||
-        inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`),
+      () => inject(CharacterPersisterService).anyExists() || inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`),
     ],
   },
   {
@@ -29,31 +24,21 @@ export const routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./components/character-sheet/character-sheet.component').then(
-            (m) => m.CharacterSheetComponent
-          ),
+        loadComponent: () => import('./components/character-sheet/character-sheet.component').then((m) => m.CharacterSheetComponent),
         canActivate: [
           // If there is a last updated character, redirect to it
           // Else create a new character
           () => {
             const characterPersisterService = inject(CharacterPersisterService);
-            const uniqKey =
-              characterPersisterService.getLastUpdatedUniqKey() ||
-              characterPersisterService.createCharacter();
+            const uniqKey = characterPersisterService.getLastUpdatedUniqKey() || characterPersisterService.createCharacter();
 
-            return inject(Router).parseUrl(
-              `/${RoutesConfigs.characterSheet.path}/${uniqKey}`
-            );
+            return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}/${uniqKey}`);
           },
         ],
       },
       {
         path: `:${RoutesConfigs.characterSheet.uniqKey}`,
-        loadComponent: () =>
-          import('./components/character-sheet/character-sheet.component').then(
-            (m) => m.CharacterSheetComponent
-          ),
+        loadComponent: () => import('./components/character-sheet/character-sheet.component').then((m) => m.CharacterSheetComponent),
         canActivate: [
           // Prevent accessing a non-existing character and create a new one instead
           (route: ActivatedRouteSnapshot) => {
@@ -61,9 +46,7 @@ export const routes = [
             const uniqKey = route.params[RoutesConfigs.characterSheet.uniqKey];
 
             if (uniqKey && !characterPersisterService.exists(uniqKey)) {
-              return inject(Router).parseUrl(
-                `/${RoutesConfigs.characterSheet.path}`
-              );
+              return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`);
             }
 
             return true;

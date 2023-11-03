@@ -40,11 +40,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "features/brigandine/**/*.ts",
-          "features/brigandine/**/*.html",
-          "features/brigandine/package.json"
-        ]
+        "lintFilePatterns": ["features/brigandine/**/*.ts", "features/brigandine/**/*.html", "features/brigandine/package.json"]
       }
     }
   }

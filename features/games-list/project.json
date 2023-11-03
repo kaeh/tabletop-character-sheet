@@ -40,11 +40,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "features/games-list/**/*.ts",
-          "features/games-list/**/*.html",
-          "features/games-list/package.json"
-        ]
+        "lintFilePatterns": ["features/games-list/**/*.ts", "features/games-list/**/*.html", "features/games-list/package.json"]
       }
     }
   }

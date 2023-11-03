@@ -10,12 +10,7 @@ interface SkillConstructorData {
 export class Skill {
   readonly progression = new VariableCharacteristic();
   readonly base = signal(0);
-  readonly level = computed(() =>
-    Brigandine.character.skills.computeSkillLevel(
-      this.base(),
-      this.progression.current()
-    )
-  );
+  readonly level = computed(() => Brigandine.character.skills.computeSkillLevel(this.base(), this.progression.current()));
 
   constructor(skill: SkillConstructorData = {}) {
     if (skill.base) {

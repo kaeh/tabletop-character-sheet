@@ -8,12 +8,5 @@
     "**/Thumbs.db": true,
     "**/node_modules": true
   },
-  "cSpell.words": [
-    "devkit",
-    "fontawesome",
-    "fortawesome",
-    "ghpages",
-    "packagr",
-    "uuidv"
-  ]
+  "cSpell.words": ["devkit", "fontawesome", "fortawesome", "ghpages", "packagr", "uuidv"]
 }

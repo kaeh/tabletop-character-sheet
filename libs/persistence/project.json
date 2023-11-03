@@ -40,11 +40,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/persistence/**/*.ts",
-          "libs/persistence/**/*.html",
-          "libs/persistence/package.json"
-        ]
+        "lintFilePatterns": ["libs/persistence/**/*.ts", "libs/persistence/**/*.html", "libs/persistence/package.json"]
       }
     }
   }
