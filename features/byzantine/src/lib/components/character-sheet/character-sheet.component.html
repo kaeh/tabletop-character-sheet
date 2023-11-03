@@ -1,0 +1,199 @@
+<mat-sidenav-container id="container">
+  <mat-sidenav #sideNav>
+    <kaeh-characters-list horizontal />
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <section>
+      <button
+        mat-fab
+        color="primary"
+        (click)="sideNav.toggle()"
+        matTooltip="Liste des personnages"
+      >
+        <mat-icon>groups</mat-icon>
+      </button>
+
+      <button
+        mat-fab
+        color="warn"
+        (click)="deleteCharacter()"
+        matTooltip="Supprimer le personnage"
+      >
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </section>
+
+    <section>
+      <mat-form-field>
+        <mat-label>Nom du personnage</mat-label>
+        <input matInput [formControl]="name" />
+      </mat-form-field>
+    </section>
+
+    <section>
+      <h3>Vitality</h3>
+      <kaeh-variable-characteristic
+        icon="square"
+        [current]="vitality.current()"
+        [max]="vitality.max()"
+        (update)="vitality.current.set($event)"
+      />
+
+      <h3>Cold Blood</h3>
+      <kaeh-variable-characteristic
+        icon="circle"
+        [current]="coldBlood.current()"
+        [max]="coldBlood.max()"
+        (update)="coldBlood.current.set($event)"
+      />
+
+      <h3>Initiative : {{ initiative() }}</h3>
+    </section>
+
+    <section id="skills">
+      <div>
+        <h3>Combat</h3>
+        <kaeh-skill
+          [current]="skills.combat.level()"
+          [base]="skills.combat.base()"
+          [currentProgression]="skills.combat.progression.current()"
+          [maxProgression]="skills.combat.progression.max"
+          (update)="skills.combat.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Connaissance</h3>
+        <kaeh-skill
+          [current]="skills.knowledge.level()"
+          [base]="skills.knowledge.base()"
+          [currentProgression]="skills.knowledge.progression.current()"
+          [maxProgression]="skills.knowledge.progression.max"
+          (update)="skills.knowledge.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Discrétion</h3>
+        <kaeh-skill
+          [current]="skills.stealth.level()"
+          [base]="skills.stealth.base()"
+          [currentProgression]="skills.stealth.progression.current()"
+          [maxProgression]="skills.stealth.progression.max"
+          (update)="skills.stealth.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Endurance</h3>
+        <kaeh-skill
+          [current]="skills.endurance.level()"
+          [base]="skills.endurance.base()"
+          [currentProgression]="skills.endurance.progression.current()"
+          [maxProgression]="skills.endurance.progression.max"
+          (update)="skills.endurance.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Force</h3>
+        <kaeh-skill
+          [current]="skills.strength.level()"
+          [base]="skills.strength.base()"
+          [currentProgression]="skills.strength.progression.current()"
+          [maxProgression]="skills.strength.progression.max"
+          (update)="skills.strength.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Habileté</h3>
+        <kaeh-skill
+          [current]="skills.dexterity.level()"
+          [base]="skills.dexterity.base()"
+          [currentProgression]="skills.dexterity.progression.current()"
+          [maxProgression]="skills.dexterity.progression.max"
+          (update)="skills.dexterity.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Magie</h3>
+        <kaeh-skill
+          [current]="skills.magic.level()"
+          [base]="skills.magic.base()"
+          [currentProgression]="skills.magic.progression.current()"
+          [maxProgression]="skills.magic.progression.max"
+          (update)="skills.magic.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Mouvement</h3>
+        <kaeh-skill
+          [current]="skills.movement.level()"
+          [base]="skills.movement.base()"
+          [currentProgression]="skills.movement.progression.current()"
+          [maxProgression]="skills.movement.progression.max"
+          (update)="skills.movement.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Perception</h3>
+        <kaeh-skill
+          [current]="skills.perception.level()"
+          [base]="skills.perception.base()"
+          [currentProgression]="skills.perception.progression.current()"
+          [maxProgression]="skills.perception.progression.max"
+          (update)="skills.perception.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Sociabilité</h3>
+        <kaeh-skill
+          [current]="skills.sociability.level()"
+          [base]="skills.sociability.base()"
+          [currentProgression]="skills.sociability.progression.current()"
+          [maxProgression]="skills.sociability.progression.max"
+          (update)="skills.sociability.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Survie</h3>
+        <kaeh-skill
+          [current]="skills.survival.level()"
+          [base]="skills.survival.base()"
+          [currentProgression]="skills.survival.progression.current()"
+          [maxProgression]="skills.survival.progression.max"
+          (update)="skills.survival.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Tir</h3>
+        <kaeh-skill
+          [current]="skills.shooting.level()"
+          [base]="skills.shooting.base()"
+          [currentProgression]="skills.shooting.progression.current()"
+          [maxProgression]="skills.shooting.progression.max"
+          (update)="skills.shooting.progression.updateCurrent($event)"
+        />
+      </div>
+
+      <div>
+        <h3>Volonté</h3>
+        <kaeh-skill
+          [current]="skills.willpower.level()"
+          [base]="skills.willpower.base()"
+          [currentProgression]="skills.willpower.progression.current()"
+          [maxProgression]="skills.willpower.progression.max"
+          (update)="skills.willpower.progression.updateCurrent($event)"
+        />
+      </div>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
