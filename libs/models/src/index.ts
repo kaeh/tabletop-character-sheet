@@ -1,1 +1,1 @@
-export * from "./lib/parsable.type";
+export * from './lib/parsable.type';

@@ -1,8 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircle as faCircleRegular, faSquare as faSquareRegular } from '@fortawesome/free-regular-svg-icons';
-import { IconDefinition, faCircle as faCircleSolid, faSquare as faSquareSolid } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircle as faCircleRegular,
+  faSquare as faSquareRegular,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  IconDefinition,
+  faCircle as faCircleSolid,
+  faSquare as faSquareSolid,
+} from '@fortawesome/free-solid-svg-icons';
 import { ToIteratorPipe } from '@kaeh/ui';
 
 @Component({
@@ -20,12 +27,12 @@ export class VariableCharacteristicComponent {
 
   @Input({ required: true }) current!: number;
 
-  @Input({ required: true }) max!: number
+  @Input({ required: true }) max!: number;
 
   @Output() public readonly update = new EventEmitter<number>();
 
   protected faFilledIcon!: IconDefinition;
-  protected faEmptyIcon!: IconDefinition
+  protected faEmptyIcon!: IconDefinition;
 
   protected onClick(value: number): void {
     const newValue = value === this.current ? value - 1 : value;

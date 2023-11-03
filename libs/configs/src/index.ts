@@ -1,1 +1,1 @@
-export * from "./lib/routes-configs";
+export * from './lib/routes-configs';

@@ -1,18 +1,18 @@
-import { PersistedSkill } from "./persisted-skill.interface";
+import { PersistedSkill } from './persisted-skill.interface';
 
 export interface PersistedCharacter {
-    name: string;
+  name: string;
 
-    strength: PersistedSkill;
-    endurance: PersistedSkill;
-    willpower: PersistedSkill;
-    knowledge: PersistedSkill;
-    combat: PersistedSkill;
-    movement: PersistedSkill;
-    perception: PersistedSkill;
+  strength: PersistedSkill;
+  endurance: PersistedSkill;
+  willpower: PersistedSkill;
+  knowledge: PersistedSkill;
+  combat: PersistedSkill;
+  movement: PersistedSkill;
+  perception: PersistedSkill;
 
-    vitality: number;
-    coldBlood: number;
+  vitality: number;
+  coldBlood: number;
 }
 
 export type PersistedCharacterList = Map<string, PersistedCharacter>;

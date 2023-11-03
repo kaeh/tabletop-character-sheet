@@ -1,11 +1,11 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'toIterator',
-    standalone: true,
+  name: 'toIterator',
+  standalone: true,
 })
 export class ToIteratorPipe implements PipeTransform {
-    transform(value: number): number[] {
-        return [...Array(value).keys()];
-    }
+  transform(value: number): number[] {
+    return [...Array(value).keys()];
+  }
 }

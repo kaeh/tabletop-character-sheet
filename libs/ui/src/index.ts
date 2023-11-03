@@ -1,1 +1,1 @@
-export * from "./lib/to-iterator.pipe";
+export * from './lib/to-iterator.pipe';

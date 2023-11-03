@@ -1,4 +1,4 @@
 export interface PersistedSkill {
-    base: number;
-    currentProgression: number;
+  base: number;
+  currentProgression: number;
 }

@@ -1,1 +1,1 @@
-export * from "./lib/extract-tens-digit";
+export * from './lib/extract-tens-digit';
