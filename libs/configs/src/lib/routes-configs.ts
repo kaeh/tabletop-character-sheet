@@ -1,7 +1,9 @@
 export const RoutesConfigs = {
-    characterSheet: {
-        path: 'character-sheet',
-        uniqKey: 'uniqKey',
-    },
-    charactersList: 'characters-list',
-}
+  gamesList: 'games-list',
+  byzantine: 'byzantine',
+  characterSheet: {
+    path: 'character-sheet',
+    uniqKey: 'uniqKey',
+  },
+  charactersList: 'characters-list',
+};

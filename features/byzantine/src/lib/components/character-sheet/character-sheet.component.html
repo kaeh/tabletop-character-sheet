@@ -27,7 +27,7 @@
     <section>
       <mat-form-field>
         <mat-label>Nom du personnage</mat-label>
-        <input matInput [formControl]="name" />
+        <input matInput [formControl]="name" (blur)="trimCharacterName()" />
       </mat-form-field>
     </section>
 

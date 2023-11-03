@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewChild, computed, effect, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewChild,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +19,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { RoutesConfigs } from '@kaeh/configs';
 import { extractTensDigit } from '@kaeh/functions';
 import { Parsable } from '@kaeh/models';
-import { CharacterPersisterService, PersistedCharacter, PersistedCharacterPropertyKey, PersistedSkill, PersisterConfigs } from '@kaeh/persistence';
+import {
+  CharacterPersisterService,
+  PersistedCharacter,
+  PersistedCharacterPropertyKey,
+  PersistedSkill,
+  PersisterConfigs,
+} from '@kaeh/persistence';
 import { distinctUntilChanged, map, tap } from 'rxjs';
 import { Skill } from '../../models/skill.interface';
 import { Byzantine } from '../../rules';
@@ -22,13 +36,25 @@ import { VariableCharacteristicComponent } from '../variable-characteristic/vari
 @Component({
   selector: 'kaeh-character-sheet',
   standalone: true,
-  imports: [CommonModule, MatIconModule, VariableCharacteristicComponent, SkillComponent, RouterModule, ReactiveFormsModule, MatSidenavModule, MatButtonModule, MatInputModule, MatTooltipModule, CharactersListComponent],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    VariableCharacteristicComponent,
+    SkillComponent,
+    RouterModule,
+    ReactiveFormsModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatInputModule,
+    MatTooltipModule,
+    CharactersListComponent,
+  ],
   templateUrl: './character-sheet.component.html',
   styleUrls: ['./character-sheet.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterSheetComponent {
-  protected readonly name = new FormControl<string>('', { nonNullable: true });;
+  protected readonly name = new FormControl<string>('', { nonNullable: true });
 
   protected readonly skills = {
     combat: new Skill(),
@@ -44,31 +70,54 @@ export class CharacterSheetComponent {
     survival: new Skill(),
     shooting: new Skill(),
     willpower: new Skill(),
-  }
+  };
 
   protected readonly vitality = {
     current: signal(0),
-    max: computed(() => Byzantine.character.computeMaxVitality(this.skills.strength.level(), this.skills.endurance.level(), this.skills.willpower.level()))
+    max: computed(() =>
+      Byzantine.character.computeMaxVitality(
+        this.skills.strength.level(),
+        this.skills.endurance.level(),
+        this.skills.willpower.level()
+      )
+    ),
   };
   protected readonly coldBlood = {
     current: signal(0),
-    max: computed(() => Byzantine.character.computeMaxColdBlood(this.skills.willpower.level(), this.skills.knowledge.level(), this.skills.combat.level()))
+    max: computed(() =>
+      Byzantine.character.computeMaxColdBlood(
+        this.skills.willpower.level(),
+        this.skills.knowledge.level(),
+        this.skills.combat.level()
+      )
+    ),
   };
-  protected readonly initiative = computed(() => Byzantine.character.computeInitiative(extractTensDigit(this.skills.combat.level()), extractTensDigit(this.skills.movement.level()), extractTensDigit(this.skills.perception.level())));
+  protected readonly initiative = computed(() =>
+    Byzantine.character.computeInitiative(
+      extractTensDigit(this.skills.combat.level()),
+      extractTensDigit(this.skills.movement.level()),
+      extractTensDigit(this.skills.perception.level())
+    )
+  );
 
   @ViewChild(MatSidenav)
   private matSideNav?: MatSidenav;
 
   private characterUniqueKey!: string;
-  private readonly characterPersisterService = inject(CharacterPersisterService);
+  private readonly characterPersisterService = inject(
+    CharacterPersisterService
+  );
   private readonly router = inject(Router);
 
   constructor() {
-    inject(ActivatedRoute).params
-      .pipe(
+    inject(ActivatedRoute)
+      .params.pipe(
         tap(() => this.matSideNav?.close()),
-        takeUntilDestroyed())
-      .subscribe((params) => this.initCharacter(params[RoutesConfigs.characterSheet.uniqKey]));
+        takeUntilDestroyed()
+      )
+      .subscribe((params) =>
+        this.initCharacter(params[RoutesConfigs.characterSheet.uniqKey])
+      );
 
     this.initPersistency();
   }
@@ -78,9 +127,15 @@ export class CharacterSheetComponent {
     this.router.navigate(['/', RoutesConfigs.charactersList]);
   }
 
+  protected trimCharacterName(): void {
+    this.name.setValue(this.name.value.trim());
+  }
+
   private initCharacter(uniqKey: string): void {
     this.characterUniqueKey = uniqKey;
-    const persistedCharacter = this.characterPersisterService.get(this.characterUniqueKey);
+    const persistedCharacter = this.characterPersisterService.get(
+      this.characterUniqueKey
+    );
 
     this.name.setValue(persistedCharacter.name);
 
@@ -91,13 +146,17 @@ export class CharacterSheetComponent {
   }
 
   private updateSkills(persistedCharacter: PersistedCharacter): void {
-    Object.entries(this.skills).forEach(([skillKey, skill]: [string, Skill]) => {
-      const persistedSkill: PersistedSkill | null | undefined = (persistedCharacter as unknown as Parsable<PersistedSkill>)[skillKey];
+    Object.entries(this.skills).forEach(
+      ([skillKey, skill]: [string, Skill]) => {
+        const persistedSkill: PersistedSkill | null | undefined = (
+          persistedCharacter as unknown as Parsable<PersistedSkill>
+        )[skillKey];
 
-      const { base = 0, currentProgression = 0 } = persistedSkill ?? {};
-      skill.base.set(base);
-      skill.progression.current.set(currentProgression);
-    });
+        const { base = 0, currentProgression = 0 } = persistedSkill ?? {};
+        skill.base.set(base);
+        skill.progression.current.set(currentProgression);
+      }
+    );
   }
 
   private initPersistency(): void {
@@ -107,21 +166,45 @@ export class CharacterSheetComponent {
         map(PersisterConfigs.defaultNameIfEmpty),
         // Ensure stored name is the same as the displayed one
         tap((name) => this.name.setValue(name, { emitEvent: false })),
-        tap((name) => this.characterPersisterService.saveProperty(this.characterUniqueKey, 'name', name)),
+        tap((name) =>
+          this.characterPersisterService.saveProperty(
+            this.characterUniqueKey,
+            'name',
+            name
+          )
+        ),
         takeUntilDestroyed()
       )
       .subscribe();
 
-    effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, 'vitality', this.vitality.current()));
-    effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, 'coldBlood', this.coldBlood.current()));
+    effect(() =>
+      this.characterPersisterService.saveProperty(
+        this.characterUniqueKey,
+        'vitality',
+        this.vitality.current()
+      )
+    );
+    effect(() =>
+      this.characterPersisterService.saveProperty(
+        this.characterUniqueKey,
+        'coldBlood',
+        this.coldBlood.current()
+      )
+    );
 
     // Init skills persistence
     Object.keys(this.skills).forEach((skillKey) => {
       const skill = (this.skills as Record<string, Skill>)[skillKey];
-      effect(() => this.characterPersisterService.saveProperty(this.characterUniqueKey, skillKey as PersistedCharacterPropertyKey, {
-        base: skill.base(),
-        currentProgression: skill.progression.current()
-      }));
+      effect(() =>
+        this.characterPersisterService.saveProperty(
+          this.characterUniqueKey,
+          skillKey as PersistedCharacterPropertyKey,
+          {
+            base: skill.base(),
+            currentProgression: skill.progression.current(),
+          }
+        )
+      );
     });
   }
 }

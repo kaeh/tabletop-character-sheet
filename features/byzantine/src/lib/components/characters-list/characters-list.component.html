@@ -1,6 +1,6 @@
 <ul>
   <li *ngFor="let item of charactersList | keyvalue">
-    <a [routerLink]="['/', characterSheetRoute, item.key]">
+    <a [routerLink]="[characterSheetRoute, item.key]">
       {{ item.value.name }}
     </a>
   </li>
