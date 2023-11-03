@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'features/byzantine',
+  displayName: 'features/brigandine',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/features/byzantine',
+  coverageDirectory: '../../coverage/features/brigandine',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

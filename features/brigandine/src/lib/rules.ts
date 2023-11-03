@@ -1,4 +1,4 @@
-export const Byzantine = {
+export const Brigandine = {
   character: {
     computeMaxVitality: (
       strength: number,
@@ -20,7 +20,7 @@ export const Byzantine = {
       progressionFactor: 5,
       computeSkillLevel: (base: number, currentProgression: number): number =>
         base +
-        currentProgression * Byzantine.character.skills.progressionFactor,
+        currentProgression * Brigandine.character.skills.progressionFactor,
     },
   },
 };

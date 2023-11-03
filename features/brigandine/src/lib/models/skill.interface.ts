@@ -1,5 +1,5 @@
 import { computed, signal } from '@angular/core';
-import { Byzantine } from '../rules';
+import { Brigandine } from '../rules';
 import { VariableCharacteristic } from './variable-characteristic.interface';
 
 interface SkillConstructorData {
@@ -11,7 +11,7 @@ export class Skill {
   readonly progression = new VariableCharacteristic();
   readonly base = signal(0);
   readonly level = computed(() =>
-    Byzantine.character.skills.computeSkillLevel(
+    Brigandine.character.skills.computeSkillLevel(
       this.base(),
       this.progression.current()
     )

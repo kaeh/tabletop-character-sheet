@@ -13,8 +13,12 @@ import { RoutesConfigs } from '@kaeh/configs';
 export class GamesListComponent {
   protected readonly games = [
     {
-      label: 'byzantine',
-      route: RoutesConfigs.byzantine,
+      label: 'Brigandine',
+      route: RoutesConfigs.brigandine,
+    },
+    {
+      label: 'Tales from the Loop',
+      route: RoutesConfigs.talesFromTheLoop,
     },
   ];
 }

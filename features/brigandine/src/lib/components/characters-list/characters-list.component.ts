@@ -18,7 +18,7 @@ export class CharactersListComponent {
   protected readonly charactersList: PersistedCharacterList = inject(
     CharacterPersisterService
   ).getAll();
-  protected readonly characterSheetRoute = `/${RoutesConfigs.byzantine}/${RoutesConfigs.characterSheet.path}`;
+  protected readonly characterSheetRoute = `/${RoutesConfigs.brigandine}/${RoutesConfigs.characterSheet.path}`;
 
   private readonly router = inject(Router);
   private readonly characterPersisterService = inject(
@@ -29,7 +29,7 @@ export class CharactersListComponent {
     const uniqKey = this.characterPersisterService.createCharacter();
     this.router.navigate([
       '/',
-      RoutesConfigs.byzantine,
+      RoutesConfigs.brigandine,
       RoutesConfigs.characterSheet.path,
       uniqKey,
     ]);

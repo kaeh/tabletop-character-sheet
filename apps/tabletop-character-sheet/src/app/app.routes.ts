@@ -8,9 +8,9 @@ export const appRoutes: Route[] = [
       import('@kaeh/features/games-list').then((m) => m.GamesListComponent),
   },
   {
-    path: RoutesConfigs.byzantine,
+    path: RoutesConfigs.brigandine,
     loadChildren: () =>
-      import('@kaeh/features/byzantine').then((m) => m.routes),
+      import('@kaeh/features/brigandine').then((m) => m.routes),
   },
   {
     path: '**',

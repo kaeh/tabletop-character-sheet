@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@kaeh/configs": ["libs/configs/src/index.ts"],
-      "@kaeh/features/byzantine": ["features/byzantine/src/index.ts"],
+      "@kaeh/features/brigandine": ["features/brigandine/src/index.ts"],
       "@kaeh/features/games-list": ["features/games-list/src/index.ts"],
       "@kaeh/functions": ["libs/functions/src/index.ts"],
       "@kaeh/models": ["libs/models/src/index.ts"],

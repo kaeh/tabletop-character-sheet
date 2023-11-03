@@ -28,7 +28,7 @@ import {
 } from '@kaeh/persistence';
 import { distinctUntilChanged, map, tap } from 'rxjs';
 import { Skill } from '../../models/skill.interface';
-import { Byzantine } from '../../rules';
+import { Brigandine } from '../../rules';
 import { CharactersListComponent } from '../characters-list/characters-list.component';
 import { SkillComponent } from '../skill/skill.component';
 import { VariableCharacteristicComponent } from '../variable-characteristic/variable-characteristic.component';
@@ -75,7 +75,7 @@ export class CharacterSheetComponent {
   protected readonly vitality = {
     current: signal(0),
     max: computed(() =>
-      Byzantine.character.computeMaxVitality(
+      Brigandine.character.computeMaxVitality(
         this.skills.strength.level(),
         this.skills.endurance.level(),
         this.skills.willpower.level()
@@ -85,7 +85,7 @@ export class CharacterSheetComponent {
   protected readonly coldBlood = {
     current: signal(0),
     max: computed(() =>
-      Byzantine.character.computeMaxColdBlood(
+      Brigandine.character.computeMaxColdBlood(
         this.skills.willpower.level(),
         this.skills.knowledge.level(),
         this.skills.combat.level()
@@ -93,7 +93,7 @@ export class CharacterSheetComponent {
     ),
   };
   protected readonly initiative = computed(() =>
-    Byzantine.character.computeInitiative(
+    Brigandine.character.computeInitiative(
       extractTensDigit(this.skills.combat.level()),
       extractTensDigit(this.skills.movement.level()),
       extractTensDigit(this.skills.perception.level())
