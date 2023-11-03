@@ -11,6 +11,10 @@ export const appRoutes: Route[] = [
     loadChildren: () => import('@kaeh/features/brigandine').then((m) => m.routes),
   },
   {
+    path: RoutesConfigs.talesFromTheLoop,
+    loadChildren: () => import('@kaeh/features/tales-from-the-loop').then((m) => m.routes),
+  },
+  {
     path: '**',
     redirectTo: RoutesConfigs.gamesList,
     pathMatch: 'full',

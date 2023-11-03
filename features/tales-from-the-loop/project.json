@@ -1,0 +1,47 @@
+{
+  "name": "features/tales-from-the-loop",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "features/tales-from-the-loop/src",
+  "prefix": "kaeh",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "features/tales-from-the-loop/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "features/tales-from-the-loop/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "features/tales-from-the-loop/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "features/tales-from-the-loop/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["features/tales-from-the-loop/**/*.ts", "features/tales-from-the-loop/**/*.html", "features/tales-from-the-loop/package.json"]
+      }
+    }
+  }
+}
