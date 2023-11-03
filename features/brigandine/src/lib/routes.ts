@@ -3,6 +3,8 @@ import { ActivatedRouteSnapshot, Route, Router } from '@angular/router';
 import { RoutesConfigs } from '@kaeh/configs';
 import { CharacterPersisterService } from '@kaeh/persistence';
 
+const CharacterSheetFullPath = `${RoutesConfigs.brigandine}/${RoutesConfigs.characterSheet.path}`;
+
 export const routes = [
   {
     path: '',
@@ -10,16 +12,16 @@ export const routes = [
     redirectTo: RoutesConfigs.charactersList,
   },
   {
-    path: `${RoutesConfigs.charactersList}`,
+    path: RoutesConfigs.charactersList,
     loadComponent: () => import('./components/characters-list/characters-list.component').then((m) => m.CharactersListComponent),
     canActivate: [
       // If any character exists, continue
       // Else create a new character
-      () => inject(CharacterPersisterService).anyExists() || inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`),
+      () => inject(CharacterPersisterService).anyExists() || inject(Router).parseUrl(`/${CharacterSheetFullPath}`),
     ],
   },
   {
-    path: `${RoutesConfigs.characterSheet.path}`,
+    path: RoutesConfigs.characterSheet.path,
     title: () => 'Feuille de personnage',
     children: [
       {
@@ -32,7 +34,7 @@ export const routes = [
             const characterPersisterService = inject(CharacterPersisterService);
             const uniqKey = characterPersisterService.getLastUpdatedUniqKey() || characterPersisterService.createCharacter();
 
-            return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}/${uniqKey}`);
+            return inject(Router).parseUrl(`/${CharacterSheetFullPath}/${uniqKey}`);
           },
         ],
       },
@@ -46,7 +48,7 @@ export const routes = [
             const uniqKey = route.params[RoutesConfigs.characterSheet.uniqKey];
 
             if (uniqKey && !characterPersisterService.exists(uniqKey)) {
-              return inject(Router).parseUrl(`/${RoutesConfigs.characterSheet.path}`);
+              return inject(Router).parseUrl(`/${CharacterSheetFullPath}`);
             }
 
             return true;

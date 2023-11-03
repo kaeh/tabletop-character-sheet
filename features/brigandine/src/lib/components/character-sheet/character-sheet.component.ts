@@ -94,7 +94,7 @@ export class CharacterSheetComponent {
 
   protected deleteCharacter(): void {
     this.characterPersisterService.deleteOne(this.characterUniqueKey);
-    this.router.navigate(['/', RoutesConfigs.charactersList]);
+    this.router.navigate(['/', RoutesConfigs.brigandine]);
   }
 
   protected trimCharacterName(): void {

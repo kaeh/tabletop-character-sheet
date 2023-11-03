@@ -8,5 +8,15 @@
     "**/Thumbs.db": true,
     "**/node_modules": true
   },
-  "cSpell.words": ["devkit", "fontawesome", "fortawesome", "ghpages", "packagr", "uuidv"]
+  "cSpell.words": ["devkit", "fontawesome", "fortawesome", "ghpages", "packagr", "uuidv"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
