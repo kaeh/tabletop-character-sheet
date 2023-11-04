@@ -1,0 +1,3 @@
+<div *ngFor="let card of gamesCards" [routerLink]="[card.route]" [relativeTo]="activatedRoute">
+    <h2>{{ card.title }}</h2>
+</div>

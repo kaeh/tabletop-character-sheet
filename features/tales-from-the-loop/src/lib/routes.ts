@@ -3,6 +3,7 @@ import { RoutesConfigs, anyCharacterExists, characterExists, redirectToLastUpdat
 
 const CharacterSheetFullPath = `${RoutesConfigs.talesFromTheLoop}/${RoutesConfigs.characterSheet.path}`;
 
+// TODO : Find a way to propose to the user to continue the creation of a character if he has one in progress
 export const routes = [
   {
     path: '',

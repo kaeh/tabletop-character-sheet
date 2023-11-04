@@ -17,6 +17,7 @@
     "paths": {
       "@kaeh/configs": ["libs/configs/src/index.ts"],
       "@kaeh/features/brigandine": ["features/brigandine/src/index.ts"],
+      "@kaeh/features/character-creation": ["features/character-creation/src/index.ts"],
       "@kaeh/features/games-list": ["features/games-list/src/index.ts"],
       "@kaeh/features/tales-from-the-loop": ["features/tales-from-the-loop/src/index.ts"],
       "@kaeh/functions": ["libs/functions/src/index.ts"],
