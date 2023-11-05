@@ -8,7 +8,7 @@
     "**/Thumbs.db": true,
     "**/node_modules": true
   },
-  "cSpell.words": ["devkit", "fontawesome", "fortawesome", "ghpages", "packagr", "uuidv"],
+  "cSpell.words": ["appspot", "devkit", "firebaseapp", "Firestore", "fontawesome", "fortawesome", "ghpages", "packagr", "uuidv"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tabletop-character-sheet-63388": {
+      "hosting": {
+        "tabletop-character-sheet": [
+          "tabletop-character-sheet-63388"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tabletop-character-sheet-63388"
+  }
+}
