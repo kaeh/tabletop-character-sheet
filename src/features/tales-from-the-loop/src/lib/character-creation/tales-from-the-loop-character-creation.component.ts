@@ -3,6 +3,7 @@ import { Component, computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 
+// TODO Persist character on each change to let user come back to pending character creation later
 @Component({
 	selector: "kaeh-tales-from-the-loop-character-creation",
 	standalone: true,
@@ -52,11 +53,6 @@ export class TalesFromTheLoopCharacterCreationComponent {
 		const age$$ = toSignal(this.creationGroup.controls.general.controls.age.valueChanges);
 		return computed(() => 15 - (age$$() ?? 10));
 	})();
-
-	public constructor() {
-		// TODO :
-		// - Save character in LocalStorage on each change
-	}
 
 	protected createCharacter() {
 		// TODO : Persist character
