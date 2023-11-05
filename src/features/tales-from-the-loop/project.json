@@ -1,0 +1,47 @@
+{
+	"name": "features/tales-from-the-loop",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "src/features/tales-from-the-loop/src",
+	"prefix": "lib",
+	"tags": [],
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nx/angular:ng-packagr-lite",
+			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"options": {
+				"project": "src/features/tales-from-the-loop/ng-package.json"
+			},
+			"configurations": {
+				"production": {
+					"tsConfig": "src/features/tales-from-the-loop/tsconfig.lib.prod.json"
+				},
+				"development": {
+					"tsConfig": "src/features/tales-from-the-loop/tsconfig.lib.json"
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "src/features/tales-from-the-loop/jest.config.ts",
+				"passWithNoTests": true
+			},
+			"configurations": {
+				"ci": {
+					"ci": true,
+					"codeCoverage": true
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["src/features/tales-from-the-loop/**/*.ts", "src/features/tales-from-the-loop/**/*.html", "src/features/tales-from-the-loop/package.json"]
+			}
+		}
+	}
+}

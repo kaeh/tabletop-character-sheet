@@ -1,0 +1,47 @@
+<section>
+  <h2>Tales from the loop</h2>
+  <p>Character creation</p>
+</section>
+
+<form [formGroup]="creationGroup">
+  <section formGroupName="general">
+    <h3>Général</h3>
+    <input type="text" placeholder="First Name" formControlName="firstName" />
+    <input type="text" placeholder="Last Name" formControlName="lastName" />
+    <input type="number" placeholder="Age" formControlName="age" [min]="ageRange.min" [max]="ageRange.max" />
+    <span>Chance : {{ luck$$() }}</span>
+    <input type="text" placeholder="Archetype" formControlName="archetype" />
+    <input type="text" placeholder="Fetish" formControlName="fetish" />
+    <input type="text" placeholder="Favorite song" formControlName="favoriteSong" />
+    <input type="text" placeholder="Problem" formControlName="problem" />
+    <input type="text" placeholder="Drive" formControlName="drive" />
+  </section>
+
+  <section formGroupName="attributes">
+    <h3>Attributs</h3>
+    <input type="number" placeholder="Body" formControlName="body" [min]="attributeRange.min" [max]="attributeRange.max" />
+    <input type="number" placeholder="Tech" formControlName="tech" [min]="attributeRange.min" [max]="attributeRange.max" />
+    <input type="number" placeholder="Heart" formControlName="heart" [min]="attributeRange.min" [max]="attributeRange.max" />
+    <input type="number" placeholder="Mind" formControlName="mind" [min]="attributeRange.min" [max]="attributeRange.max" />
+  </section>
+
+  <section formGroupName="skills">
+    <h3>Compétences</h3>
+    <input type="number" placeholder="Agility" formControlName="agility" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Strength" formControlName="strength" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Sneak" formControlName="sneak" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Analyze" formControlName="analyze" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Tinker" formControlName="tinker" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Program" formControlName="program" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Charisma" formControlName="charisma" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Charm" formControlName="charm" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Contact" formControlName="contact" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Comprehend" formControlName="comprehend" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Discover" formControlName="discover" [min]="skillRange.min" [max]="skillRange.max" />
+    <input type="number" placeholder="Empathize" formControlName="empathize" [min]="skillRange.min" [max]="skillRange.max" />
+  </section>
+
+  <section>
+    <button type="submit" [disabled]="!creationGroup.valid" (click)="createCharacter()">Create</button>
+  </section>
+</form>

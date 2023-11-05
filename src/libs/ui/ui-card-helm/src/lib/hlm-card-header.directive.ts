@@ -39,9 +39,6 @@ export class HlmCardHeaderDirective {
 	@HostBinding("class") _class = this.generateClasses();
 
 	private generateClasses() {
-		return hlm(
-			cardHeaderVariants({ direction: this._direction }),
-			this._inputs,
-		);
+		return hlm(cardHeaderVariants({ direction: this._direction }), this._inputs);
 	}
 }

@@ -39,9 +39,6 @@ export class HlmCardFooterDirective {
 	@HostBinding("class") _class = this.generateClasses();
 
 	private generateClasses() {
-		return hlm(
-			cardFooterVariants({ direction: this._direction }),
-			this._inputs,
-		);
+		return hlm(cardFooterVariants({ direction: this._direction }), this._inputs);
 	}
 }

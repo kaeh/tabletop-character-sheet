@@ -3,13 +3,10 @@ import { cva, VariantProps } from "class-variance-authority";
 import { hlm } from "@spartan-ng/ui-core";
 import { ClassValue } from "clsx";
 
-const cardTitleVariants = cva(
-	"text-lg font-semibold leading-none tracking-tight",
-	{
-		variants: {},
-		defaultVariants: {},
-	},
-);
+const cardTitleVariants = cva("text-lg font-semibold leading-none tracking-tight", {
+	variants: {},
+	defaultVariants: {},
+});
 export type CardTitleVariants = VariantProps<typeof cardTitleVariants>;
 
 @Directive({

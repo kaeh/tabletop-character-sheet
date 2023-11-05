@@ -1,0 +1,47 @@
+{
+	"name": "features/character-creation",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "src/features/character-creation/src",
+	"prefix": "lib",
+	"tags": [],
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nx/angular:ng-packagr-lite",
+			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"options": {
+				"project": "src/features/character-creation/ng-package.json"
+			},
+			"configurations": {
+				"production": {
+					"tsConfig": "src/features/character-creation/tsconfig.lib.prod.json"
+				},
+				"development": {
+					"tsConfig": "src/features/character-creation/tsconfig.lib.json"
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "src/features/character-creation/jest.config.ts",
+				"passWithNoTests": true
+			},
+			"configurations": {
+				"ci": {
+					"ci": true,
+					"codeCoverage": true
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["src/features/character-creation/**/*.ts", "src/features/character-creation/**/*.html", "src/features/character-creation/package.json"]
+			}
+		}
+	}
+}

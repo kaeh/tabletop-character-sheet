@@ -7,9 +7,7 @@ const cardDescriptionVariants = cva("text-sm text-muted-foreground", {
 	variants: {},
 	defaultVariants: {},
 });
-export type CardDescriptionVariants = VariantProps<
-	typeof cardDescriptionVariants
->;
+export type CardDescriptionVariants = VariantProps<typeof cardDescriptionVariants>;
 
 @Directive({
 	selector: "[hlmCardDescription]",
