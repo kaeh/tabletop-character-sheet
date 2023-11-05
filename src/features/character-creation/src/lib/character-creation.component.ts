@@ -2,12 +2,19 @@ import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { CharacterCreationRouteData } from "./character-creation-route-data.interface";
+import { GameCardComponent } from "./game-card/game-card.component";
 import { characterCreationRoutes } from "./routes";
 
 @Component({
 	selector: "kaeh-character-creation",
 	standalone: true,
-	imports: [CommonModule, RouterLink],
+	imports: [
+		// Angular
+		CommonModule,
+		RouterLink,
+		// Internal
+		GameCardComponent,
+	],
 	templateUrl: "./character-creation.component.html",
 	styleUrls: ["./character-creation.component.scss"],
 })

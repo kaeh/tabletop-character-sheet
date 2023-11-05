@@ -1,6 +1,7 @@
 export interface CharacterCreationRouteData {
 	card: {
 		title: string;
-		image: string;
+		image: `/assets/${string}`;
+		description: string;
 	};
 }

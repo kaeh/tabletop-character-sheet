@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { GamesConstants } from "@constants";
 
 // TODO Persist character on each change to let user come back to pending character creation later
 @Component({
@@ -12,6 +13,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 	styleUrls: ["./tales-from-the-loop-character-creation.component.scss"],
 })
 export class TalesFromTheLoopCharacterCreationComponent {
+	protected readonly title = GamesConstants.talesFromTheLoop;
 	protected readonly ageRange = { min: 10, max: 15 };
 	protected readonly attributeRange = { min: 0, max: 5 };
 	protected readonly skillRange = { min: 0, max: 5 };
@@ -56,7 +58,7 @@ export class TalesFromTheLoopCharacterCreationComponent {
 
 	protected createCharacter() {
 		// TODO : Persist character
-		// Remove LocalStorage key to avoid auto redirect to pending character creation
+		// Remove pendingCharacterCreation key to avoid auto redirect to pending character creation
 		console.log(this.creationGroup.value, this.luck$$());
 	}
 }

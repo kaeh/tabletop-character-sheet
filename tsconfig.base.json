@@ -1,24 +1,24 @@
 {
-	"compileOnSave": false,
-	"compilerOptions": {
-		"sourceMap": true,
-		"declaration": false,
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"importHelpers": true,
-		"target": "ES2022",
-		"module": "ES2022",
-		"lib": ["ES2022", "dom"],
-		"baseUrl": "./",
-		"paths": {
-			"@constants": ["src/constants/src/index.ts"],
-			"@features/character-creation": [
-				"src/features/character-creation/src/index.ts"
-			],
-			"@spartan-ng/ui-card-helm": ["src/libs/ui/ui-card-helm/src/index.ts"],
-			"@features/tales-from-the-loop": [
-				"src/features/tales-from-the-loop/src/index.ts"
-			]
-		}
-	}
+  "compileOnSave": false,
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "baseUrl": "./",
+    "paths": {
+      "@constants": ["src/constants/src/index.ts"],
+      "@features/character-creation": [
+        "src/features/character-creation/src/index.ts"
+      ],
+      "@features/tales-from-the-loop": [
+        "src/features/tales-from-the-loop/src/index.ts"
+      ],
+      "@spartan-ng/ui-card-helm": ["src/libs/ui/ui-card-helm/src/index.ts"]
+    }
+  }
 }

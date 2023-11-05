@@ -1,3 +1,9 @@
-<div *ngFor="let card of gamesCards" [routerLink]="[card.route]" [relativeTo]="activatedRoute">
-  <h2>{{ card.title }}</h2>
-</div>
+<section>
+  <h2>Création de personnage</h2>
+  <p>De quel jeu sera issue le personnage ?</p>
+</section>
+
+<section class="flex flex-row flew-wrap gap-4">
+  <lib-game-card class="cursor-pointer" *ngFor="let card of gamesCards" [title]="card.title"
+    [description]="card.description" [image]="card.image" [routerLink]="[card.route]" [relativeTo]="activatedRoute" />
+</section>
