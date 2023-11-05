@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
 @Component({
@@ -9,6 +9,4 @@ import { RouterOutlet } from "@angular/router";
 	templateUrl: "./app.component.html",
 	styleUrls: ["./app.component.scss"],
 })
-export class AppComponent {
-	title = "tabletop-character-sheet";
-}
+export class AppComponent {}
