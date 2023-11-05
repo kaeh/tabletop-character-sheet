@@ -6,42 +6,136 @@
 <form [formGroup]="creationGroup">
   <section formGroupName="general">
     <h3>Général</h3>
-    <input type="text" placeholder="First Name" formControlName="firstName" />
-    <input type="text" placeholder="Last Name" formControlName="lastName" />
-    <input type="number" placeholder="Age" formControlName="age" [min]="ageRange.min" [max]="ageRange.max" />
-    <span>Chance : {{ luck$$() }}</span>
-    <input type="text" placeholder="Archetype" formControlName="archetype" />
-    <input type="text" placeholder="Fetish" formControlName="fetish" />
-    <input type="text" placeholder="Favorite song" formControlName="favoriteSong" />
-    <input type="text" placeholder="Problem" formControlName="problem" />
-    <input type="text" placeholder="Drive" formControlName="drive" />
+    <section class="flex flex-row flex-wrap gap-4">
+      <label hlmLabel>
+        First Name
+        <input hlmInput type="text" placeholder="First Name" formControlName="firstName" />
+      </label>
+      <label hlmLabel>
+        Last Name
+        <input hlmInput type="text" placeholder="Last Name" formControlName="lastName" />
+      </label>
+      <label hlmLabel>
+        Age (Chance : {{ luck$$() }})
+        <input hlmInput type="number" placeholder="Age" formControlName="age" [min]="ageRange.min"
+          [max]="ageRange.max" />
+      </label>
+      <label hlmLabel>
+        Archetype
+        <input hlmInput type="text" placeholder="Archetype" formControlName="archetype" />
+      </label>
+      <label hlmLabel>
+        Fetish
+        <input hlmInput type="text" placeholder="Fetish" formControlName="fetish" />
+      </label>
+      <label hlmLabel>
+        Favorite song
+        <input hlmInput type="text" placeholder="Favorite song" formControlName="favoriteSong" />
+      </label>
+      <label hlmLabel>
+        Problem
+        <input hlmInput type="text" placeholder="Problem" formControlName="problem" />
+      </label>
+      <label hlmLabel>
+        Drive
+        <input hlmInput type="text" placeholder="Drive" formControlName="drive" />
+      </label>
+    </section>
   </section>
 
   <section formGroupName="attributes">
     <h3>Attributs</h3>
-    <input type="number" placeholder="Body" formControlName="body" [min]="attributeRange.min" [max]="attributeRange.max" />
-    <input type="number" placeholder="Tech" formControlName="tech" [min]="attributeRange.min" [max]="attributeRange.max" />
-    <input type="number" placeholder="Heart" formControlName="heart" [min]="attributeRange.min" [max]="attributeRange.max" />
-    <input type="number" placeholder="Mind" formControlName="mind" [min]="attributeRange.min" [max]="attributeRange.max" />
+    <section class="flex flex-row flex-wrap gap-4">
+      <label hlmLabel>
+        Body
+        <input hlmInput type="number" placeholder="Body" formControlName="body" [min]="attributeRange.min"
+          [max]="attributeRange.max" />
+      </label>
+      <label hlmLabel>
+        Tech
+        <input hlmInput type="number" placeholder="Tech" formControlName="tech" [min]="attributeRange.min"
+          [max]="attributeRange.max" />
+      </label>
+      <label hlmLabel>
+        Heart
+        <input hlmInput type="number" placeholder="Heart" formControlName="heart" [min]="attributeRange.min"
+          [max]="attributeRange.max" />
+      </label>
+      <label hlmLabel>
+        Mind
+        <input hlmInput type="number" placeholder="Mind" formControlName="mind" [min]="attributeRange.min"
+          [max]="attributeRange.max" />
+      </label>
+    </section>
   </section>
 
   <section formGroupName="skills">
     <h3>Compétences</h3>
-    <input type="number" placeholder="Agility" formControlName="agility" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Strength" formControlName="strength" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Sneak" formControlName="sneak" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Analyze" formControlName="analyze" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Tinker" formControlName="tinker" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Program" formControlName="program" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Charisma" formControlName="charisma" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Charm" formControlName="charm" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Contact" formControlName="contact" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Comprehend" formControlName="comprehend" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Discover" formControlName="discover" [min]="skillRange.min" [max]="skillRange.max" />
-    <input type="number" placeholder="Empathize" formControlName="empathize" [min]="skillRange.min" [max]="skillRange.max" />
+    <section class="flex flex-row flex-wrap gap-4">
+      <label hlmLabel>
+        Agility
+        <input hlmInput type="number" placeholder="Agility" formControlName="agility" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Strength
+        <input hlmInput type="number" placeholder="Strength" formControlName="strength" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Sneak
+        <input hlmInput type="number" placeholder="Sneak" formControlName="sneak" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Analyze
+        <input hlmInput type="number" placeholder="Analyze" formControlName="analyze" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Tinker
+        <input hlmInput type="number" placeholder="Tinker" formControlName="tinker" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Program
+        <input hlmInput type="number" placeholder="Program" formControlName="program" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Charisma
+        <input hlmInput type="number" placeholder="Charisma" formControlName="charisma" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Charm
+        <input hlmInput type="number" placeholder="Charm" formControlName="charm" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Contact
+        <input hlmInput type="number" placeholder="Contact" formControlName="contact" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Comprehend
+        <input hlmInput type="number" placeholder="Comprehend" formControlName="comprehend" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Discover
+        <input hlmInput type="number" placeholder="Discover" formControlName="discover" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+      <label hlmLabel>
+        Empathize
+        <input hlmInput type="number" placeholder="Empathize" formControlName="empathize" [min]="skillRange.min"
+          [max]="skillRange.max" />
+      </label>
+    </section>
   </section>
 
   <section>
-    <button type="submit" [disabled]="!creationGroup.valid" (click)="createCharacter()">Create</button>
+    <button hlmBtn [disabled]="!creationGroup.valid" (click)="createCharacter()">Create</button>
   </section>
 </form>

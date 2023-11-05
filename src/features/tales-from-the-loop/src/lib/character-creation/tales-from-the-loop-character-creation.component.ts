@@ -3,12 +3,23 @@ import { Component, computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { GamesConstants } from "@constants";
+import { HlmButtonDirective } from "@spartan-ng/ui-button-helm";
+import { HlmInputDirective } from "@spartan-ng/ui-input-helm";
+import { HlmLabelDirective } from "@spartan-ng/ui-label-helm";
 
 // TODO Persist character on each change to let user come back to pending character creation later
 @Component({
 	selector: "kaeh-tales-from-the-loop-character-creation",
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
+	imports: [
+		// Angular
+		CommonModule,
+		ReactiveFormsModule,
+		// Spartan
+		HlmInputDirective,
+		HlmLabelDirective,
+		HlmButtonDirective,
+	],
 	templateUrl: "./tales-from-the-loop-character-creation.component.html",
 	styleUrls: ["./tales-from-the-loop-character-creation.component.scss"],
 })

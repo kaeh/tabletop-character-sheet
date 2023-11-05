@@ -8,17 +8,30 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "lib": ["ES2022", "dom"],
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
     "baseUrl": "./",
     "paths": {
-      "@constants": ["src/constants/src/index.ts"],
+      "@constants": [
+        "src/constants/src/index.ts"
+      ],
       "@features/character-creation": [
         "src/features/character-creation/src/index.ts"
       ],
       "@features/tales-from-the-loop": [
         "src/features/tales-from-the-loop/src/index.ts"
       ],
-      "@spartan-ng/ui-card-helm": ["src/libs/ui/ui-card-helm/src/index.ts"]
+      "@spartan-ng/ui-input-helm": [
+        "src/libs/ui/ui-input-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-label-helm": [
+        "src/libs/ui/ui-label-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-button-helm": [
+        "src/libs/ui/ui-button-helm/src/index.ts"
+      ]
     }
   }
 }
