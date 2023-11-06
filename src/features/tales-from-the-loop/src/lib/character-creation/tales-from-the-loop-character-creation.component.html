@@ -1,5 +1,5 @@
 <section>
-  <h2>{{ title }}</h2>
+  <h2>{{ Labels.title }}</h2>
   <p>Création de personnage</p>
 </section>
 
@@ -8,37 +8,37 @@
     <h3>Général</h3>
     <section class="flex flex-row flex-wrap gap-4">
       <label hlmLabel>
-        Prénom
-        <input hlmInput type="text" placeholder="Prénom" formControlName="firstName" />
+        {{ Labels.character.general.firstName }}
+        <input hlmInput type="text" [placeholder]="Labels.character.general.firstName" formControlName="firstName" />
       </label>
       <label hlmLabel>
-        Nom
-        <input hlmInput type="text" placeholder="Nom" formControlName="lastName" />
+        {{ Labels.character.general.lastName }}
+        <input hlmInput type="text" [placeholder]="Labels.character.general.lastName" formControlName="lastName" />
       </label>
       <label hlmLabel>
-        Âge (Chance : {{ luck$$() }})
-        <input hlmInput type="number" placeholder="Âge" formControlName="age" [min]="ageRange.min"
-          [max]="ageRange.max" />
+        {{ Labels.character.general.age }} ({{ Labels.character.general.luck }} : {{ luck$$() }})
+        <input hlmInput formControlName="age" [min]="ageRange.min" [max]="ageRange.max" />
       </label>
       <label hlmLabel>
-        Archetype
-        <input hlmInput type="text" placeholder="Archetype" formControlName="archetype" />
+        {{ Labels.character.general.archetype }}
+        <input hlmInput type="text" [placeholder]="Labels.character.general.archetype" formControlName="archetype" />
       </label>
       <label hlmLabel>
-        Objet fétiche
-        <input hlmInput type="text" placeholder="Objet fétiche" formControlName="fetish" />
+        {{ Labels.character.general.fetish }}
+        <input hlmInput type="text" [placeholder]="Labels.character.general.fetish" formControlName="fetish" />
       </label>
       <label hlmLabel>
-        Musique favorite
-        <input hlmInput type="text" placeholder="Musique favorite" formControlName="favoriteSong" />
+        {{ Labels.character.general.favoriteSong }}
+        <input hlmInput type="text" [placeholder]="Labels.character.general.favoriteSong"
+          formControlName="favoriteSong" />
       </label>
       <label hlmLabel>
-        Problème
-        <input hlmInput type="text" placeholder="Problème" formControlName="problem" />
+        {{ Labels.character.general.problem }}
+        <input hlmInput type="text" [placeholder]="Labels.character.general.problem" formControlName="problem" />
       </label>
       <label hlmLabel>
-        Motivation
-        <input hlmInput type="text" placeholder="Motivation" formControlName="drive" />
+        {{ Labels.character.general.drive }}
+        <input hlmInput type="text" [placeholder]="Labels.character.general.drive" formControlName="drive" />
       </label>
     </section>
   </section>
@@ -46,24 +46,10 @@
   <section formGroupName="attributes">
     <h3>Attributs</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      <label hlmLabel>
-        Physique
-        <input hlmInput type="number" placeholder="Physique" formControlName="body" [min]="attributeRange.min"
-          [max]="attributeRange.max" />
-      </label>
-      <label hlmLabel>
-        Technique
-        <input hlmInput type="number" placeholder="Technique" formControlName="tech" [min]="attributeRange.min"
-          [max]="attributeRange.max" />
-      </label>
-      <label hlmLabel>
-        Coeur
-        <input hlmInput type="number" placeholder="Coeur" formControlName="heart" [min]="attributeRange.min"
-          [max]="attributeRange.max" />
-      </label>
-      <label hlmLabel>
-        Intelligence
-        <input hlmInput type="number" placeholder="Intelligence" formControlName="mind" [min]="attributeRange.min"
+      <label hlmLabel
+        *ngFor="let attribute of creationGroup.controls.attributes.controls | kaehControlsToKeysLabels: Labels.character.attributes">
+        {{ attribute.label }}
+        <input hlmInput type="number" [formControlName]="attribute.key" [min]="attributeRange.min"
           [max]="attributeRange.max" />
       </label>
     </section>
@@ -72,65 +58,10 @@
   <section formGroupName="skills">
     <h3>Compétences</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      <label hlmLabel>
-        Agilité
-        <input hlmInput type="number" placeholder="Agilité" formControlName="agility" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Force
-        <input hlmInput type="number" placeholder="Force" formControlName="strength" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Furtivité
-        <input hlmInput type="number" placeholder="Furtivité" formControlName="sneak" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Analyse
-        <input hlmInput type="number" placeholder="Analyse" formControlName="analyze" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Bricolage
-        <input hlmInput type="number" placeholder="Bricolage" formControlName="tinker" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Programmation
-        <input hlmInput type="number" placeholder="Programmation" formControlName="program" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Charisme
-        <input hlmInput type="number" placeholder="Charisme" formControlName="charisma" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Charme
-        <input hlmInput type="number" placeholder="Charme" formControlName="charm" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Réseau
-        <input hlmInput type="number" placeholder="Réseau" formControlName="contact" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Compréhension
-        <input hlmInput type="number" placeholder="Compréhension" formControlName="comprehend" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Découverte
-        <input hlmInput type="number" placeholder="Découverte" formControlName="discover" [min]="skillRange.min"
-          [max]="skillRange.max" />
-      </label>
-      <label hlmLabel>
-        Empathie
-        <input hlmInput type="number" placeholder="Empathie" formControlName="empathize" [min]="skillRange.min"
-          [max]="skillRange.max" />
+      <label hlmLabel
+        *ngFor="let skill of creationGroup.controls.skills.controls | kaehControlsToKeysLabels: Labels.character.skills">
+        {{ skill.label }}
+        <input hlmInput type=" number" [formControlName]="skill.key" [min]="skillRange.min" [max]="skillRange.max" />
       </label>
     </section>
   </section>

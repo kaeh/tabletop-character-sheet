@@ -2,7 +2,8 @@ import { CommonModule } from "@angular/common";
 import { Component, computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { GamesConstants } from "@constants";
+import { GamesLabels } from "@constants";
+import { ControlsToKeyLabelPipe } from "@pipes";
 import { HlmButtonDirective } from "@spartan-ng/ui-button-helm";
 import { HlmInputDirective } from "@spartan-ng/ui-input-helm";
 import { HlmLabelDirective } from "@spartan-ng/ui-label-helm";
@@ -19,12 +20,14 @@ import { HlmLabelDirective } from "@spartan-ng/ui-label-helm";
 		HlmInputDirective,
 		HlmLabelDirective,
 		HlmButtonDirective,
+		// Internal
+		ControlsToKeyLabelPipe,
 	],
 	templateUrl: "./tales-from-the-loop-character-creation.component.html",
 	styleUrls: ["./tales-from-the-loop-character-creation.component.scss"],
 })
 export class TalesFromTheLoopCharacterCreationComponent {
-	protected readonly title = GamesConstants.talesFromTheLoop;
+	protected readonly Labels = GamesLabels.talesFromTheLoop;
 	protected readonly ageRange = { min: 10, max: 15 };
 	protected readonly attributeRange = { min: 0, max: 5 };
 	protected readonly skillRange = { min: 0, max: 5 };
