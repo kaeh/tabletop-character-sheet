@@ -55,27 +55,25 @@
   <section formGroupName="attributes">
     <h3>Attributs</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      <mat-form-field *ngFor="
-          let attribute of creationGroup.controls.attributes.controls
-            | kaehControlsToKeysLabels : Labels.character.attributes
-        ">
-        <mat-label>{{ attribute.label }}</mat-label>
-        <input matInput type="number" [formControlName]="attribute.key" [min]="attributeRange.min"
-          [max]="attributeRange.max" />
-      </mat-form-field>
+      @for (attribute of creationGroup.controls.attributes.controls | kaehControlsToKeysLabels : Labels.character.attributes; track attribute.key) {
+        <mat-form-field>
+          <mat-label>{{ attribute.label }}</mat-label>
+          <input matInput type="number" [formControlName]="attribute.key" [min]="attributeRange.min"
+            [max]="attributeRange.max" />
+        </mat-form-field>
+      }
     </section>
   </section>
 
   <section formGroupName="skills">
     <h3>Compétences</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      <mat-form-field *ngFor="
-          let skill of creationGroup.controls.skills.controls
-            | kaehControlsToKeysLabels : Labels.character.skills
-        ">
-        <mat-label>{{ skill.label }}</mat-label>
-        <input matInput type="number" [formControlName]="skill.key" [min]="skillRange.min" [max]="skillRange.max" />
-      </mat-form-field>
+      @for (skill of creationGroup.controls.skills.controls | kaehControlsToKeysLabels : Labels.character.skills; track skill.key) {
+        <mat-form-field>
+          <mat-label>{{ skill.label }}</mat-label>
+          <input matInput type="number" [formControlName]="skill.key" [min]="skillRange.min" [max]="skillRange.max" />
+        </mat-form-field>
+      }
     </section>
   </section>
 

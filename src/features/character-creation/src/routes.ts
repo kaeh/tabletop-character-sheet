@@ -28,6 +28,7 @@ export const characterCreationRoutes: Route[] = [
 		title: `${baseTitle} - ${GamesLabels.talesFromTheLoop}`,
 		data: {
 			card: {
+				id: RoutesConstants.talesFromTheLoop,
 				title: GamesLabels.talesFromTheLoop.title,
 				image: "/assets/tales-from-the-loop/card-background2.jpg",
 				description: "",

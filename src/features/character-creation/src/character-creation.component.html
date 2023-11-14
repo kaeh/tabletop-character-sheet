@@ -4,6 +4,12 @@
 </section>
 
 <section class="flex flex-row flew-wrap gap-4">
-  <kaeh-game-card class="cursor-pointer" *ngFor="let card of gamesCards" [title]="card.title"
-    [description]="card.description" [image]="card.image" [routerLink]="[card.route]" [relativeTo]="activatedRoute" />
+  @for (card of gamesCards; track card.id) {
+    <kaeh-game-card class="cursor-pointer"
+                    [title]="card.title"
+                    [description]="card.description"
+                    [image]="card.image"
+                    [routerLink]="[card.route]"
+                    [relativeTo]="activatedRoute" />
+  }
 </section>
