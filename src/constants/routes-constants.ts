@@ -1,4 +1,7 @@
 export const RoutesConstants = {
+	// Auth
+	authentication: "authentication",
+
 	// Games
 	gamesList: "games-list",
 	brigandine: "brigandine",
