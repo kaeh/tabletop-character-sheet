@@ -1,9 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { Firestore } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
+import { ActivatedRoute } from "@angular/router";
 import { GamesLabels } from "@constants";
 import { ControlsToKeyLabelPipe } from "@ui/pipes";
 
@@ -68,9 +70,33 @@ export class TalesFromTheLoopCharacterCreationComponent {
 		return computed(() => 15 - (age$$() ?? 10));
 	})();
 
-	protected createCharacter() {
-		// TODO : Persist character
-		// Remove pendingCharacterCreation key to avoid auto redirect to pending character creation
-		console.log(this.creationGroup.value, this.luck$$());
+	private readonly uid: string = inject(ActivatedRoute).snapshot.data["uid"];
+	private readonly firestore = inject(Firestore);
+
+	protected async createCharacter() {
+		if (this.creationGroup.invalid) {
+			return;
+		}
+
+		const character: any = this.creationGroup.value;
+		character.general.luck = this.luck$$();
+		character.proprietary = this.uid;
+
+		try {
+			// TODO : Push reference in user characters array
+			// const charactersCollection = collection(this.firestore, "characters");
+			// const persistedCharacter = await addDoc(charactersCollection, character);
+			// const currentUserDoc = doc(this.firestore, "users", this.uid);
+			// runTransaction(this.firestore, async (transaction) => {
+			// 	const currentUser = await transaction.get(currentUserDoc);
+			// 	const characters = currentUser.get("characters") ?? [];
+			// 	characters.push(`/characters/${persistedCharacter.id}`);
+			// 	transaction.update(currentUserDoc, { characters });
+			// });
+		} catch (error) {
+			console.error(error);
+		} finally {
+			// TODO
+		}
 	}
 }
