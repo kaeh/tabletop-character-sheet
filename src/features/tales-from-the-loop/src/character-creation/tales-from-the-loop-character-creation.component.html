@@ -1,0 +1,87 @@
+<section>
+  <h2>{{ Labels.title }}</h2>
+  <p>Création de personnage</p>
+</section>
+
+<form [formGroup]="creationGroup">
+  <section formGroupName="general">
+    <h3>Général</h3>
+    <section class="flex flex-row flex-wrap gap-4">
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.firstName }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.firstName" formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.lastName }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.lastName" formControlName="lastName" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.age }} ({{
+          Labels.character.general.luck
+          }}
+          : {{ luck$$() }})</mat-label>
+        <input matInput type="number" formControlName="age" [min]="ageRange.min" [max]="ageRange.max" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.archetype }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.archetype" formControlName="archetype" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.fetish }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.fetish" formControlName="fetish" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.favoriteSong }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.favoriteSong"
+          formControlName="favoriteSong" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.problem }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.problem" formControlName="problem" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.drive }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.drive" formControlName="drive" />
+      </mat-form-field>
+    </section>
+  </section>
+
+  <section formGroupName="attributes">
+    <h3>Attributs</h3>
+    <section class="flex flex-row flex-wrap gap-4">
+      <mat-form-field *ngFor="
+          let attribute of creationGroup.controls.attributes.controls
+            | kaehControlsToKeysLabels : Labels.character.attributes
+        ">
+        <mat-label>{{ attribute.label }}</mat-label>
+        <input matInput type="number" [formControlName]="attribute.key" [min]="attributeRange.min"
+          [max]="attributeRange.max" />
+      </mat-form-field>
+    </section>
+  </section>
+
+  <section formGroupName="skills">
+    <h3>Compétences</h3>
+    <section class="flex flex-row flex-wrap gap-4">
+      <mat-form-field *ngFor="
+          let skill of creationGroup.controls.skills.controls
+            | kaehControlsToKeysLabels : Labels.character.skills
+        ">
+        <mat-label>{{ skill.label }}</mat-label>
+        <input matInput type="number" [formControlName]="skill.key" [min]="skillRange.min" [max]="skillRange.max" />
+      </mat-form-field>
+    </section>
+  </section>
+
+  <section>
+    <button mat-raised-button color="primary" [disabled]="!creationGroup.valid" (click)="createCharacter()">
+      Valider
+    </button>
+  </section>
+</form>
