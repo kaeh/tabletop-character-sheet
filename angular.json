@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "tabletop-character-sheet:build:production"
+              "buildTarget": "tabletop-character-sheet:build:production"
             },
             "development": {
-              "browserTarget": "tabletop-character-sheet:build:development"
+              "buildTarget": "tabletop-character-sheet:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tabletop-character-sheet:build"
+            "buildTarget": "tabletop-character-sheet:build"
           }
         },
         "test": {
