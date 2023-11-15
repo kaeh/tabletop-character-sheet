@@ -5,9 +5,10 @@ import { Firestore, addDoc, collection } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { GamesConstants, RoutesConstants } from "@constants";
 import { ControlsToKeyLabelPipe } from "@ui/pipes";
+import { injectUserId } from "@utils";
 import { PersistedCharacter } from "../models";
 
 // TODO Persist character on each change to let user come back to pending character creation later
@@ -79,7 +80,7 @@ export class TalesFromTheLoopCharacterCreationComponent {
 		return computed(() => this.characterCreationPending$$() || creationGroupInvalid$$());
 	})();
 
-	private readonly uid: string = inject(ActivatedRoute).snapshot.data["uid"];
+	private readonly uid = injectUserId;
 	private readonly firestore = inject(Firestore);
 	private readonly router = inject(Router);
 

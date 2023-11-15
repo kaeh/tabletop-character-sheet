@@ -25,6 +25,7 @@
 			"@features/*": ["src/features/*"],
 			"@ui/*": ["src/ui/*"],
       "@models": ["src/models/index.ts"],
+      "@utils": ["src/utils/index.ts"],
 		}
 	},
 	"angularCompilerOptions": {
