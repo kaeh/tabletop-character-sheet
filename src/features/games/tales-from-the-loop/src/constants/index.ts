@@ -1,3 +1,5 @@
-export * from "./game-id";
-export * from "./game-labels";
-export * from "./game-rules";
+import { gameLabels } from "./game-labels";
+
+export const TalesFromTheLoopConstants = {
+	labels: gameLabels,
+};

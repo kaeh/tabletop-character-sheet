@@ -1,38 +1,47 @@
 import { inject } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { gameRules } from "../constants";
+import { gameRules } from "../constants/game-rules";
 
-export const characterForm = inject(FormBuilder).nonNullable.group({
-	general: inject(FormBuilder).nonNullable.group({
-		firstName: inject(FormBuilder).nonNullable.control(""),
-		lastName: inject(FormBuilder).nonNullable.control(""),
-		age: inject(FormBuilder).nonNullable.control(10, [Validators.min(gameRules.ageRange.min), Validators.max(gameRules.ageRange.max)]),
-		archetype: inject(FormBuilder).nonNullable.control(""),
-		fetish: inject(FormBuilder).nonNullable.control(""),
-		favoriteSong: inject(FormBuilder).nonNullable.control(""),
-		problem: inject(FormBuilder).nonNullable.control(""),
-		drive: inject(FormBuilder).nonNullable.control(""),
-	}),
-	// TODO : Add validation to ensure that the sum of attributes is equal to age
-	attributes: inject(FormBuilder).nonNullable.group({
-		body: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
-		tech: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
-		heart: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
-		mind: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
-	}),
-	// TODO : Add validation to ensure that the sum of skills is equal to 10
-	skills: inject(FormBuilder).nonNullable.group({
-		agility: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		strength: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		sneak: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		analyze: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		tinker: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		program: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		charisma: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		charm: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		contact: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		comprehend: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		discover: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-		empathize: inject(FormBuilder).nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
-	}),
-});
+const defaultAge = 10;
+
+export const characterForm = () => {
+	const formBuilder = inject(FormBuilder);
+
+	return formBuilder.nonNullable.group({
+		general: formBuilder.nonNullable.group({
+			firstName: formBuilder.nonNullable.control(""),
+			lastName: formBuilder.nonNullable.control(""),
+			age: formBuilder.nonNullable.control(defaultAge, [Validators.min(gameRules.ageRange.min), Validators.max(gameRules.ageRange.max)]),
+			luck: formBuilder.nonNullable.control(gameRules.computeLuck(defaultAge), Validators.min(0)),
+			archetype: formBuilder.nonNullable.control(""),
+			fetish: formBuilder.nonNullable.control(""),
+			favoriteSong: formBuilder.nonNullable.control(""),
+			problem: formBuilder.nonNullable.control(""),
+			drive: formBuilder.nonNullable.control(""),
+			pride: formBuilder.nonNullable.control(""),
+			socle: formBuilder.nonNullable.control(""),
+		}),
+		// TODO : Add validation to ensure that the sum of attributes is equal to age
+		attributes: formBuilder.nonNullable.group({
+			body: formBuilder.nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
+			tech: formBuilder.nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
+			heart: formBuilder.nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
+			mind: formBuilder.nonNullable.control(0, [Validators.min(gameRules.attributeRange.min), Validators.max(gameRules.attributeRange.max)]),
+		}),
+		// TODO : Add validation to ensure that the sum of skills is equal to 10
+		skills: formBuilder.nonNullable.group({
+			agility: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			strength: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			sneak: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			analyze: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			tinker: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			program: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			charisma: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			charm: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			contact: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			comprehend: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			discover: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+			empathize: formBuilder.nonNullable.control(0, [Validators.min(gameRules.skillRange.min), Validators.max(gameRules.skillRange.max)]),
+		}),
+	});
+};

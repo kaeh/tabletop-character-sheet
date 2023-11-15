@@ -1,9 +1,10 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, inject } from "@angular/core";
+import { Component, Input, OnInit, inject } from "@angular/core";
 import { ControlContainer, ControlValueAccessor, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { ControlsToKeyLabelPipe } from "@ui/pipes";
-import { gameLabels, gameRules } from "../constants";
+import { gameLabels } from "../constants/game-labels";
+import { gameRules } from "../constants/game-rules";
 import { characterForm } from "../utils/character-form.injector";
 
 @Component({
@@ -20,12 +21,21 @@ import { characterForm } from "../utils/character-form.injector";
 	],
 	templateUrl: "./character-form.component.html",
 })
-export class CharacterFormComponent implements ControlValueAccessor {
-	@Input({ required: true }) luck!: number;
+export class CharacterFormComponent implements OnInit, ControlValueAccessor {
+	@Input() public remainingAttributePoints?: number;
+	@Input() public remainingSkillPoints?: number;
 
-	protected readonly characterForm = (inject(ControlContainer).control as typeof characterForm) || characterForm;
+	protected characterForm = characterForm();
 	protected readonly Labels = gameLabels;
 	protected readonly Rules = gameRules;
+
+	private readonly controlContainer = inject(ControlContainer);
+
+	ngOnInit(): void {
+		if (this.controlContainer.control?.value) {
+			this.characterForm = this.controlContainer.control as ReturnType<typeof characterForm>;
+		}
+	}
 
 	writeValue(obj: unknown): void {
 		throw new Error("Method not implemented.");

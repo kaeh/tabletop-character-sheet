@@ -11,6 +11,8 @@ export interface PersistedCharacter extends BasePersistedCharacter {
 		favoriteSong: string;
 		problem: string;
 		drive: string;
+		pride: string;
+		socle: string;
 	};
 	attributes: {
 		body: number;

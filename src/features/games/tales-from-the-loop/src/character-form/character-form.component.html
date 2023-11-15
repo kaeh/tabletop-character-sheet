@@ -13,12 +13,15 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>{{ Labels.character.general.age }} ({{
-          Labels.character.general.luck
-          }}
-          : {{ luck }})</mat-label>
+        <mat-label>{{ Labels.character.general.age }}</mat-label>
         <input matInput type="number" formControlName="age" [min]="Rules.ageRange.min" [max]="Rules.ageRange.max" />
       </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.luck }}</mat-label>
+        <input matInput type="number" formControlName="luck" [min]="0" />
+      </mat-form-field>
+
       <mat-form-field>
         <mat-label>{{ Labels.character.general.archetype }}</mat-label>
         <input matInput type="text" [placeholder]="Labels.character.general.archetype" formControlName="archetype" />
@@ -44,11 +47,28 @@
         <mat-label>{{ Labels.character.general.drive }}</mat-label>
         <input matInput type="text" [placeholder]="Labels.character.general.drive" formControlName="drive" />
       </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.pride }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.pride" formControlName="pride" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ Labels.character.general.socle }}</mat-label>
+        <input matInput type="text" [placeholder]="Labels.character.general.socle" formControlName="socle" />
+      </mat-form-field>
     </section>
   </section>
 
   <section formGroupName="attributes">
-    <h3>Attributs</h3>
+    <h3>
+      Attributs
+
+      @if (remainingAttributePoints !== null && remainingAttributePoints !== undefined) {
+      <span [class.text-red-500]="remainingAttributePoints !== 0">({{ remainingAttributePoints }} points
+        restants)</span>
+      }
+    </h3>
     <section class="flex flex-row flex-wrap gap-4">
       @for (attribute of characterForm.controls.attributes.controls | appControlsToKeysLabels :
       Labels.character.attributes; track attribute.key) {
@@ -62,7 +82,14 @@
   </section>
 
   <section formGroupName="skills">
-    <h3>Compétences</h3>
+    <h3>
+      Compétences
+
+      @if (remainingSkillPoints !== null && remainingSkillPoints !== undefined) {
+      <span [class.text-red-500]="remainingSkillPoints !== 0">({{ remainingSkillPoints }} points
+        restants)</span>
+      }
+    </h3>
     <section class="flex flex-row flex-wrap gap-4">
       @for (skill of characterForm.controls.skills.controls | appControlsToKeysLabels : Labels.character.skills;
       track
