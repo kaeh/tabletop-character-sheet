@@ -1,5 +1,4 @@
 name: Deploy
-
 on: workflow_dispatch
 
 jobs:
@@ -7,14 +6,11 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: "Install dependencies"
-        run: npm ci --force
-
-      - name: "Build and deploy project"
-        run: npm run deploy
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: >-
+            ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TABLETOP_CHARACTER_SHEET_63388 }}
+          channelId: live
+          projectId: tabletop-character-sheet-63388
