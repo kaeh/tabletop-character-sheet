@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { Auth, user } from "@angular/fire/auth";
+import { Auth } from "@angular/fire/auth";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
@@ -8,7 +8,6 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { map } from "rxjs";
 
 @Component({
 	selector: "app-header",
@@ -30,7 +29,7 @@ import { map } from "rxjs";
 })
 export class HeaderComponent {
 	protected readonly RoutesConstants = RoutesConstants;
-	protected readonly userAvatar$ = user(inject(Auth)).pipe(map((user) => user?.photoURL));
+	protected readonly userAvatar = inject(Auth).currentUser?.photoURL ?? "/assets/user-avatar-placeholder.png";
 	protected readonly menuItems = [
 		{
 			label: "Mes personnages",

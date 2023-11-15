@@ -31,6 +31,10 @@ export const routes: Routes = [
 				path: RoutesConstants.charactersList.path,
 				loadChildren: () => import("@features/characters-list").then((m) => m.charactersListRoutes),
 			},
+			{
+				path: RoutesConstants.myProfile,
+				loadComponent: () => import("@features/user-profile").then((m) => m.UserProfileComponent),
+			},
 		],
 	},
 	{

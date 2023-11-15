@@ -4,6 +4,7 @@ import { provideRouter } from "@angular/router";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { routes } from "./app.routes";
 
@@ -25,5 +26,6 @@ export const appConfig: ApplicationConfig = {
 			provideAuth(() => getAuth()),
 			provideFirestore(() => getFirestore()),
 		),
+		{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 25000 } },
 	],
 };

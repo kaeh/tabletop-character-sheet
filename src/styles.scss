@@ -4,3 +4,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mdc-snackbar {
+  text-align: center;
+
+  &.success &__surface {
+    background-color: #3f51b5;
+  }
+
+  &.error &__surface {
+    background-color: #d32f2f;
+  }
+}
