@@ -10,18 +10,6 @@ export const characterCreationRoutes: Route[] = [
 		loadComponent: () => import("./character-creation.component").then((m) => m.CharacterCreationComponent),
 		title: `${baseTitle}`,
 	},
-	// {
-	// 	path: RoutesConstants.brigandine,
-	// 	loadComponent: () => import("@features/brigandine").then((m) => m.BrigandineCharacterCreationComponent),
-	// 	title: `${baseTitle} - Brigandine`,
-	// 	data: {
-	// 		card: {
-	// 			title: "Brigandine",
-	// 			image: "/assets/brigandine/brigandine.jpg",
-	// 			description: "",
-	// 		},
-	// 	} as CharacterCreationRouteData,
-	// },
 	{
 		path: RoutesConstants.talesFromTheLoop,
 		loadComponent: () => import("@features/tales-from-the-loop").then((m) => m.TalesFromTheLoopCharacterCreationComponent),
