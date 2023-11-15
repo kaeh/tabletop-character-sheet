@@ -12,7 +12,7 @@ export const characterCreationRoutes: Route[] = [
 	},
 	{
 		path: RoutesConstants.talesFromTheLoop,
-		loadComponent: () => import("@features/tales-from-the-loop").then((m) => m.TalesFromTheLoopCharacterCreationComponent),
+		loadComponent: () => import("@features/games/tales-from-the-loop").then((m) => m.TalesFromTheLoopCharacterCreationComponent),
 		title: `${baseTitle} - ${GamesConstants.talesFromTheLoop}`,
 		data: {
 			card: {
