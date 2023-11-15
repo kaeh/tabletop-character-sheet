@@ -1,1 +1,1 @@
-export * from "./src/authentication/authentication.component";
+export * from "./src/authentication.component";
