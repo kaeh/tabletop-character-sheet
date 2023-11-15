@@ -11,7 +11,9 @@
 		"check": "biome check ./src",
 		"check:ci": "biome ci ./src",
 		"format": "biome format --write ./src",
-		"deploy": "ng deploy"
+		"predeploy": "mv angular.json angular.json.bkp && mv angular.json.deploy angular.json",
+		"deploy": "ng deploy",
+		"postdeploy": "mv angular.json angular.json.deploy && mv angular.json.bkp angular.json"
 	},
 	"private": true,
 	"dependencies": {
