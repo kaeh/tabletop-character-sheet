@@ -76,7 +76,7 @@ export class TalesFromTheLoopCharacterCreationComponent {
 		this.characterCreationPending$$.set(true);
 		this.characterForm.disable();
 
-		const characterToPersist: Partial<PersistedCharacter> = this.characterForm.value as PersistedCharacter;
+		const characterToPersist: Partial<PersistedCharacter> = this.characterForm.getRawValue() as PersistedCharacter;
 		characterToPersist.gameId = gameId;
 
 		try {

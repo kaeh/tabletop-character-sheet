@@ -52,7 +52,6 @@ export class TalesFromTheLoopCharacterSheetComponent {
 			.pipe(
 				distinctUntilChanged(),
 				debounceTime(500),
-				tap(console.log),
 				tap((value) => updateDoc(this._characterDoc, value)),
 				takeUntilDestroyed(),
 			)
