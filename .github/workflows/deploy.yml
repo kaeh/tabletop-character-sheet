@@ -1,19 +1,20 @@
 name: Deploy
+
 on: workflow_dispatch
 
-# Needed for nx-set-shas within nx-cloud-main.yml, when run on the main branch
-permissions:
-  actions: read
-  contents: read
-
 jobs:
-  main:
-    name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.13.1
-    with:
-      main-branch-name: main
-      number-of-agents: 3
-      init-commands: |
-        npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
-      parallel-commands: |
-        npx nx run tabletop-character-sheet:deploy
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: "Install dependencies"
+        run: npm ci --force
+
+      - name: "Build and deploy project"
+        run: npm run deploy

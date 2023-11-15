@@ -1,0 +1,30 @@
+import { CommonModule } from "@angular/common";
+import { Component, inject } from "@angular/core";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { CharacterCreationRouteData } from "./character-creation-route-data.interface";
+import { GameCardComponent } from "./game-card/game-card.component";
+import { characterCreationRoutes } from "./routes";
+
+@Component({
+	selector: "app-character-creation",
+	standalone: true,
+	imports: [
+		// Angular
+		CommonModule,
+		RouterLink,
+		// Internal
+		GameCardComponent,
+	],
+	templateUrl: "./character-creation.component.html",
+	styleUrls: ["./character-creation.component.scss"],
+})
+export class CharacterCreationComponent {
+	protected readonly activatedRoute = inject(ActivatedRoute);
+
+	protected readonly gamesCards = characterCreationRoutes
+		.filter((r) => r.data)
+		.map((r) => ({
+			...(r.data as CharacterCreationRouteData).card,
+			route: r.path,
+		}));
+}

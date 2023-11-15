@@ -1,9 +1,0 @@
-<ul>
-  <li *ngFor="let item of charactersList | keyvalue">
-    <a [routerLink]="[characterSheetRoute, item.key]">
-      {{ item.value.name }}
-    </a>
-  </li>
-</ul>
-
-<button (click)="navigateToCharacterCreation()">Créer un nouveau personnage</button>

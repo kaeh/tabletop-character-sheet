@@ -1,0 +1,30 @@
+name: Verify project integrity
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  verify-integrity:
+    name: Verify project integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: "Install dependencies"
+        run: npm ci --force
+
+      - name: "Check code style and linting"
+        run: npm run check:ci
+
+      - name: "Build project"
+        run: npm run build
+
+      - name: "Run tests"
+        run: npm run test:ci

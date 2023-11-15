@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "tabletop-character-sheet",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}
