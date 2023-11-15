@@ -16,11 +16,15 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm ci --force
-        name: "Install dependencies"
-      - run: npm run check:ci
-        name: "Check code style and linting"
-      - run: npm run build
-        name: "Build project"
-      - run: npm run test:ci
-        name: "Run tests"
+
+      - name: "Install dependencies"
+        run: npm ci --force
+
+      - name: "Check code style and linting"
+        run: npm run check:ci
+
+      - name: "Build project"
+        run: npm run build
+
+      - name: "Run tests"
+        run: npm run test:ci
