@@ -1,8 +1,11 @@
 import { CommonModule, NgOptimizedImage } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { Firestore, collection, collectionData } from "@angular/fire/firestore";
+import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
+import { RoutesConstants } from "@constants";
 import { BasePersistedCharacter } from "@models";
 import { injectUserId } from "@utils";
 import { Observable } from "rxjs";
@@ -20,10 +23,14 @@ type AsyncCharactersList = Observable<CharactersList>;
 		RouterLink,
 		// Material
 		MatCardModule,
+		MatIconModule,
+		MatButtonModule,
 	],
 	templateUrl: "./characters-list.component.html",
 	styleUrl: "./characters-list.component.scss",
 })
 export class CharactersListComponent {
 	protected readonly charactersList$ = collectionData(collection(inject(Firestore), "users", injectUserId(), "characters"), { idField: "id" }) as AsyncCharactersList;
+
+	protected readonly RoutesConstants = RoutesConstants;
 }

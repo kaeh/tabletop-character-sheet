@@ -1,15 +1,28 @@
-@for (character of (charactersList$ | async); track character.id) {
-<mat-card class="w-80 items-center cursor-pointer" [routerLink]="[character.gameId, character.id]">
-  <mat-card-header>
-    <mat-card-title>
-      {{ character.general.firstName | titlecase }} {{ character.general.lastName | uppercase }}
-    </mat-card-title>
-  </mat-card-header>
+<section class="flex gap-4">
 
-  <mat-card-content>
-    <img [ngSrc]="character.general.avatar ?? '/assets/' + character.gameId + '/character-card-avatar-placeholder.png'"
-      width="200" height="200" priority />
-  </mat-card-content>
+  @for (character of (charactersList$ | async); track character.id) {
+  <mat-card class="w-80 items-center cursor-pointer" [routerLink]="[character.gameId, character.id]">
+    <mat-card-header>
+      <mat-card-title>
+        {{ character.general.firstName | titlecase }} {{ character.general.lastName | uppercase }}
+      </mat-card-title>
+    </mat-card-header>
 
-</mat-card>
-}
+    <mat-card-content>
+      <img
+        [ngSrc]="character.general.avatar ?? '/assets/' + character.gameId + '/character-card-avatar-placeholder.png'"
+        width="200" height="200" priority />
+    </mat-card-content>
+
+  </mat-card>
+  }
+
+  <mat-card class="w-80 items-center justify-center">
+    <mat-card-content>
+      <button type="button" mat-fab color="primary" [routerLink]="['/', RoutesConstants.characterCreation]">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add" />
+      </button>
+    </mat-card-content>
+
+  </mat-card>
+</section>
