@@ -24,7 +24,7 @@ export const routes: Routes = [
 		},
 	},
 	{
-		path: RoutesConstants.charactersList,
+		path: RoutesConstants.charactersList.path,
 		loadChildren: () => import("@features/characters-list").then((m) => m.charactersListRoutes),
 		...canActivate(redirectUnauthorizedToLogin),
 		resolve: {
@@ -33,7 +33,7 @@ export const routes: Routes = [
 	},
 	{
 		path: "**",
-		redirectTo: RoutesConstants.charactersList,
+		redirectTo: RoutesConstants.charactersList.path,
 		pathMatch: "full",
 	},
 ];

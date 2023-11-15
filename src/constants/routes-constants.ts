@@ -9,11 +9,12 @@ export const RoutesConstants = {
 
 	// Characters
 	characterCreation: "character-creation",
-	characterSheet: {
-		path: "character-sheet",
-		uniqKey: "uniqKey",
+	charactersList: {
+		path: "characters",
+		routeParams: {
+			characterId: "characterId",
+		},
 	},
-	charactersList: "characters-list",
 
 	// Parties
 	partiesList: "parties-list",

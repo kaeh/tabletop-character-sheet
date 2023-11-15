@@ -80,7 +80,7 @@ export class TalesFromTheLoopCharacterCreationComponent {
 		return computed(() => this.characterCreationPending$$() || creationGroupInvalid$$());
 	})();
 
-	private readonly uid = injectUserId;
+	private readonly uid = injectUserId();
 	private readonly firestore = inject(Firestore);
 	private readonly router = inject(Router);
 
@@ -101,7 +101,7 @@ export class TalesFromTheLoopCharacterCreationComponent {
 		try {
 			const userCharactersCollection = collection(this.firestore, "users", this.uid, "characters");
 			const persistedCharacter = await addDoc(userCharactersCollection, characterToPersist);
-			this.router.navigate(["/", RoutesConstants.talesFromTheLoop, RoutesConstants.characterSheet.path, persistedCharacter.id]);
+			this.router.navigate(["/", RoutesConstants.charactersList.path]);
 		} catch (error) {
 			console.error(error);
 		} finally {
