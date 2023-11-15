@@ -2,6 +2,9 @@ export const RoutesConstants = {
 	// Auth
 	authentication: "authentication",
 
+	// Settings
+	myProfile: "my-profile",
+
 	// Games
 	gamesList: "games-list",
 	brigandine: "brigandine",
@@ -17,5 +20,10 @@ export const RoutesConstants = {
 	},
 
 	// Parties
-	partiesList: "parties-list",
+	partiesList: {
+		path: "parties",
+		routeParams: {
+			characterId: "partyId",
+		},
+	},
 };

@@ -16,20 +16,22 @@ export const routes: Routes = [
 		...canActivate(redirectLoggedInToBase),
 	},
 	{
-		path: RoutesConstants.characterCreation,
-		loadChildren: () => import("@features/character-creation").then((m) => m.characterCreationRoutes),
+		path: "",
+		loadComponent: () => import("@ui/components/main-layout").then((m) => m.MainLayoutComponent),
 		...canActivate(redirectUnauthorizedToLogin),
 		resolve: {
 			uid: resolveUserId,
 		},
-	},
-	{
-		path: RoutesConstants.charactersList.path,
-		loadChildren: () => import("@features/characters-list").then((m) => m.charactersListRoutes),
-		...canActivate(redirectUnauthorizedToLogin),
-		resolve: {
-			uid: resolveUserId,
-		},
+		children: [
+			{
+				path: RoutesConstants.characterCreation,
+				loadChildren: () => import("@features/character-creation").then((m) => m.characterCreationRoutes),
+			},
+			{
+				path: RoutesConstants.charactersList.path,
+				loadChildren: () => import("@features/characters-list").then((m) => m.charactersListRoutes),
+			},
+		],
 	},
 	{
 		path: "**",
