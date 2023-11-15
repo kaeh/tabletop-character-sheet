@@ -24,6 +24,10 @@
 
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Connexion</button>
+      <button type="button" class="forgot-password" mat-button color="primary" [disabled]="resetPasswordDisabled"
+        (click)="resetPassword()">
+        Mot de passe oublié
+      </button>
     </mat-card-actions>
     <mat-card-footer>
       @if (authPending) {

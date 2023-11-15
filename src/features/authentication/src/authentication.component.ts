@@ -1,11 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { Auth, signInWithEmailAndPassword } from "@angular/fire/auth";
+import { Auth, sendPasswordResetEmail, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 
 @Component({
@@ -20,6 +21,7 @@ import { Router } from "@angular/router";
 		MatProgressBarModule,
 		MatInputModule,
 		MatButtonModule,
+		MatSnackBarModule,
 	],
 	templateUrl: "./authentication.component.html",
 	styleUrl: "./authentication.component.scss",
@@ -31,9 +33,11 @@ export class AuthenticationComponent {
 	});
 
 	protected authPending = false;
+	protected resetPasswordDisabled = false;
 
 	private readonly auth: Auth = inject(Auth);
 	private readonly router = inject(Router);
+	private readonly _snackBar = inject(MatSnackBar);
 
 	protected async tryAuthenticate() {
 		this.form.setErrors(null);
@@ -48,6 +52,29 @@ export class AuthenticationComponent {
 			this.form.setErrors({ invalidCredentials: true });
 		} finally {
 			this.authPending = false;
+		}
+	}
+
+	protected async resetPassword() {
+		if (!this.form.getRawValue().email || this.resetPasswordDisabled) {
+			return;
+		}
+
+		this.auth.languageCode = "fr";
+
+		let displayedMessage = "";
+		let panelClass = "";
+
+		try {
+			await sendPasswordResetEmail(this.auth, this.form.getRawValue().email);
+			this.resetPasswordDisabled = true;
+			displayedMessage = "Demande de réinitialisation envoyée";
+			panelClass = "success";
+		} catch (error) {
+			displayedMessage = "Erreur lors de la demande de réinitialisation";
+			panelClass = "error";
+		} finally {
+			this._snackBar.open(displayedMessage, "", { panelClass });
 		}
 	}
 }

@@ -1,0 +1,11 @@
+.mat-mdc-card-actions {
+  flex-direction: column;
+  align-content: flex-end;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 15px;
+
+  .forgot-password {
+    font-size: 0.8rem;
+  }
+}
