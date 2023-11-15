@@ -1,1 +1,1 @@
-export * from "./tales-from-the-loop-character-creation.component";
+export * from "./character-creation.component";

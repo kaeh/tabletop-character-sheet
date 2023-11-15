@@ -1,1 +1,6 @@
-<p>character-sheet works !</p>
+<section>
+  <h2>{{ Labels.title }}</h2>
+  <p>Feuille de personnage</p>
+</section>
+
+<app-character-form [luck]="luck$$()" [formGroup]="characterForm" />

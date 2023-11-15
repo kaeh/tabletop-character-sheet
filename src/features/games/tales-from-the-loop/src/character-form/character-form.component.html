@@ -1,9 +1,4 @@
-<section>
-  <h2>{{ Labels.title }}</h2>
-  <p>Création de personnage</p>
-</section>
-
-<form [formGroup]="creationGroup">
+<form [formGroup]="characterForm">
   <section formGroupName="general">
     <h3>Général</h3>
     <section class="flex flex-row flex-wrap gap-4">
@@ -21,8 +16,8 @@
         <mat-label>{{ Labels.character.general.age }} ({{
           Labels.character.general.luck
           }}
-          : {{ luck$$() }})</mat-label>
-        <input matInput type="number" formControlName="age" [min]="ageRange.min" [max]="ageRange.max" />
+          : {{ luck }})</mat-label>
+        <input matInput type="number" formControlName="age" [min]="Rules.ageRange.min" [max]="Rules.ageRange.max" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>{{ Labels.character.general.archetype }}</mat-label>
@@ -55,12 +50,13 @@
   <section formGroupName="attributes">
     <h3>Attributs</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      @for (attribute of creationGroup.controls.attributes.controls | appControlsToKeysLabels : Labels.character.attributes; track attribute.key) {
-        <mat-form-field>
-          <mat-label>{{ attribute.label }}</mat-label>
-          <input matInput type="number" [formControlName]="attribute.key" [min]="attributeRange.min"
-            [max]="attributeRange.max" />
-        </mat-form-field>
+      @for (attribute of characterForm.controls.attributes.controls | appControlsToKeysLabels :
+      Labels.character.attributes; track attribute.key) {
+      <mat-form-field>
+        <mat-label>{{ attribute.label }}</mat-label>
+        <input matInput type="number" [formControlName]="attribute.key" [min]="Rules.attributeRange.min"
+          [max]="Rules.attributeRange.max" />
+      </mat-form-field>
       }
     </section>
   </section>
@@ -68,18 +64,15 @@
   <section formGroupName="skills">
     <h3>Compétences</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      @for (skill of creationGroup.controls.skills.controls | appControlsToKeysLabels : Labels.character.skills; track skill.key) {
-        <mat-form-field>
-          <mat-label>{{ skill.label }}</mat-label>
-          <input matInput type="number" [formControlName]="skill.key" [min]="skillRange.min" [max]="skillRange.max" />
-        </mat-form-field>
+      @for (skill of characterForm.controls.skills.controls | appControlsToKeysLabels : Labels.character.skills;
+      track
+      skill.key) {
+      <mat-form-field>
+        <mat-label>{{ skill.label }}</mat-label>
+        <input matInput type="number" [formControlName]="skill.key" [min]="Rules.skillRange.min"
+          [max]="Rules.skillRange.max" />
+      </mat-form-field>
       }
     </section>
-  </section>
-
-  <section>
-    <button mat-raised-button color="primary" [disabled]="this.creationDisabled$$()" (click)="createCharacter()">
-      Valider
-    </button>
   </section>
 </form>

@@ -1,0 +1,12 @@
+<section>
+  <h2>{{ Labels.title }}</h2>
+  <p>Création de personnage</p>
+</section>
+
+<app-character-form [luck]="luck$$()" [formGroup]="characterForm" />
+
+<section>
+  <button mat-raised-button color="primary" [disabled]="this.creationDisabled$$()" (click)="createCharacter()">
+    Valider
+  </button>
+</section>
