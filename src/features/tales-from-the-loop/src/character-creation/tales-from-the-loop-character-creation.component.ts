@@ -1,13 +1,14 @@
 import { CommonModule } from "@angular/common";
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { Firestore } from "@angular/fire/firestore";
+import { Firestore, addDoc, collection } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
-import { ActivatedRoute } from "@angular/router";
-import { GamesLabels } from "@constants";
+import { ActivatedRoute, Router } from "@angular/router";
+import { GamesConstants, RoutesConstants } from "@constants";
 import { ControlsToKeyLabelPipe } from "@ui/pipes";
+import { PersistedCharacter } from "../models";
 
 // TODO Persist character on each change to let user come back to pending character creation later
 @Component({
@@ -27,7 +28,9 @@ import { ControlsToKeyLabelPipe } from "@ui/pipes";
 	styleUrls: ["./tales-from-the-loop-character-creation.component.scss"],
 })
 export class TalesFromTheLoopCharacterCreationComponent {
-	protected readonly Labels = GamesLabels.talesFromTheLoop;
+	public characterCreationPending$$ = signal(false);
+
+	protected readonly Labels = GamesConstants.talesFromTheLoop;
 	protected readonly ageRange = { min: 10, max: 15 };
 	protected readonly attributeRange = { min: 0, max: 5 };
 	protected readonly skillRange = { min: 0, max: 5 };
@@ -69,34 +72,40 @@ export class TalesFromTheLoopCharacterCreationComponent {
 		const age$$ = toSignal(this.creationGroup.controls.general.controls.age.valueChanges);
 		return computed(() => 15 - (age$$() ?? 10));
 	})();
+	protected readonly creationDisabled$$ = (() => {
+		const creationGroupStatus$$ = toSignal(this.creationGroup.statusChanges);
+		const creationGroupInvalid$$ = computed(() => creationGroupStatus$$() !== "VALID");
+
+		return computed(() => this.characterCreationPending$$() || creationGroupInvalid$$());
+	})();
 
 	private readonly uid: string = inject(ActivatedRoute).snapshot.data["uid"];
 	private readonly firestore = inject(Firestore);
+	private readonly router = inject(Router);
 
 	protected async createCharacter() {
-		if (this.creationGroup.invalid) {
+		if (this.creationDisabled$$()) {
 			return;
 		}
 
-		const character: any = this.creationGroup.value;
-		character.general.luck = this.luck$$();
-		character.proprietary = this.uid;
+		this.characterCreationPending$$.set(true);
+		this.creationGroup.disable();
+
+		const characterToPersist: Partial<PersistedCharacter> = this.creationGroup.value as PersistedCharacter;
+		characterToPersist.gameId = GamesConstants.talesFromTheLoop.id;
+		if (characterToPersist.general) {
+			characterToPersist.general.luck = this.luck$$();
+		}
 
 		try {
-			// TODO : Push reference in user characters array
-			// const charactersCollection = collection(this.firestore, "characters");
-			// const persistedCharacter = await addDoc(charactersCollection, character);
-			// const currentUserDoc = doc(this.firestore, "users", this.uid);
-			// runTransaction(this.firestore, async (transaction) => {
-			// 	const currentUser = await transaction.get(currentUserDoc);
-			// 	const characters = currentUser.get("characters") ?? [];
-			// 	characters.push(`/characters/${persistedCharacter.id}`);
-			// 	transaction.update(currentUserDoc, { characters });
-			// });
+			const userCharactersCollection = collection(this.firestore, "users", this.uid, "characters");
+			const persistedCharacter = await addDoc(userCharactersCollection, characterToPersist);
+			this.router.navigate(["/", RoutesConstants.talesFromTheLoop, RoutesConstants.characterSheet.path, persistedCharacter.id]);
 		} catch (error) {
 			console.error(error);
 		} finally {
-			// TODO
+			this.characterCreationPending$$.set(false);
+			this.creationGroup.enable();
 		}
 	}
 }

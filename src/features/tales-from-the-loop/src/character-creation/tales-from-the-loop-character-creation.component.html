@@ -78,7 +78,7 @@
   </section>
 
   <section>
-    <button mat-raised-button color="primary" [disabled]="!creationGroup.valid" (click)="createCharacter()">
+    <button mat-raised-button color="primary" [disabled]="this.creationDisabled$$()" (click)="createCharacter()">
       Valider
     </button>
   </section>

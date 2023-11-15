@@ -23,7 +23,8 @@
 		"paths": {
 			"@constants": ["src/constants/index.ts"],
 			"@features/*": ["src/features/*"],
-			"@ui/*": ["src/ui/*"]
+			"@ui/*": ["src/ui/*"],
+      "@models": ["src/models/index.ts"],
 		}
 	},
 	"angularCompilerOptions": {

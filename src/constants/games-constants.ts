@@ -1,5 +1,6 @@
-export const GamesLabels = {
+export const GamesConstants = {
 	talesFromTheLoop: {
+		id: "tales-from-the-loop",
 		title: "Tales from the Loop",
 		character: {
 			general: {
