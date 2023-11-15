@@ -6,7 +6,7 @@ import { GameCardComponent } from "./game-card/game-card.component";
 import { characterCreationRoutes } from "./routes";
 
 @Component({
-	selector: "kaeh-character-creation",
+	selector: "app-character-creation",
 	standalone: true,
 	imports: [
 		// Angular

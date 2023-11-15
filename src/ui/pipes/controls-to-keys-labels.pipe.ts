@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
 @Pipe({
-	name: "kaehControlsToKeysLabels",
+	name: "appControlsToKeysLabels",
 	standalone: true,
 })
 export class ControlsToKeyLabelPipe<T> implements PipeTransform {

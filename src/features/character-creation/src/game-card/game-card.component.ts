@@ -2,7 +2,7 @@ import { CommonModule, NgOptimizedImage } from "@angular/common";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 
 @Component({
-	selector: "kaeh-game-card",
+	selector: "app-game-card",
 	standalone: true,
 	imports: [
 		// Angular

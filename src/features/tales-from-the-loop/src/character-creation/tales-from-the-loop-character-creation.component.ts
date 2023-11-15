@@ -11,7 +11,7 @@ import { ControlsToKeyLabelPipe } from "@ui/pipes";
 
 // TODO Persist character on each change to let user come back to pending character creation later
 @Component({
-	selector: "kaeh-tales-from-the-loop-character-creation",
+	selector: "app-tales-from-the-loop-character-creation",
 	standalone: true,
 	imports: [
 		// Angular

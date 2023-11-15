@@ -55,7 +55,7 @@
   <section formGroupName="attributes">
     <h3>Attributs</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      @for (attribute of creationGroup.controls.attributes.controls | kaehControlsToKeysLabels : Labels.character.attributes; track attribute.key) {
+      @for (attribute of creationGroup.controls.attributes.controls | appControlsToKeysLabels : Labels.character.attributes; track attribute.key) {
         <mat-form-field>
           <mat-label>{{ attribute.label }}</mat-label>
           <input matInput type="number" [formControlName]="attribute.key" [min]="attributeRange.min"
@@ -68,7 +68,7 @@
   <section formGroupName="skills">
     <h3>Compétences</h3>
     <section class="flex flex-row flex-wrap gap-4">
-      @for (skill of creationGroup.controls.skills.controls | kaehControlsToKeysLabels : Labels.character.skills; track skill.key) {
+      @for (skill of creationGroup.controls.skills.controls | appControlsToKeysLabels : Labels.character.skills; track skill.key) {
         <mat-form-field>
           <mat-label>{{ skill.label }}</mat-label>
           <input matInput type="number" [formControlName]="skill.key" [min]="skillRange.min" [max]="skillRange.max" />
