@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { Auth } from "@angular/fire/auth";
+import { Auth, signOut } from "@angular/fire/auth";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { RoutesConstants } from "@constants";
 
 @Component({
@@ -46,8 +46,10 @@ export class HeaderComponent {
 	];
 
 	private readonly auth = inject(Auth);
+	private readonly _router = inject(Router);
 
-	protected logout() {
-		this.auth.signOut();
+	protected async logout() {
+		await signOut(this.auth);
+		await this._router.navigate(["/", RoutesConstants.authentication]);
 	}
 }

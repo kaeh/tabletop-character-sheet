@@ -35,6 +35,7 @@ export const routes: Routes = [
 				path: RoutesConstants.myProfile,
 				loadComponent: () => import("@features/user-profile").then((m) => m.UserProfileComponent),
 			},
+			{ path: "", redirectTo: RoutesConstants.charactersList.path, pathMatch: "full" },
 		],
 	},
 	{
