@@ -1,5 +1,7 @@
 <section class="flex gap-4">
 
+  <app-create-card [routerLink]="['/', RoutesConstants.partyCreation]" class="party-card" />
+
   @for (party of (partiesList$ | async); track party.id) {
   <mat-card class="w-80 items-center cursor-pointer party-card" [routerLink]="[party.id]">
     <mat-card-header class="text-align-center">
@@ -15,6 +17,4 @@
 
   </mat-card>
   }
-
-  <app-create-card [routerLink]="['/', RoutesConstants.partyCreation]" class="party-card" />
 </section>

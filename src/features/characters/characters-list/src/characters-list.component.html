@@ -1,5 +1,7 @@
 <section class="flex gap-4">
 
+  <app-create-card [routerLink]="['/', RoutesConstants.characterCreation]" class="character-card" />
+
   @for (character of (charactersList$ | async); track character.id) {
   <mat-card class="w-80 items-center cursor-pointer character-card" [routerLink]="[character.gameId, character.id]">
     <mat-card-header class="text-align-center">
@@ -18,5 +20,4 @@
   </mat-card>
   }
 
-  <app-create-card [routerLink]="['/', RoutesConstants.characterCreation]" class="character-card" />
 </section>
