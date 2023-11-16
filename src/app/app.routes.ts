@@ -32,6 +32,14 @@ export const routes: Routes = [
 				loadChildren: () => import("@features/characters/characters-list").then((m) => m.charactersListRoutes),
 			},
 			{
+				path: RoutesConstants.partyCreation,
+				loadComponent: () => import("@features/parties/party-creation").then((m) => m.PartyCreationComponent),
+			},
+			{
+				path: RoutesConstants.partiesList.path,
+				loadChildren: () => import("@features/parties/parties-list").then((m) => m.partiesListRoutes),
+			},
+			{
 				path: RoutesConstants.myProfile,
 				loadComponent: () => import("@features/users/user-profile").then((m) => m.UserProfileComponent),
 			},

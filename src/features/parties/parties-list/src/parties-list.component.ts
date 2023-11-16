@@ -4,17 +4,16 @@ import { Firestore, collection, collectionData } from "@angular/fire/firestore";
 import { MatCardModule } from "@angular/material/card";
 import { RouterLink } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { BasePersistedCharacter } from "@models";
+import { BasePersistedParty } from "@models";
 import { CreateCardComponent } from "@ui/components/create-card";
-import { GameIdToLabelPipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
 import { Observable } from "rxjs";
 
-type CharactersList = BasePersistedCharacter[];
-type AsyncCharactersList = Observable<CharactersList>;
+type PartiesList = BasePersistedParty[];
+type AsyncPartiesList = Observable<PartiesList>;
 
 @Component({
-	selector: "app-characters-list",
+	selector: "app-parties-list",
 	standalone: true,
 	imports: [
 		// Angular
@@ -24,13 +23,12 @@ type AsyncCharactersList = Observable<CharactersList>;
 		// Material
 		MatCardModule,
 		// Internal
-		GameIdToLabelPipe,
 		CreateCardComponent,
 	],
-	templateUrl: "./characters-list.component.html",
+	templateUrl: "./parties-list.component.html",
 })
-export class CharactersListComponent {
-	protected readonly charactersList$ = collectionData(collection(inject(Firestore), "users", injectUserId(), "characters"), { idField: "id" }) as AsyncCharactersList;
+export class PartiesListComponent {
+	protected readonly partiesList$ = collectionData(collection(inject(Firestore), "users", injectUserId(), "parties"), { idField: "id" }) as AsyncPartiesList;
 
 	protected readonly RoutesConstants = RoutesConstants;
 }

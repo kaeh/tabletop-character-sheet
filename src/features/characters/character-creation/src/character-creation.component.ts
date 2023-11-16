@@ -1,9 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { ActivatedRoute, RouterLink } from "@angular/router";
-import { CharacterCreationRouteData } from "./character-creation-route-data.interface";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { GameSelectionComponent } from "@ui/components/game-selection";
 import { GameCardComponent } from "./game-card/game-card.component";
-import { characterCreationRoutes } from "./routes";
 
 @Component({
 	selector: "app-character-creation",
@@ -14,17 +13,18 @@ import { characterCreationRoutes } from "./routes";
 		RouterLink,
 		// Internal
 		GameCardComponent,
+		GameSelectionComponent,
 	],
 	templateUrl: "./character-creation.component.html",
 	styleUrls: ["./character-creation.component.scss"],
 })
 export class CharacterCreationComponent {
-	protected readonly activatedRoute = inject(ActivatedRoute);
+	protected readonly title = inject(ActivatedRoute).snapshot.title;
 
-	protected readonly gamesCards = characterCreationRoutes
-		.filter((r) => r.data)
-		.map((r) => ({
-			...(r.data as CharacterCreationRouteData).card,
-			route: r.path,
-		}));
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
+
+	protected onGameCardClicked(gameId: string): void {
+		this.router.navigate([gameId], { relativeTo: this.activatedRoute });
+	}
 }
