@@ -47,8 +47,8 @@ export class PartyCreationComponent {
 	private readonly _characterCreationPending$$ = signal(false);
 	private readonly _uid = injectUserId();
 	private readonly _firestore = inject(Firestore);
-  private readonly _snackBarService = inject(SnackbarService);
-  private readonly _router = inject(Router);
+	private readonly _snackBarService = inject(SnackbarService);
+	private readonly _router = inject(Router);
 
 	constructor() {
 		this.creationDisabled$$ = buildAsyncFormStatusSignal(this.form, this._characterCreationPending$$);
@@ -76,19 +76,19 @@ export class PartyCreationComponent {
 
 			// Save in parties collection
 			const partiesCollection = collection(this._firestore, "parties");
-			const persistedParty = await addDoc(partiesCollection, partyToPersist) as DocumentReference<BasePersistedParty>;
+			const persistedParty = (await addDoc(partiesCollection, partyToPersist)) as DocumentReference<BasePersistedParty>;
 
-      // Save in current user's parties
-      await this._savePlayerParty(this._uid, persistedParty);
+			// Save in current user's parties
+			await this._savePlayerParty(this._uid, persistedParty);
 
-      // Save in players' parties
-      for (const player of this.form.getRawValue().players) {
-        await this._savePlayerParty(player, persistedParty);
-      }
+			// Save in players' parties
+			for (const player of this.form.getRawValue().players) {
+				await this._savePlayerParty(player, persistedParty);
+			}
 
-      this._snackBarService.showSuccess("Partie créée");
+			this._snackBarService.showSuccess("Partie créée");
 
-      await this._router.navigate(["/", RoutesConstants.partiesList.path]);
+			await this._router.navigate(["/", RoutesConstants.partiesList.path]);
 		} catch (error) {
 			this._snackBarService.showFailure("Erreur lors de la création de la partie");
 			console.log(error);
@@ -96,10 +96,10 @@ export class PartyCreationComponent {
 			this._characterCreationPending$$.set(false);
 			this.form.enable();
 		}
-  }
+	}
 
-  private async _savePlayerParty(uid: string, partyRef: DocumentReference<BasePersistedParty>) {
-    const userPartiesDoc = doc(this._firestore, "users", uid);
-    await updateDoc(userPartiesDoc, { parties: arrayUnion(partyRef) });
-  }
+	private async _savePlayerParty(uid: string, partyRef: DocumentReference<BasePersistedParty>) {
+		const userPartiesDoc = doc(this._firestore, "users", uid);
+		await updateDoc(userPartiesDoc, { parties: arrayUnion(partyRef) });
+	}
 }

@@ -23,9 +23,9 @@ import { UserAvatarFallbackPipe } from "@ui/pipes";
 		MatIconModule,
 		MatButtonModule,
 		MatRippleModule,
-    MatMenuModule,
-    // Internal
-    UserAvatarFallbackPipe
+		MatMenuModule,
+		// Internal
+		UserAvatarFallbackPipe,
 	],
 	templateUrl: "./header.component.html",
 	styleUrls: ["./header.component.scss"],

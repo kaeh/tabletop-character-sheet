@@ -15,37 +15,37 @@ type AsyncParty = Observable<BasePersistedParty>;
 type AsyncPartiesList = Observable<BasePersistedParty[]>;
 
 const injectPartiesList = (): AsyncPartiesList => {
-  const user = doc(inject(Firestore), "users", injectUserId()) as DocumentReference<PersistedUser>;
+	const user = doc(inject(Firestore), "users", injectUserId()) as DocumentReference<PersistedUser>;
 
-  return docData(user).pipe(
-    filter((x): x is PersistedUser => !!x),
-    map(({ parties }) => parties.map((party) => docData(party, {idField: 'id'}) as AsyncParty)),
-    switchMap((parties) => zip(parties)),
-  )
-}
+	return docData(user).pipe(
+		filter((x): x is PersistedUser => !!x),
+		map(({ parties }) => parties.map((party) => docData(party, { idField: "id" }) as AsyncParty)),
+		switchMap((parties) => zip(parties)),
+	);
+};
 
 @Component({
-    selector: "app-parties-list",
-    standalone: true,
-    templateUrl: "./parties-list.component.html",
-    styleUrls: ["./parties-list.component.scss"],
-    imports: [
-        // Angular
-        CommonModule,
-        RouterLink,
-        // Material
-        MatCardModule,
-        MatTooltipModule,
-        // Internal
-        CreateCardComponent,
-        RefToDocPipe,
-        ToPersistedUserPipe,
-        UserAvatarFallbackPipe,
-        GameIdToTitlePipe
-    ]
+	selector: "app-parties-list",
+	standalone: true,
+	templateUrl: "./parties-list.component.html",
+	styleUrls: ["./parties-list.component.scss"],
+	imports: [
+		// Angular
+		CommonModule,
+		RouterLink,
+		// Material
+		MatCardModule,
+		MatTooltipModule,
+		// Internal
+		CreateCardComponent,
+		RefToDocPipe,
+		ToPersistedUserPipe,
+		UserAvatarFallbackPipe,
+		GameIdToTitlePipe,
+	],
 })
 export class PartiesListComponent {
-  protected readonly partiesList$ = injectPartiesList();
+	protected readonly partiesList$ = injectPartiesList();
 
-  protected readonly RoutesConstants = RoutesConstants;
+	protected readonly RoutesConstants = RoutesConstants;
 }
