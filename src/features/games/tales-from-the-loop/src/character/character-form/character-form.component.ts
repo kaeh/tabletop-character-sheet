@@ -3,9 +3,9 @@ import { Component, Input, OnInit, inject } from "@angular/core";
 import { ControlContainer, ControlValueAccessor, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { ControlsToKeyLabelPipe } from "@ui/pipes";
-import { gameLabels } from "../constants/game-labels";
-import { gameRules } from "../constants/game-rules";
-import { characterForm } from "../utils/character-form.injector";
+import { gameLabels } from "../../constants/game-labels";
+import { gameRules } from "../../constants/game-rules";
+import { characterForm } from "../../utils/character-form.injector";
 
 @Component({
 	selector: "app-character-form",

@@ -7,10 +7,10 @@ import { ActivatedRoute } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { injectUserId } from "@utils";
 import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from "rxjs";
+import { gameLabels } from "../../constants/game-labels";
+import { PersistedCharacter } from "../../models";
+import { characterForm } from "../../utils/character-form.injector";
 import { CharacterFormComponent } from "../character-form/character-form.component";
-import { gameLabels } from "../constants/game-labels";
-import { PersistedCharacter } from "../models";
-import { characterForm } from "../utils/character-form.injector";
 
 @Component({
 	selector: "app-character-sheet",

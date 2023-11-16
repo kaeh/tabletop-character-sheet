@@ -8,12 +8,12 @@ import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { injectUserId } from "@utils";
 import { tap } from "rxjs";
+import { gameId } from "../../constants/game-id";
+import { gameLabels } from "../../constants/game-labels";
+import { gameRules } from "../../constants/game-rules";
+import { PersistedCharacter } from "../../models";
+import { characterForm } from "../../utils/character-form.injector";
 import { CharacterFormComponent } from "../character-form/character-form.component";
-import { gameId } from "../constants/game-id";
-import { gameLabels } from "../constants/game-labels";
-import { gameRules } from "../constants/game-rules";
-import { PersistedCharacter } from "../models";
-import { characterForm } from "../utils/character-form.injector";
 
 @Component({
 	standalone: true,
