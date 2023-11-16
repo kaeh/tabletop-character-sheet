@@ -6,7 +6,7 @@ import { RouterLink } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { BasePersistedCharacter } from "@models";
 import { CreateCardComponent } from "@ui/components/create-card";
-import { GameIdToLabelPipe } from "@ui/pipes";
+import { GameIdToTitlePipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
 import { Observable } from "rxjs";
 
@@ -24,7 +24,7 @@ type AsyncCharactersList = Observable<CharactersList>;
 		// Material
 		MatCardModule,
 		// Internal
-		GameIdToLabelPipe,
+		GameIdToTitlePipe,
 		CreateCardComponent,
 	],
 	templateUrl: "./characters-list.component.html",

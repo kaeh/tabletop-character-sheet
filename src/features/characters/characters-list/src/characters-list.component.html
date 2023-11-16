@@ -8,7 +8,7 @@
       <mat-card-title>
         {{ character.general.firstName | titlecase }} {{ character.general.lastName | uppercase }}
       </mat-card-title>
-      <mat-card-subtitle>{{ character.gameId | appGameIdToLabel }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ character.gameId | appGameIdToTitle | async }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
