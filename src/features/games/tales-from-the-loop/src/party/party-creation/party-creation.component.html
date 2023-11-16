@@ -1,1 +1,29 @@
-<p>party-creation works!</p>
+<section>
+  <h2>{{ title }}</h2>
+  <p>Création d'une partie</p>
+</section>
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Nom de la partie</mat-label>
+    <input matInput type="text" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Joueurs</mat-label>
+    <mat-select formControlName="players" multiple>
+      @for (user of (users$ | async) ?? []; track user.id) {
+      <mat-option [value]="user.id">{{user.displayName}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+
+</form>
+
+
+<section>
+  <button mat-raised-button color="primary" [disabled]="this.creationDisabled$$()" (click)="createParty()">
+    Valider
+  </button>
+</section>

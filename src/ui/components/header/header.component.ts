@@ -8,6 +8,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { RoutesConstants } from "@constants";
+import { UserAvatarFallbackPipe } from "@ui/pipes";
 
 @Component({
 	selector: "app-header",
@@ -22,14 +23,16 @@ import { RoutesConstants } from "@constants";
 		MatIconModule,
 		MatButtonModule,
 		MatRippleModule,
-		MatMenuModule,
+    MatMenuModule,
+    // Internal
+    UserAvatarFallbackPipe
 	],
 	templateUrl: "./header.component.html",
 	styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent {
 	protected readonly RoutesConstants = RoutesConstants;
-	protected readonly userAvatar = inject(Auth).currentUser?.photoURL ?? "/assets/user-avatar-placeholder.png";
+	protected readonly userAvatar = inject(Auth).currentUser?.photoURL;
 	protected readonly menuItems = [
 		{
 			label: "Mes personnages",

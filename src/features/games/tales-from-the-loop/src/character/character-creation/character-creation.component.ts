@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
+import { SnackbarService } from "@services";
 import { buildAsyncFormStatusSignal, injectUserId } from "@utils";
 import { tap } from "rxjs";
 import { gameId } from "../../constants/game-id";
@@ -43,6 +44,7 @@ export class CharacterCreationComponent {
 	private readonly _uid = injectUserId();
 	private readonly _firestore = inject(Firestore);
 	private readonly _router = inject(Router);
+	private readonly _snackBarService = inject(SnackbarService);
 
 	constructor() {
 		const { attributes, general, skills } = this.characterForm.getRawValue();
@@ -78,9 +80,10 @@ export class CharacterCreationComponent {
 		try {
 			const userCharactersCollection = collection(this._firestore, "users", this._uid, "characters");
 			await addDoc(userCharactersCollection, characterToPersist);
+			this._snackBarService.showSuccess("Personnage créé");
 			this._router.navigate(["/", RoutesConstants.charactersList.path]);
 		} catch (error) {
-			console.error(error);
+			this._snackBarService.showFailure("Erreur lors de la création du personnage");
 		} finally {
 			this._characterCreationPending$$.set(false);
 			this.characterForm.enable();

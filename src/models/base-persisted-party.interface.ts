@@ -1,11 +1,16 @@
-export interface BasePersistedParty {
+import { DocumentReference } from "@angular/fire/firestore";
+import { BasePersistedCharacter } from "./base-persisted-character.interface";
+import { PersistedUser } from "./persisted-user.interface";
+
+export interface BasePersistedParty<TCharacter = BasePersistedCharacter> {
 	id: string;
 	gameId: string;
-	campaignLabel: string;
+	name: string;
 	image?: string;
 
+	gameMaster: DocumentReference<PersistedUser>;
 	players: {
-		id: string;
-		character: string;
+		ref: DocumentReference<PersistedUser>;
+		character: DocumentReference<TCharacter>;
 	}[];
 }

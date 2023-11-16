@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { Firestore, collection, collectionData } from "@angular/fire/firestore";
 import { MatCardModule } from "@angular/material/card";
@@ -19,7 +19,6 @@ type AsyncCharactersList = Observable<CharactersList>;
 	imports: [
 		// Angular
 		CommonModule,
-		NgOptimizedImage,
 		RouterLink,
 		// Material
 		MatCardModule,

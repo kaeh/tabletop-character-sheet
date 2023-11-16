@@ -1,34 +1,51 @@
-import { CommonModule, NgOptimizedImage } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { Firestore, collection, collectionData } from "@angular/fire/firestore";
+import { DocumentReference, Firestore, doc, docData } from "@angular/fire/firestore";
 import { MatCardModule } from "@angular/material/card";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterLink } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { BasePersistedParty } from "@models";
+import { BasePersistedParty, PersistedUser } from "@models";
 import { CreateCardComponent } from "@ui/components/create-card";
+import { GameIdToTitlePipe, RefToDocPipe, ToPersistedUserPipe, UserAvatarFallbackPipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
-import { Observable } from "rxjs";
+import { Observable, filter, map, switchMap, zip } from "rxjs";
 
-type PartiesList = BasePersistedParty[];
-type AsyncPartiesList = Observable<PartiesList>;
+type AsyncParty = Observable<BasePersistedParty>;
+type AsyncPartiesList = Observable<BasePersistedParty[]>;
+
+const injectPartiesList = (): AsyncPartiesList => {
+  const user = doc(inject(Firestore), "users", injectUserId()) as DocumentReference<PersistedUser>;
+
+  return docData(user).pipe(
+    filter((x): x is PersistedUser => !!x),
+    map(({ parties }) => parties.map((party) => docData(party, {idField: 'id'}) as AsyncParty)),
+    switchMap((parties) => zip(parties)),
+  )
+}
 
 @Component({
-	selector: "app-parties-list",
-	standalone: true,
-	imports: [
-		// Angular
-		CommonModule,
-		NgOptimizedImage,
-		RouterLink,
-		// Material
-		MatCardModule,
-		// Internal
-		CreateCardComponent,
-	],
-	templateUrl: "./parties-list.component.html",
+    selector: "app-parties-list",
+    standalone: true,
+    templateUrl: "./parties-list.component.html",
+    styleUrls: ["./parties-list.component.scss"],
+    imports: [
+        // Angular
+        CommonModule,
+        RouterLink,
+        // Material
+        MatCardModule,
+        MatTooltipModule,
+        // Internal
+        CreateCardComponent,
+        RefToDocPipe,
+        ToPersistedUserPipe,
+        UserAvatarFallbackPipe,
+        GameIdToTitlePipe
+    ]
 })
 export class PartiesListComponent {
-	protected readonly partiesList$ = collectionData(collection(inject(Firestore), "users", injectUserId(), "parties"), { idField: "id" }) as AsyncPartiesList;
+  protected readonly partiesList$ = injectPartiesList();
 
-	protected readonly RoutesConstants = RoutesConstants;
+  protected readonly RoutesConstants = RoutesConstants;
 }
