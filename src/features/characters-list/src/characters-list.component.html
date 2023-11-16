@@ -2,10 +2,11 @@
 
   @for (character of (charactersList$ | async); track character.id) {
   <mat-card class="w-80 items-center cursor-pointer" [routerLink]="[character.gameId, character.id]">
-    <mat-card-header>
+    <mat-card-header class="text-align-center">
       <mat-card-title>
         {{ character.general.firstName | titlecase }} {{ character.general.lastName | uppercase }}
       </mat-card-title>
+      <mat-card-subtitle>{{ character.gameId | appGameIdToLabel }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>

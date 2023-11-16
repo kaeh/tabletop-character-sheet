@@ -7,6 +7,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { BasePersistedCharacter } from "@models";
+import { GameIdToLabelPipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
 import { Observable } from "rxjs";
 
@@ -25,6 +26,8 @@ type AsyncCharactersList = Observable<CharactersList>;
 		MatCardModule,
 		MatIconModule,
 		MatButtonModule,
+		// Internal
+		GameIdToLabelPipe,
 	],
 	templateUrl: "./characters-list.component.html",
 	styleUrl: "./characters-list.component.scss",
