@@ -24,7 +24,7 @@ import { CharacterFormComponent } from "../character-form/character-form.compone
 	],
 	templateUrl: "./character-sheet.component.html",
 })
-export class TalesFromTheLoopCharacterSheetComponent {
+export class CharacterSheetComponent {
 	protected readonly Labels = gameLabels;
 	protected readonly characterForm = characterForm();
 

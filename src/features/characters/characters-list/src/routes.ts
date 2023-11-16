@@ -11,6 +11,6 @@ export const charactersListRoutes: Route[] = [
 	},
 	{
 		path: `${RoutesConstants.talesFromTheLoop}/:${RoutesConstants.charactersList.routeParams.characterId}`,
-		loadComponent: () => import("@features/games/tales-from-the-loop").then((m) => m.TalesFromTheLoopCharacterSheetComponent),
+		loadComponent: () => import("@features/games/tales-from-the-loop").then((m) => m.CharacterSheetComponent),
 	},
 ];

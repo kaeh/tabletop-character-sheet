@@ -28,7 +28,7 @@ import { CharacterFormComponent } from "../character-form/character-form.compone
 	],
 	templateUrl: "./character-creation.component.html",
 })
-export class TalesFromTheLoopCharacterCreationComponent {
+export class CharacterCreationComponent {
 	public characterCreationPending$$ = signal(false);
 
 	protected readonly Labels = gameLabels;

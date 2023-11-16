@@ -16,7 +16,7 @@ export const characterCreationRoutes: Route[] = [
 	},
 	{
 		path: RoutesConstants.talesFromTheLoop,
-		loadComponent: () => import("@features/games/tales-from-the-loop").then((m) => m.TalesFromTheLoopCharacterCreationComponent),
+		loadComponent: () => import("@features/games/tales-from-the-loop").then((m) => m.CharacterCreationComponent),
 		title: `${baseTitle} - ${TalesFromTheLoopLabels.title}`,
 	},
 ];
