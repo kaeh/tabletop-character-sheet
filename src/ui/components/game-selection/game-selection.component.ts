@@ -1,8 +1,9 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Component, inject } from "@angular/core";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { GameCardComponent } from "../game-card";
 import { registeredGameCard } from "../game-card/registered-games-cards";
+import { GameSelectionRouteData } from "./game-selection-route-data.interface";
 
 @Component({
 	selector: "app-game-selection",
@@ -17,10 +18,8 @@ import { registeredGameCard } from "../game-card/registered-games-cards";
 	templateUrl: "./game-selection.component.html",
 })
 export class GameSelectionComponent {
-	@Input({ required: true }) public title!: string;
-	@Input({ required: true }) public subTitle!: string;
-
-	@Output() public readonly cardClicked = new EventEmitter<string>();
-
+	protected readonly activatedRoute = inject(ActivatedRoute);
+	protected readonly title = this.activatedRoute.snapshot.title;
+	protected readonly subtitle = (this.activatedRoute.snapshot.data as GameSelectionRouteData).subtitle;
 	protected readonly gamesCards = registeredGameCard;
 }

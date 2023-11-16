@@ -1,1 +1,1 @@
-export * from "./party-creation.component";
+export * from "./routes";

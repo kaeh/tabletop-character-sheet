@@ -33,7 +33,7 @@ export const routes: Routes = [
 			},
 			{
 				path: RoutesConstants.partyCreation,
-				loadComponent: () => import("@features/parties/party-creation").then((m) => m.PartyCreationComponent),
+				loadChildren: () => import("@features/parties/party-creation").then((m) => m.characterCreationRoutes),
 			},
 			{
 				path: RoutesConstants.partiesList.path,
