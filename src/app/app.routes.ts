@@ -12,7 +12,7 @@ const resolveUserId = () => user(inject(Auth)).pipe(map((user) => user?.uid));
 export const routes: Routes = [
 	{
 		path: RoutesConstants.authentication,
-		loadComponent: () => import("@features/authentication").then((m) => m.AuthenticationComponent),
+		loadComponent: () => import("@features/users/authentication").then((m) => m.AuthenticationComponent),
 		...canActivate(redirectLoggedInToBase),
 	},
 	{
@@ -25,15 +25,15 @@ export const routes: Routes = [
 		children: [
 			{
 				path: RoutesConstants.characterCreation,
-				loadChildren: () => import("@features/character-creation").then((m) => m.characterCreationRoutes),
+				loadChildren: () => import("@features/characters/character-creation").then((m) => m.characterCreationRoutes),
 			},
 			{
 				path: RoutesConstants.charactersList.path,
-				loadChildren: () => import("@features/characters-list").then((m) => m.charactersListRoutes),
+				loadChildren: () => import("@features/characters/characters-list").then((m) => m.charactersListRoutes),
 			},
 			{
 				path: RoutesConstants.myProfile,
-				loadComponent: () => import("@features/user-profile").then((m) => m.UserProfileComponent),
+				loadComponent: () => import("@features/users/user-profile").then((m) => m.UserProfileComponent),
 			},
 			{ path: "", redirectTo: RoutesConstants.charactersList.path, pathMatch: "full" },
 		],
