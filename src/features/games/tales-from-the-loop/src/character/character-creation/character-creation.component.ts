@@ -6,14 +6,17 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { injectUserId } from "@utils";
+import { buildAsyncFormStatusSignal, injectUserId } from "@utils";
 import { tap } from "rxjs";
 import { gameId } from "../../constants/game-id";
 import { gameLabels } from "../../constants/game-labels";
 import { gameRules } from "../../constants/game-rules";
 import { PersistedCharacter } from "../../models";
-import { characterForm } from "../../utils/character-form.injector";
+import { buildCharacterForm } from "../../utils/character-form.injector";
 import { CharacterFormComponent } from "../character-form/character-form.component";
+
+type AttributesSignal = Signal<PersistedCharacter["attributes"]>;
+type SkillsSignal = Signal<PersistedCharacter["skills"]>;
 
 @Component({
 	standalone: true,
@@ -29,35 +32,28 @@ import { CharacterFormComponent } from "../character-form/character-form.compone
 	templateUrl: "./character-creation.component.html",
 })
 export class CharacterCreationComponent {
-	public characterCreationPending$$ = signal(false);
+	protected readonly creationDisabled$$: Signal<boolean>;
+	protected readonly remainingAttributePoints$$: Signal<number>;
+	protected readonly remainingSkillPoints$$: Signal<number>;
 
-	protected readonly Labels = gameLabels;
-	protected readonly characterForm = characterForm();
-	protected readonly creationDisabled$$ = (() => {
-		const creationGroupStatus$$ = toSignal(this.characterForm.statusChanges);
-		const characterFormIsInvalid$$ = computed(() => creationGroupStatus$$() !== "VALID");
+	protected readonly title = gameLabels.title;
+	protected readonly characterForm = buildCharacterForm();
 
-		return computed(() => this.characterCreationPending$$() || characterFormIsInvalid$$());
-	})();
-	protected readonly remainingAttributePoints$$ = (() => {
-		const attributes$$ = toSignal(this.characterForm.controls.attributes.valueChanges, { initialValue: this.characterForm.getRawValue().attributes }) as Signal<
-			PersistedCharacter["attributes"]
-		>;
-		const age$$ = toSignal(this.characterForm.controls.general.controls.age.valueChanges, { initialValue: this.characterForm.getRawValue().general.age });
-
-		return computed(() => gameRules.computeRemainingAttributePoints(attributes$$(), age$$()));
-	})();
-	protected readonly remainingSkillPoints$$ = (() => {
-		const skills$$ = toSignal(this.characterForm.controls.skills.valueChanges, { initialValue: this.characterForm.getRawValue().skills }) as Signal<PersistedCharacter["skills"]>;
-
-		return computed(() => gameRules.computeRemainingSkillPoints(skills$$()));
-	})();
-
-	private readonly uid = injectUserId();
-	private readonly firestore = inject(Firestore);
-	private readonly router = inject(Router);
+	private readonly _characterCreationPending$$ = signal(false);
+	private readonly _uid = injectUserId();
+	private readonly _firestore = inject(Firestore);
+	private readonly _router = inject(Router);
 
 	constructor() {
+		const { attributes, general, skills } = this.characterForm.getRawValue();
+		const age$$ = toSignal(this.characterForm.controls.general.controls.age.valueChanges, { initialValue: general.age });
+		const attributes$$ = toSignal(this.characterForm.controls.attributes.valueChanges, { initialValue: attributes }) as AttributesSignal;
+		const skills$$ = toSignal(this.characterForm.controls.skills.valueChanges, { initialValue: skills }) as SkillsSignal;
+
+		this.creationDisabled$$ = buildAsyncFormStatusSignal(this.characterForm, this._characterCreationPending$$);
+		this.remainingAttributePoints$$ = computed(() => gameRules.computeRemainingAttributePoints(attributes$$(), age$$()));
+		this.remainingSkillPoints$$ = computed(() => gameRules.computeRemainingSkillPoints(skills$$()));
+
 		this.characterForm.controls.general.controls.luck.disable();
 
 		this.characterForm.controls.general.controls.age.valueChanges
@@ -73,20 +69,20 @@ export class CharacterCreationComponent {
 			return;
 		}
 
-		this.characterCreationPending$$.set(true);
+		this._characterCreationPending$$.set(true);
 		this.characterForm.disable();
 
 		const characterToPersist: Partial<PersistedCharacter> = this.characterForm.getRawValue() as PersistedCharacter;
 		characterToPersist.gameId = gameId;
 
 		try {
-			const userCharactersCollection = collection(this.firestore, "users", this.uid, "characters");
+			const userCharactersCollection = collection(this._firestore, "users", this._uid, "characters");
 			await addDoc(userCharactersCollection, characterToPersist);
-			this.router.navigate(["/", RoutesConstants.charactersList.path]);
+			this._router.navigate(["/", RoutesConstants.charactersList.path]);
 		} catch (error) {
 			console.error(error);
 		} finally {
-			this.characterCreationPending$$.set(false);
+			this._characterCreationPending$$.set(false);
 			this.characterForm.enable();
 		}
 	}

@@ -5,7 +5,7 @@ import { MatInputModule } from "@angular/material/input";
 import { ControlsToKeyLabelPipe } from "@ui/pipes";
 import { gameLabels } from "../../constants/game-labels";
 import { gameRules } from "../../constants/game-rules";
-import { characterForm } from "../../utils/character-form.injector";
+import { buildCharacterForm } from "../../utils/character-form.injector";
 
 @Component({
 	selector: "app-character-form",
@@ -25,7 +25,7 @@ export class CharacterFormComponent implements OnInit, ControlValueAccessor {
 	@Input() public remainingAttributePoints?: number;
 	@Input() public remainingSkillPoints?: number;
 
-	protected characterForm = characterForm();
+	protected characterForm = buildCharacterForm();
 	protected readonly Labels = gameLabels;
 	protected readonly Rules = gameRules;
 
@@ -33,7 +33,7 @@ export class CharacterFormComponent implements OnInit, ControlValueAccessor {
 
 	ngOnInit(): void {
 		if (this.controlContainer.control?.value) {
-			this.characterForm = this.controlContainer.control as ReturnType<typeof characterForm>;
+			this.characterForm = this.controlContainer.control as ReturnType<typeof buildCharacterForm>;
 		}
 	}
 

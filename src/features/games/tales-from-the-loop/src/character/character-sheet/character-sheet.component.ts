@@ -9,7 +9,7 @@ import { injectUserId } from "@utils";
 import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from "rxjs";
 import { gameLabels } from "../../constants/game-labels";
 import { PersistedCharacter } from "../../models";
-import { characterForm } from "../../utils/character-form.injector";
+import { buildCharacterForm } from "../../utils/character-form.injector";
 import { CharacterFormComponent } from "../character-form/character-form.component";
 
 @Component({
@@ -26,7 +26,7 @@ import { CharacterFormComponent } from "../character-form/character-form.compone
 })
 export class CharacterSheetComponent {
 	protected readonly Labels = gameLabels;
-	protected readonly characterForm = characterForm();
+	protected readonly characterForm = buildCharacterForm();
 
 	private _characterDoc!: DocumentReference<PersistedCharacter>;
 	private readonly uid = injectUserId();
