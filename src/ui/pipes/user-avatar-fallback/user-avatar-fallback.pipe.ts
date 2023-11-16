@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class UserAvatarFallbackPipe implements PipeTransform {
 	transform(value: string | null | undefined): string {
-		return value ?? "/assets/user-avatar-placeholder.png";
+		return value || "/assets/user-avatar-placeholder.png";
 	}
 }

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Attention !</h1>
+<div mat-dialog-content>
+  <p>Cette action est irréversible.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" [mat-dialog-close]="false">Annuler</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Confirmer</button>
+</div>

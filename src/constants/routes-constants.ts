@@ -24,7 +24,7 @@ export const RoutesConstants = {
 	partiesList: {
 		path: "parties",
 		routeParams: {
-			characterId: "partyId",
+			partyId: "partyId",
 		},
 	},
 };

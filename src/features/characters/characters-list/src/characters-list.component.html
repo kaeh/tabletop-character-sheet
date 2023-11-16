@@ -1,4 +1,4 @@
-<section class="flex gap-4">
+<section class="flex gap-4 flex-wrap">
 
   <app-create-card [routerLink]="['/', RoutesConstants.characterCreation]" class="character-card" />
 
@@ -12,7 +12,7 @@
     </mat-card-header>
 
     <img mat-card-image
-      [src]="character.general.avatar ?? '/assets/' + character.gameId + '/character-card-avatar-placeholder.png'" />
+      [src]="character.general.avatar | appCharacterAvatarFallback: character.gameId" />
 
   </mat-card>
   }

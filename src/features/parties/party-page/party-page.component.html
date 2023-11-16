@@ -1,0 +1,16 @@
+@if (party$$()) {
+  @if (party$$()!.gameMaster | appIsUserGameMaster) {
+    <section>
+      <mat-tab-group>
+        <mat-tab label="Partie">
+          <app-party-page-content [party]="party$$()!" />
+        </mat-tab>
+        <mat-tab label="Administration">
+          <app-party-page-admin [party]="party$$()!" />
+        </mat-tab>
+      </mat-tab-group>
+    </section>
+  } @else {
+    <app-party-page-content [party]="party$$()!" />
+  }
+}

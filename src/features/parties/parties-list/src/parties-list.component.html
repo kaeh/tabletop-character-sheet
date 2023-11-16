@@ -1,4 +1,4 @@
-<section class="flex gap-4">
+<section class="flex gap-4 flex-wrap">
 
   <app-create-card [routerLink]="['/', RoutesConstants.partyCreation]" class="party-card" />
 
@@ -13,8 +13,7 @@
       <mat-card-subtitle>{{ party.gameId | appGameIdToTitle | async }}</mat-card-subtitle>
     </mat-card-header>
 
-    <img mat-card-image [src]="party.image ?? '/assets/' + party.gameId + '/party-card-avatar-placeholder.jpg'" />
-
+    <img mat-card-image [src]="party.image | appPartyImageFallback: party.gameId" />
   </mat-card>
   }
 </section>

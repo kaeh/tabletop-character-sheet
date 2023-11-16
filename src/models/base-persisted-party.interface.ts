@@ -6,11 +6,12 @@ export interface BasePersistedParty<TCharacter = BasePersistedCharacter> {
 	id: string;
 	gameId: string;
 	name: string;
+	description: string;
 	image?: string;
 
 	gameMaster: DocumentReference<PersistedUser>;
 	players: {
 		ref: DocumentReference<PersistedUser>;
-		character: DocumentReference<TCharacter>;
+		character?: DocumentReference<TCharacter>;
 	}[];
 }

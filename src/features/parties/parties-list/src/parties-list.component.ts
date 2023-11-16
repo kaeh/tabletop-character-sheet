@@ -7,7 +7,7 @@ import { RouterLink } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { BasePersistedParty, PersistedUser } from "@models";
 import { CreateCardComponent } from "@ui/components/create-card";
-import { GameIdToTitlePipe, RefToDocPipe, ToPersistedUserPipe, UserAvatarFallbackPipe } from "@ui/pipes";
+import { GameIdToTitlePipe, PartyImageFallbackPipe, RefToDocPipe, ToPersistedUserPipe, UserAvatarFallbackPipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
 import { Observable, filter, map, switchMap, zip } from "rxjs";
 
@@ -42,6 +42,7 @@ const injectPartiesList = (): AsyncPartiesList => {
 		ToPersistedUserPipe,
 		UserAvatarFallbackPipe,
 		GameIdToTitlePipe,
+		PartyImageFallbackPipe,
 	],
 })
 export class PartiesListComponent {

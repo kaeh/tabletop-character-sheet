@@ -6,7 +6,7 @@ import { RouterLink } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { BasePersistedCharacter } from "@models";
 import { CreateCardComponent } from "@ui/components/create-card";
-import { GameIdToTitlePipe } from "@ui/pipes";
+import { CharacterAvatarFallbackPipe, GameIdToTitlePipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
 import { Observable } from "rxjs";
 
@@ -25,6 +25,7 @@ type AsyncCharactersList = Observable<CharactersList>;
 		// Internal
 		GameIdToTitlePipe,
 		CreateCardComponent,
+		CharacterAvatarFallbackPipe,
 	],
 	templateUrl: "./characters-list.component.html",
 })

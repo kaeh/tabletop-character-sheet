@@ -1,13 +1,9 @@
-import { inject } from "@angular/core";
-import { Auth, user } from "@angular/fire/auth";
 import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from "@angular/fire/auth-guard";
 import { Routes } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { map } from "rxjs";
 
 const redirectLoggedInToBase = () => redirectLoggedInTo(["/"]);
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(["/", RoutesConstants.authentication]);
-const resolveUserId = () => user(inject(Auth)).pipe(map((user) => user?.uid));
 
 export const routes: Routes = [
 	{
@@ -19,9 +15,6 @@ export const routes: Routes = [
 		path: "",
 		loadComponent: () => import("@ui/components/main-layout").then((m) => m.MainLayoutComponent),
 		...canActivate(redirectUnauthorizedToLogin),
-		resolve: {
-			uid: resolveUserId,
-		},
 		children: [
 			{
 				path: RoutesConstants.characterCreation,

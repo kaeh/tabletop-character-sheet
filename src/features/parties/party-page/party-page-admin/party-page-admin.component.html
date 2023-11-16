@@ -1,0 +1,48 @@
+<section>
+  <h2>Administration de la partie</h2>
+</section>
+
+<form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="updateParty()">
+  <mat-form-field>
+    <mat-label>Nom de la partie</mat-label>
+    <input matInput type="text" [placeholder]="this.form.value.name!" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="Description..." formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Joueurs</mat-label>
+    <mat-select formControlName="players" multiple>
+      @for (user of users$$(); track user.id) {
+        <mat-option [value]="user.id">{{user.displayName}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <section class="flex flex-row justify-between">
+    <button type="submit" mat-raised-button color="primary" [disabled]="this.updateDisabled$$()">
+      Valider
+    </button>
+  </section>
+</form>
+
+<section class="flex flex-col mt-4">
+  <h2 class="mb-0">Danger zone</h2>
+  <section class="p-4 flex flex-col items-end gap-4 border-dashed border-2 border-red-500 bg-gray-700">
+    <button type="button" mat-raised-button color="warn" (click)="deleteParty()">
+      Supprimer la partie
+    </button>
+
+    <mat-form-field>
+      <mat-label>Changer de MJ</mat-label>
+      <mat-select [formControl]="gameMasterControl" (valueChange)="updateGameMaster($event)">
+        @for (player of playersInformations$$(); track player.id) {
+          <mat-option [value]="player.id">{{player?.displayName}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </section>
+</section>
