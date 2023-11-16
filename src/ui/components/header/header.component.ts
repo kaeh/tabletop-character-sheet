@@ -39,10 +39,6 @@ export class HeaderComponent {
 			label: "Mes parties",
 			routerLink: RoutesConstants.partiesList.path,
 		},
-		{
-			label: "Nouveau personnage",
-			routerLink: RoutesConstants.characterCreation,
-		},
 	];
 
 	private readonly auth = inject(Auth);
