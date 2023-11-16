@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { Auth, User, updateProfile } from "@angular/fire/auth";
+import { Firestore, doc, updateDoc } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
@@ -27,13 +28,14 @@ export class UserProfileComponent {
 	});
 
 	private readonly _snackBar = inject(MatSnackBar);
+	private readonly _firestore = inject(Firestore);
 
 	protected async persistChanges() {
 		let displayedMessage = "";
 		let panelClass = "";
 
 		try {
-			await updateProfile(this.user, this.form.getRawValue());
+			await Promise.all([updateProfile(this.user, this.form.getRawValue()), updateDoc(doc(this._firestore, "users", this.user.uid), this.form.getRawValue())]);
 			displayedMessage = "Profil mis à jour";
 			panelClass = "success";
 		} catch (error) {
