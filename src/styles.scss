@@ -27,3 +27,11 @@ body {
 .text-align-center {
   text-align: center;
 }
+
+.character-card {
+  min-height: 286px;
+}
+
+.party-card {
+  @extend .character-card;
+}

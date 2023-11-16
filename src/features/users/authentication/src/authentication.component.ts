@@ -6,8 +6,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { SnackbarService } from "@services";
 
 @Component({
 	selector: "app-authentication",
@@ -21,7 +21,6 @@ import { Router } from "@angular/router";
 		MatProgressBarModule,
 		MatInputModule,
 		MatButtonModule,
-		MatSnackBarModule,
 	],
 	templateUrl: "./authentication.component.html",
 	styleUrl: "./authentication.component.scss",
@@ -37,7 +36,7 @@ export class AuthenticationComponent {
 
 	private readonly auth: Auth = inject(Auth);
 	private readonly router = inject(Router);
-	private readonly _snackBar = inject(MatSnackBar);
+	private readonly _snackBarService = inject(SnackbarService);
 
 	protected async tryAuthenticate() {
 		this.form.setErrors(null);
@@ -62,19 +61,13 @@ export class AuthenticationComponent {
 
 		this.auth.languageCode = "fr";
 
-		let displayedMessage = "";
-		let panelClass = "";
-
 		try {
 			await sendPasswordResetEmail(this.auth, this.form.getRawValue().email);
 			this.resetPasswordDisabled = true;
-			displayedMessage = "Demande de réinitialisation envoyée";
-			panelClass = "success";
+
+			this._snackBarService.showSuccess("Demande de réinitialisation envoyée");
 		} catch (error) {
-			displayedMessage = "Erreur lors de la demande de réinitialisation";
-			panelClass = "error";
-		} finally {
-			this._snackBar.open(displayedMessage, "", { panelClass });
+			this._snackBarService.showFailure("Erreur lors de la demande de réinitialisation");
 		}
 	}
 }

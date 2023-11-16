@@ -1,0 +1,13 @@
+<section>
+  <h2>{{ title }}</h2>
+  <p>Création de personnage</p>
+</section>
+
+<app-character-form [formGroup]="characterForm" [remainingAttributePoints]="remainingAttributePoints$$()"
+  [remainingSkillPoints]="remainingSkillPoints$$()" />
+
+<section>
+  <button mat-raised-button color="primary" [disabled]="this.creationDisabled$$()" (click)="createCharacter()">
+    Valider
+  </button>
+</section>

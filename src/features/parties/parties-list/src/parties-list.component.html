@@ -1,0 +1,20 @@
+<section class="flex gap-4">
+
+  <app-create-card [routerLink]="['/', RoutesConstants.partyCreation]" class="party-card" />
+
+  @for (party of (partiesList$ | async); track party.id) {
+  <mat-card class="w-80 items-center cursor-pointer party-card" [routerLink]="[party.id]">
+    <mat-card-header class="text-align-center">
+      <div *ngIf="party.gameMaster | appRefToDoc | async | appToPersistedUser as gameMaster" mat-card-avatar
+        class="game-master-avatar" [style.background-image]="'url(' + (gameMaster.avatar | appUserAvatarFallback) + ')'"
+        [matTooltip]="gameMaster.displayName">
+      </div>
+      <mat-card-title>{{ party.name | titlecase }}</mat-card-title>
+      <mat-card-subtitle>{{ party.gameId | appGameIdToTitle | async }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <img mat-card-image [src]="party.image ?? '/assets/' + party.gameId + '/party-card-avatar-placeholder.jpg'" />
+
+  </mat-card>
+  }
+</section>

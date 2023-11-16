@@ -20,6 +20,7 @@ export const RoutesConstants = {
 	},
 
 	// Parties
+	partyCreation: "party-creation",
 	partiesList: {
 		path: "parties",
 		routeParams: {

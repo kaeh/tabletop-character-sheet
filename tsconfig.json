@@ -26,6 +26,7 @@
 			"@ui/*": ["src/ui/*"],
       "@models": ["src/models/index.ts"],
       "@utils": ["src/utils/index.ts"],
+      "@services": ["src/services/index.ts"],
 		}
 	},
 	"angularCompilerOptions": {

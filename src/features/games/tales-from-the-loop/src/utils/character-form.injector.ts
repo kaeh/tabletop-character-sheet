@@ -4,7 +4,7 @@ import { gameRules } from "../constants/game-rules";
 
 const defaultAge = 10;
 
-export const characterForm = () => {
+export const buildCharacterForm = () => {
 	const formBuilder = inject(FormBuilder);
 
 	return formBuilder.nonNullable.group({
