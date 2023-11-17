@@ -13,7 +13,7 @@ import { RoutesConstants } from "@constants";
 import { BasePersistedCharacter, PersistedUser, Player } from "@models";
 import { CharacterAvatarFallbackPipe, UserAvatarFallbackPipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
-import { Observable, ReplaySubject, filter, map, of, switchMap, take, tap } from "rxjs";
+import { Observable, ReplaySubject, filter, map, of, switchMap, tap } from "rxjs";
 
 @Component({
 	selector: "app-player-card",
@@ -74,7 +74,6 @@ export class PlayerCardComponent {
 			switchMap((charactersQuery) => collectionData(charactersQuery, { idField: "id" }) as Observable<BasePersistedCharacter[]>),
 			map((characters) => characters.filter((x) => x.id !== this.character$$()?.id).sort((a, b) => a.general.firstName.localeCompare(b.general.firstName))),
 			tap((characters) => this.hasCharacters$$.set(characters.length > 0)),
-			take(1),
 		);
 	}
 
