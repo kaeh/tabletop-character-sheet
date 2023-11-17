@@ -16,8 +16,6 @@ import { buildAsyncFormStatusSignal } from "@utils";
 import { firstValueFrom, map, switchMap, zip } from "rxjs";
 import { injectUsers } from "src/utils/users.injector";
 
-type UserWithId = Pick<PersistedUser, "displayName"> & { id: string };
-
 @Component({
 	selector: "app-party-page-admin",
 	standalone: true,
@@ -49,10 +47,10 @@ export class PartyPageAdminComponent implements OnChanges {
 	});
 	protected playersInformations$$ = toSignal(
 		this.form.controls.players.valueChanges.pipe(
-			map((playersIds: string[]) => playersIds.map((playerId) => doc(this._firestore, "users", playerId) as DocumentReference<UserWithId>)),
+			map((playersIds: string[]) => playersIds.map((playerId) => doc(this._firestore, "users", playerId) as DocumentReference<PersistedUser>)),
 			map((playersDocs) => playersDocs.map((playerDocs) => docData(playerDocs, { idField: "id" }))),
 			switchMap((playersData) => zip(playersData)),
-			map((players) => players.filter((player): player is UserWithId => !!player).map(({ id, displayName }) => ({ id, displayName }))),
+			map((players) => players.filter((player): player is PersistedUser => !!player).map(({ id, displayName }) => ({ id, displayName }))),
 		),
 		{ initialValue: [] },
 	);

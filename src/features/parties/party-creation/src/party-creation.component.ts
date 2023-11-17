@@ -7,13 +7,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { BasePersistedParty, PersistedUser } from "@models";
+import { BasePersistedParty, PersistedUser, Player } from "@models";
 import { SnackbarService } from "@services";
 import { buildAsyncFormStatusSignal, injectUserId } from "@utils";
 import { injectUsers } from "src/utils/users.injector";
 import { PartyCreationRouteData } from "./party-creation-route-data.interface";
-
-type UserWithId = PersistedUser & { id: string };
 
 @Component({
 	selector: "app-party-creation",
@@ -40,7 +38,7 @@ export class PartyCreationComponent {
 		description: inject(FormBuilder).nonNullable.control(""),
 		// TODO
 		// image: ["", []],
-		players: inject(FormBuilder).nonNullable.control<UserWithId["id"][]>([]),
+		players: inject(FormBuilder).nonNullable.control<string[]>([]),
 	});
 
 	private readonly _partyCreationPending$$ = signal(false);
@@ -73,9 +71,7 @@ export class PartyCreationComponent {
 				gameMaster: doc(this._firestore, "users", this._uid) as DocumentReference<PersistedUser>,
 				name: formValue.name,
 				description: formValue.description,
-				players: this.form
-					.getRawValue()
-					.players.map((uid) => ({ ref: doc(this._firestore, "users", uid) as DocumentReference<PersistedUser> }) as BasePersistedParty["players"][number]),
+				players: this.form.getRawValue().players.map((uid) => ({ ref: doc(this._firestore, "users", uid) as DocumentReference<PersistedUser> }) as Player),
 			};
 
 			// Save in parties collection
@@ -86,8 +82,8 @@ export class PartyCreationComponent {
 			await this._savePlayerParty(this._uid, persistedParty);
 
 			// Save in players' parties
-			for (const player of this.form.getRawValue().players) {
-				await this._savePlayerParty(player, persistedParty);
+			for (const playerId of this.form.getRawValue().players) {
+				await this._savePlayerParty(playerId, persistedParty);
 			}
 
 			this._snackBarService.showSuccess("Partie créée");

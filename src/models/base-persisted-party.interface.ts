@@ -1,6 +1,7 @@
 import { DocumentReference } from "@angular/fire/firestore";
 import { BasePersistedCharacter } from "./base-persisted-character.interface";
 import { PersistedUser } from "./persisted-user.interface";
+import { Player } from "./player.interface";
 
 export interface BasePersistedParty<TCharacter = BasePersistedCharacter> {
 	id: string;
@@ -10,8 +11,5 @@ export interface BasePersistedParty<TCharacter = BasePersistedCharacter> {
 	image?: string;
 
 	gameMaster: DocumentReference<PersistedUser>;
-	players: {
-		ref: DocumentReference<PersistedUser>;
-		character?: DocumentReference<TCharacter>;
-	}[];
+	players: Player<TCharacter>[];
 }

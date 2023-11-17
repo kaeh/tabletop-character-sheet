@@ -8,3 +8,14 @@ export interface BasePersistedCharacter {
 		avatar?: string;
 	};
 }
+
+export const DefaultCharacter: BasePersistedCharacter = {
+	id: "",
+	gameId: "",
+
+	general: {
+		firstName: "",
+		lastName: "",
+		avatar: "",
+	},
+};

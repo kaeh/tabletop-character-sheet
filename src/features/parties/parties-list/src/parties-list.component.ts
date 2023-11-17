@@ -28,7 +28,6 @@ const injectPartiesList = (): AsyncPartiesList => {
 	selector: "app-parties-list",
 	standalone: true,
 	templateUrl: "./parties-list.component.html",
-	styleUrls: ["./parties-list.component.scss"],
 	imports: [
 		// Angular
 		CommonModule,
