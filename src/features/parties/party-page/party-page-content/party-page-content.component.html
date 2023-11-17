@@ -2,3 +2,9 @@
   <h2>{{ party.name }}</h2>
   <h3 class="subtitle">{{ party.gameId | appGameIdToTitle | async }}</h3>
 </section>
+
+<section class="flex flex-row wrap gap-4">
+  @for (player of party.players; track player.ref.id) {
+    <app-player-card class="w-1/5" [player]="player" [gameId]="party.gameId" (characterChanged)="updateCharacter($event)" />
+  }
+</section>

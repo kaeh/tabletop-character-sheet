@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar class="bg-cover" [style.background-image]="'url(' + (user$$()?.avatar | appUserAvatarFallback) + ')'"
+        [matTooltip]="user$$()?.displayName ?? 'ERROR_NO_DISPLAY_NAME'"></div>
+    <mat-card-title>
+      @if (character$$()) {
+        {{character$$()!.general.firstName | titlecase }} {{ character$$()!.general.lastName | uppercase }}
+      } @else {
+        Personnage inconnu
+      }
+    </mat-card-title>
+    <mat-card-subtitle>{{ user$$()?.displayName ?? 'ERROR_NO_DISPLAY_NAME' }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="relative">
+    <mat-divider></mat-divider>
+
+    @if (isCurrentUser$$()) {
+      <button type="button" mat-fab color="primary" [matMenuTriggerFor]="menu" class="absolute top-0 right-0 scale-50 hover:scale-75 z-10">
+        <mat-icon aria-hidden="false" fontIcon="settings" />
+      </button>
+
+      <mat-menu #menu="matMenu">
+        @if(!character$$()) {
+          <button mat-menu-item [matMenuTriggerFor]="charactersSubMenu" [disabled]="!hasCharacters$$()">
+            <mat-icon color="primary">person_add</mat-icon>
+            <span>Choisir un personnage</span>
+          </button>
+        } @else {
+          <button mat-menu-item [matMenuTriggerFor]="charactersSubMenu" [disabled]="!hasCharacters$$()">
+            <mat-icon color="primary">edit</mat-icon>
+            <span>Changer de personnage</span>
+          </button>
+          <button mat-menu-item (click)="characterChanged.next(null)">
+            <mat-icon color="warn">cancel</mat-icon>
+            <span>Enlever le personnage</span>
+          </button>
+        }
+      </mat-menu>
+
+      <mat-menu #charactersSubMenu="matMenu">
+        @for (character of (characters$ | async); track character.id) {
+          <button mat-menu-item (click)="characterChanged.next(character.id)">
+            {{character.general.firstName | titlecase }} {{ character.general.lastName | uppercase }}
+          </button>
+        }
+      </mat-menu>
+    }
+  </mat-card-content>
+
+  <img mat-card-image [src]="character$$()?.general?.avatar | appCharacterAvatarFallback: gameId" [class.cursor-pointer]="!!character$$()" (click)="openCharacterSheet()" />
+</mat-card>

@@ -17,6 +17,9 @@ export const RoutesConstants = {
 		routeParams: {
 			characterId: "characterId",
 		},
+		routeState: {
+			ownerId: "ownerId",
+		},
 	},
 
 	// Parties
