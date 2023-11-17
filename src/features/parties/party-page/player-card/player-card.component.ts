@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output, Signal, computed, inject } from "@angular/core";
+import { Component, EventEmitter, Input, Output, Signal, computed, inject, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { Firestore, collection, collectionData, docData, query, where } from "@angular/fire/firestore";
 import { MatButtonModule } from "@angular/material/button";
@@ -13,7 +13,7 @@ import { RoutesConstants } from "@constants";
 import { BasePersistedCharacter, PersistedUser, Player } from "@models";
 import { CharacterAvatarFallbackPipe, UserAvatarFallbackPipe } from "@ui/pipes";
 import { injectUserId } from "@utils";
-import { Observable, ReplaySubject, filter, map, of, switchMap, take } from "rxjs";
+import { Observable, ReplaySubject, filter, map, of, switchMap, take, tap } from "rxjs";
 
 @Component({
 	selector: "app-player-card",
@@ -48,6 +48,7 @@ export class PlayerCardComponent {
 	protected readonly user$$: Signal<PersistedUser | undefined>;
 	protected readonly character$$: Signal<BasePersistedCharacter | undefined>;
 	protected readonly isCurrentUser$$: Signal<boolean>;
+	protected readonly hasCharacters$$ = signal(false);
 	protected readonly characters$: Observable<BasePersistedCharacter[]> = of([]);
 
 	private readonly _updateUser$ = new ReplaySubject<Player["ref"]>();
@@ -71,6 +72,8 @@ export class PlayerCardComponent {
 			map(() => collection(this._firestore, "users", uid, "characters")),
 			map((charactersColref) => query(charactersColref, where("gameId", "==", this.gameId))),
 			switchMap((charactersQuery) => collectionData(charactersQuery, { idField: "id" }) as Observable<BasePersistedCharacter[]>),
+			map((characters) => characters.filter((x) => x.id !== this.character$$()?.id).sort((a, b) => a.general.firstName.localeCompare(b.general.firstName))),
+			tap((characters) => this.hasCharacters$$.set(characters.length > 0)),
 			take(1),
 		);
 	}

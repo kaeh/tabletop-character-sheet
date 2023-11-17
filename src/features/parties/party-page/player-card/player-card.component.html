@@ -22,12 +22,12 @@
 
       <mat-menu #menu="matMenu">
         @if(!character$$()) {
-          <button mat-menu-item [matMenuTriggerFor]="charactersSubMenu">
+          <button mat-menu-item [matMenuTriggerFor]="charactersSubMenu" [disabled]="!hasCharacters$$()">
             <mat-icon color="primary">person_add</mat-icon>
             <span>Choisir un personnage</span>
           </button>
         } @else {
-          <button mat-menu-item [matMenuTriggerFor]="charactersSubMenu">
+          <button mat-menu-item [matMenuTriggerFor]="charactersSubMenu" [disabled]="!hasCharacters$$()">
             <mat-icon color="primary">edit</mat-icon>
             <span>Changer de personnage</span>
           </button>
