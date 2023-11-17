@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component, Signal, computed, inject, signal } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { Firestore, addDoc, collection } from "@angular/fire/firestore";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { SnackbarService } from "@services";
+import { UsersService } from "@stores";
 import { buildAsyncFormStatusSignal, injectUserId } from "@utils";
 import { tap } from "rxjs";
 import { gameId } from "../../constants/game-id";
@@ -42,9 +42,9 @@ export class CharacterCreationComponent {
 
 	private readonly _characterCreationPending$$ = signal(false);
 	private readonly _uid = injectUserId();
-	private readonly _firestore = inject(Firestore);
 	private readonly _router = inject(Router);
 	private readonly _snackBarService = inject(SnackbarService);
+	private readonly _usersService = inject(UsersService);
 
 	constructor() {
 		const { attributes, general, skills } = this.characterForm.getRawValue();
@@ -78,8 +78,7 @@ export class CharacterCreationComponent {
 		characterToPersist.gameId = gameId;
 
 		try {
-			const userCharactersCollection = collection(this._firestore, "users", this._uid, "characters");
-			await addDoc(userCharactersCollection, characterToPersist);
+			await this._usersService.addCharacterToUser(this._uid, characterToPersist as Required<PersistedCharacter>);
 			this._snackBarService.showSuccess("Personnage créé");
 			this._router.navigate(["/", RoutesConstants.charactersList.path]);
 		} catch (error) {

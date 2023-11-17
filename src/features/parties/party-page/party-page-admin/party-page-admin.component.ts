@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, OnChanges, Signal, SimpleChanges, inject, signal } from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
-import { DocumentReference, Firestore, arrayRemove, arrayUnion, deleteDoc, doc, docData, updateDoc } from "@angular/fire/firestore";
+import { Firestore, deleteDoc, doc, docData, updateDoc } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
@@ -9,12 +8,12 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { BasePersistedParty, PersistedUser } from "@models";
+import { BasePersistedParty, PartyDocRef, outCurrentUser, toMinimalUser } from "@models";
 import { SnackbarService } from "@services";
+import { UsersService } from "@stores";
 import { IrreversibleChangeDialog } from "@ui/components/irreversible-change-dialog";
 import { buildAsyncFormStatusSignal } from "@utils";
-import { firstValueFrom, map, switchMap, zip } from "rxjs";
-import { injectUsers } from "src/utils/users.injector";
+import { firstValueFrom, map, switchMap } from "rxjs";
 
 @Component({
 	selector: "app-party-page-admin",
@@ -37,7 +36,7 @@ export class PartyPageAdminComponent implements OnChanges {
 
 	protected readonly updateDisabled$$: Signal<boolean>;
 
-	protected readonly users$$ = toSignal(injectUsers(), { initialValue: [] });
+	protected readonly availablePlayers$ = inject(UsersService).allUsers$.pipe(map((users) => users.filter(outCurrentUser(this._usersService.currentUserId))));
 	protected readonly gameMasterControl = inject(FormBuilder).nonNullable.control("");
 	protected readonly form = inject(FormBuilder).nonNullable.group({
 		name: inject(FormBuilder).nonNullable.control(""),
@@ -45,14 +44,9 @@ export class PartyPageAdminComponent implements OnChanges {
 		image: inject(FormBuilder).nonNullable.control(""),
 		players: inject(FormBuilder).nonNullable.control<string[]>([]),
 	});
-	protected playersInformations$$ = toSignal(
-		this.form.controls.players.valueChanges.pipe(
-			map((playersIds: string[]) => playersIds.map((playerId) => doc(this._firestore, "users", playerId) as DocumentReference<PersistedUser>)),
-			map((playersDocs) => playersDocs.map((playerDocs) => docData(playerDocs, { idField: "id" }))),
-			switchMap((playersData) => zip(playersData)),
-			map((players) => players.filter((player): player is PersistedUser => !!player).map(({ id, displayName }) => ({ id, displayName }))),
-		),
-		{ initialValue: [] },
+	protected playersInformations$ = this.form.controls.players.valueChanges.pipe(
+		switchMap((playersIds) => this._usersService.getUsers(playersIds)),
+		map((players) => players.map(toMinimalUser)),
 	);
 
 	private readonly _partyUpdatePending$$ = signal(false);
@@ -60,6 +54,7 @@ export class PartyPageAdminComponent implements OnChanges {
 	private readonly _snackBarService = inject(SnackbarService);
 	private readonly _dialog = inject(MatDialog);
 	private readonly _router = inject(Router);
+	private readonly _usersService = inject(UsersService);
 
 	constructor() {
 		this.updateDisabled$$ = buildAsyncFormStatusSignal(this.form, this._partyUpdatePending$$);
@@ -87,11 +82,11 @@ export class PartyPageAdminComponent implements OnChanges {
 
 		try {
 			const formValue = this.form.getRawValue();
-			const addedPlayersIds = formValue.players.filter((player) => !this.party.players.map((player) => player.ref.id).includes(player));
+			const addedPlayersIds = formValue.players.filter((playerId) => !this.party.players.map((player) => player.ref.id).includes(playerId));
 			const removedPlayersIds = this.party.players.map((player) => player.ref.id).filter((player) => !formValue.players.includes(player));
 
 			const updatedPlayers = this.party.players.filter((player) => !removedPlayersIds.includes(player.ref.id));
-			updatedPlayers.push(...addedPlayersIds.map((player) => ({ ref: doc(this._firestore, "users", player) as DocumentReference<PersistedUser> })));
+			updatedPlayers.push(...addedPlayersIds.map((playerId) => ({ ref: this._usersService.buildUserDocRef(playerId) })));
 
 			const partyChanges: Partial<BasePersistedParty> = {
 				name: formValue.name,
@@ -100,17 +95,14 @@ export class PartyPageAdminComponent implements OnChanges {
 				players: updatedPlayers,
 			};
 
-			const partyDoc = doc(this._firestore, "parties", this.party.id);
+			const partyDoc = doc(this._firestore, "parties", this.party.id) as PartyDocRef;
 			const partyUpdatePromise = updateDoc(partyDoc, partyChanges);
 
 			// Remove party from removed players
 			const removePartyFromPlayersPromise = this._buildPlayersPartyRemovalPromises(removedPlayersIds, partyDoc);
 
 			// Add party to added players
-			const addPartyToPlayersPromise = addedPlayersIds.map((playerId) => {
-				const userDoc = doc(this._firestore, "users", playerId);
-				return updateDoc(userDoc, { parties: arrayUnion(partyDoc) });
-			});
+			const addPartyToPlayersPromise = addedPlayersIds.map((playerId) => this._usersService.addPartyToUser(playerId, partyDoc));
 
 			await Promise.all([partyUpdatePromise, ...removePartyFromPlayersPromise, ...addPartyToPlayersPromise]);
 
@@ -129,7 +121,7 @@ export class PartyPageAdminComponent implements OnChanges {
 
 		// If confirmed then remove party from every players
 		if (confirmed) {
-			const partyDoc = doc(this._firestore, "parties", this.party.id);
+			const partyDoc = doc(this._firestore, "parties", this.party.id) as PartyDocRef;
 			const playersIds = this.party.players.map((player) => player.ref.id);
 			playersIds.push(this.party.gameMaster.id);
 			const playersPartyRemovalPromises = this._buildPlayersPartyRemovalPromises(playersIds, partyDoc);
@@ -147,8 +139,8 @@ export class PartyPageAdminComponent implements OnChanges {
 		if (confirm) {
 			const partyDoc = doc(this._firestore, "parties", this.party.id);
 			const partyPlayersData = (((await firstValueFrom(docData(partyDoc))) as BasePersistedParty).players ?? []) as BasePersistedParty["players"];
-			const newGameMasterDoc = doc(this._firestore, "users", newGameMasterId);
-			const oldGameMasterDoc = doc(this._firestore, "users", this.party.gameMaster.id);
+			const newGameMasterDoc = this._usersService.buildUserDocRef(newGameMasterId);
+			const oldGameMasterDoc = this._usersService.buildUserDocRef(this.party.gameMaster.id);
 
 			// Switch new game master with old game master in party players
 			const updatedPlayers = partyPlayersData.map((player) => {
@@ -165,10 +157,7 @@ export class PartyPageAdminComponent implements OnChanges {
 		}
 	}
 
-	private _buildPlayersPartyRemovalPromises(playersIds: string[], partyDoc: DocumentReference): Promise<void>[] {
-		return playersIds.map((playerId) => {
-			const userDoc = doc(this._firestore, "users", playerId);
-			return updateDoc(userDoc, { parties: arrayRemove(partyDoc) });
-		});
+	private _buildPlayersPartyRemovalPromises(playersIds: string[], partyDoc: PartyDocRef): Promise<void>[] {
+		return playersIds.map((playerId) => this._usersService.removePartyFromUser(playerId, partyDoc));
 	}
 }

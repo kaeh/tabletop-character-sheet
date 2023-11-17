@@ -16,7 +16,7 @@
   <mat-form-field>
     <mat-label>Joueurs</mat-label>
     <mat-select formControlName="players" multiple>
-      @for (user of users$$(); track user.id) {
+      @for (user of (availablePlayers$ | async); track user.id) {
         <mat-option [value]="user.id">{{user.displayName}}</mat-option>
       }
     </mat-select>
@@ -39,7 +39,7 @@
     <mat-form-field>
       <mat-label>Changer de MJ</mat-label>
       <mat-select [formControl]="gameMasterControl" (valueChange)="updateGameMaster($event)">
-        @for (player of playersInformations$$(); track player.id) {
+        @for (player of (playersInformations$ | async); track player.id) {
           <mat-option [value]="player.id">{{player?.displayName}}</mat-option>
         }
       </mat-select>

@@ -1,3 +1,5 @@
+import { CollectionReference, DocumentReference } from "@angular/fire/firestore";
+
 export interface BasePersistedCharacter {
 	id: string;
 	gameId: string;
@@ -8,6 +10,9 @@ export interface BasePersistedCharacter {
 		avatar?: string;
 	};
 }
+
+export type CharacterDocRef = DocumentReference<BasePersistedCharacter>;
+export type CharactersCollectionRef = CollectionReference<BasePersistedCharacter>;
 
 export const DefaultCharacter: BasePersistedCharacter = {
 	id: "",

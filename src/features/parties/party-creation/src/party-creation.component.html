@@ -16,8 +16,8 @@
   <mat-form-field>
     <mat-label>Joueurs</mat-label>
     <mat-select formControlName="players" multiple>
-      @for (user of (users$ | async) ?? []; track user.id) {
-        <mat-option [value]="user.id">{{user.displayName}}</mat-option>
+      @for (player of (players$ | async) ?? []; track player.id) {
+        <mat-option [value]="player.id">{{player.displayName}}</mat-option>
       }
     </mat-select>
   </mat-form-field>
