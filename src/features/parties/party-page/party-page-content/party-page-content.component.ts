@@ -3,8 +3,8 @@ import { Component, Input, inject } from "@angular/core";
 import { Firestore, doc, docData, updateDoc } from "@angular/fire/firestore";
 import { BasePersistedParty } from "@models";
 import { SnackbarService } from "@services";
+import { UsersService } from "@stores";
 import { GameIdToTitlePipe } from "@ui/pipes";
-import { injectUserId } from "@utils";
 import { Observable, firstValueFrom } from "rxjs";
 import { PlayerCardComponent } from "../player-card/player-card.component";
 
@@ -23,15 +23,15 @@ import { PlayerCardComponent } from "../player-card/player-card.component";
 export class PartyPageContentComponent {
 	@Input({ required: true }) party!: BasePersistedParty;
 
-	private readonly _userId = injectUserId();
 	private readonly _firestore = inject(Firestore);
+	private readonly _userService = inject(UsersService);
 	private readonly _snackBarService = inject(SnackbarService);
 
 	protected async updateCharacter(characterId: string | null) {
 		try {
-			const playerRef = this.party.players.find((player) => player.ref.id === this._userId)?.ref;
+			const currentUserPlayerRef = this.party.players.find((player) => player.ref.id === this._userService.currentUserId)?.ref;
 
-			if (!playerRef) {
+			if (!currentUserPlayerRef) {
 				throw new Error("Player not found");
 			}
 
@@ -43,10 +43,10 @@ export class PartyPageContentComponent {
 			}
 
 			const players = party.players.map((player) => {
-				if (player.ref.id === this._userId) {
+				if (player.ref.id === this._userService.currentUserId) {
 					return {
 						...player,
-						character: characterId ? doc(playerRef, `characters/${characterId}`) : null,
+						character: characterId ? doc(currentUserPlayerRef, `characters/${characterId}`) : null,
 					};
 				}
 				return player;

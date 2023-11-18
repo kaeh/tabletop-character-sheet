@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { SnackbarService } from "@services";
 import { UsersService } from "@stores";
-import { buildAsyncFormStatusSignal, injectUserId } from "@utils";
+import { buildAsyncFormStatusSignal } from "@utils";
 import { tap } from "rxjs";
 import { gameId } from "../../constants/game-id";
 import { gameLabels } from "../../constants/game-labels";
@@ -41,7 +41,6 @@ export class CharacterCreationComponent {
 	protected readonly characterForm = buildCharacterForm();
 
 	private readonly _characterCreationPending$$ = signal(false);
-	private readonly _uid = injectUserId();
 	private readonly _router = inject(Router);
 	private readonly _snackBarService = inject(SnackbarService);
 	private readonly _usersService = inject(UsersService);
@@ -78,7 +77,7 @@ export class CharacterCreationComponent {
 		characterToPersist.gameId = gameId;
 
 		try {
-			await this._usersService.addCharacterToUser(this._uid, characterToPersist as Required<PersistedCharacter>);
+			await this._usersService.addCharacterToCurrentUser(characterToPersist as Required<PersistedCharacter>);
 			this._snackBarService.showSuccess("Personnage créé");
 			this._router.navigate(["/", RoutesConstants.charactersList.path]);
 		} catch (error) {

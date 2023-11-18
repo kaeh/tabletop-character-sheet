@@ -1,15 +1,15 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform, inject } from "@angular/core";
 import { DocumentReference } from "@angular/fire/firestore";
-import { injectUserId } from "@utils";
+import { UsersService } from "@stores";
 
 @Pipe({
 	name: "appIsUserGameMaster",
 	standalone: true,
 })
 export class IsUserGameMasterPipe implements PipeTransform {
-	private readonly uid = injectUserId();
+	private readonly _userService = inject(UsersService);
 
 	transform(gameMaster: DocumentReference) {
-		return this.uid === gameMaster.id;
+		return this._userService.currentUserId === gameMaster.id;
 	}
 }
