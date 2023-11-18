@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { Auth, updateProfile } from "@angular/fire/auth";
-import { Firestore, addDoc, arrayRemove, arrayUnion, collection, collectionData, doc, docData, query, updateDoc, where } from "@angular/fire/firestore";
+import { Firestore, addDoc, arrayRemove, arrayUnion, collection, collectionData, deleteDoc, doc, docData, query, updateDoc, where } from "@angular/fire/firestore";
 import { PersistedCharacter } from "@features/games/tales-from-the-loop/src/models";
 import { BasePersistedCharacter, BasePersistedParty, CharacterDocRef, CharactersCollectionRef, PartyDocRef, PersistedUser, UserDocRef, UsersCollectionRef } from "@models";
 import { Observable, filter, map, of, switchMap, zip } from "rxjs";
@@ -73,6 +73,11 @@ export class UsersService {
 
 	public async addCharacterToCurrentUser(characterDocRef: PersistedCharacter) {
 		await addDoc(this.currentUserCharacterCollectionRef, characterDocRef);
+	}
+
+	public async deleteCharacterFromCurrentUser(characterId: string) {
+		const characterDocRef = doc(this.currentUserCharacterCollectionRef, characterId);
+		await deleteDoc(characterDocRef);
 	}
 
 	public async addPartyToUser(uid: string, partyDocRef: PartyDocRef) {

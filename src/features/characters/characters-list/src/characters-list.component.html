@@ -3,13 +3,22 @@
   <app-create-card [routerLink]="['/', RoutesConstants.characterCreation]" class="character-card" />
 
   @for (character of (charactersList$ | async); track character.id) {
-  <mat-card class="w-80 items-center cursor-pointer character-card" [routerLink]="[character.gameId, character.id]">
-    <mat-card-header class="text-align-center">
+  <mat-card class="w-80 cursor-pointer character-card" [routerLink]="[character.gameId, character.id]">
+    <mat-card-header>
       <mat-card-title>
         {{ character.general.firstName | titlecase }} {{ character.general.lastName | uppercase }}
       </mat-card-title>
       <mat-card-subtitle>{{ character.gameId | appGameIdToTitle | async }}</mat-card-subtitle>
     </mat-card-header>
+
+    <mat-card-content class="relative">
+      <mat-divider></mat-divider>
+
+      <button (click)="$event.stopPropagation(); deleteCharacter(character.id)"
+              type="button" mat-fab color="warn" class="absolute top-0 right-0 scale-50 hover:scale-75 z-10">
+        <mat-icon aria-hidden="false" fontIcon="delete" />
+      </button>
+    </mat-card-content>
 
     <img mat-card-image
       [src]="character.general.avatar | appCharacterAvatarFallback: character.gameId" />
