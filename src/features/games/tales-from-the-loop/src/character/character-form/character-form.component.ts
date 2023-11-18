@@ -1,7 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, OnInit, inject } from "@angular/core";
 import { ControlContainer, ControlValueAccessor, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
+import { ImageSelectorComponent } from "@ui/components/image-selector";
 import { ControlsToKeyLabelPipe } from "@ui/pipes";
 import { gameLabels } from "../../constants/game-labels";
 import { gameRules } from "../../constants/game-rules";
@@ -16,8 +18,10 @@ import { buildCharacterForm } from "../../utils/character-form.injector";
 		ReactiveFormsModule,
 		// Material
 		MatInputModule,
+		MatButtonModule,
 		// Internal
 		ControlsToKeyLabelPipe,
+		ImageSelectorComponent,
 	],
 	templateUrl: "./character-form.component.html",
 })

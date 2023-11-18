@@ -4,6 +4,7 @@ export interface PersistedCharacter extends BasePersistedCharacter {
 	general: {
 		firstName: string;
 		lastName: string;
+		avatar: string;
 		age: number;
 		luck: number;
 		archetype: string;

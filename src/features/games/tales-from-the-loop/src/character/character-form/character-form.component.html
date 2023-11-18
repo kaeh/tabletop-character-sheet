@@ -1,6 +1,9 @@
 <form [formGroup]="characterForm">
-  <section formGroupName="general">
+  <section formGroupName="general" class="flex flex-col gap-4">
     <h3>Général</h3>
+    <section>
+      <app-image-selector formControlName="avatar" label="Avatar du personnage" />
+    </section>
     <section class="flex flex-row flex-wrap gap-4">
       <mat-form-field>
         <mat-label>{{ Labels.character.general.firstName }}</mat-label>

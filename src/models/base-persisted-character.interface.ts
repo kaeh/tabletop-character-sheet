@@ -7,7 +7,7 @@ export interface BasePersistedCharacter {
 	general: {
 		firstName: string;
 		lastName: string;
-		avatar?: string;
+		avatar: string;
 	};
 }
 

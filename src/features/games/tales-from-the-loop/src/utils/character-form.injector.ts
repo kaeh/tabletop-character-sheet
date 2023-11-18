@@ -9,6 +9,7 @@ export const buildCharacterForm = () => {
 
 	return formBuilder.nonNullable.group({
 		general: formBuilder.nonNullable.group({
+			avatar: formBuilder.nonNullable.control(""),
 			firstName: formBuilder.nonNullable.control(""),
 			lastName: formBuilder.nonNullable.control(""),
 			age: formBuilder.nonNullable.control(defaultAge, [Validators.min(gameRules.ageRange.min), Validators.max(gameRules.ageRange.max)]),
