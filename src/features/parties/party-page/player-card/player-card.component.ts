@@ -37,6 +37,7 @@ import { ReplaySubject, filter, map, of, switchMap, tap, type Observable } from 
 export class PlayerCardComponent {
 	public readonly gameId = input.required<string>();
 
+  // TODO : Find a way to use input signal
 	@Input({ required: true })
 	public set player(value: Player) {
 		this._updateUser$.next(value.ref);
