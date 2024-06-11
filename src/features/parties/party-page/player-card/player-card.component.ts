@@ -35,7 +35,7 @@ import { ReplaySubject, filter, map, of, switchMap, tap, type Observable } from 
 	templateUrl: "./player-card.component.html",
 })
 export class PlayerCardComponent {
-  public readonly gameId = input.required<string>();
+	public readonly gameId = input.required<string>();
 
 	@Input({ required: true })
 	public set player(value: Player) {
@@ -43,7 +43,7 @@ export class PlayerCardComponent {
 		this._updateCharacter$.next(value.character);
 	}
 
-  public readonly characterChanged = output<string | null>();
+	public readonly characterChanged = output<string | null>();
 
 	protected readonly user$$: Signal<PersistedUser | undefined>;
 	protected readonly character$$: Signal<BasePersistedCharacter | undefined>;

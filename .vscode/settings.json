@@ -32,5 +32,6 @@
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"[scss]": {
 		"editor.defaultFormatter": "vscode.css-language-features"
-	}
+	},
+  "editor.tabSize": 2
 }

@@ -82,8 +82,15 @@ export class PartyPageAdminComponent implements OnChanges {
 
 		try {
 			const formValue = this.form.getRawValue();
-			const addedPlayersIds = formValue.players.filter((playerId) => !this.party().players.map((player) => player.ref.id).includes(playerId));
-			const removedPlayersIds = this.party().players.map((player) => player.ref.id).filter((player) => !formValue.players.includes(player));
+			const addedPlayersIds = formValue.players.filter(
+				(playerId) =>
+					!this.party()
+						.players.map((player) => player.ref.id)
+						.includes(playerId),
+			);
+			const removedPlayersIds = this.party()
+				.players.map((player) => player.ref.id)
+				.filter((player) => !formValue.players.includes(player));
 
 			const updatedPlayers = this.party().players.filter((player) => !removedPlayersIds.includes(player.ref.id));
 			updatedPlayers.push(...addedPlayersIds.map((playerId) => ({ ref: this._usersService.buildUserDocRef(playerId) })));
