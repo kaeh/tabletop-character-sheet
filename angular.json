@@ -90,8 +90,7 @@
 				"deploy": {
 					"builder": "@angular/fire:deploy",
 					"options": {
-						"version": 2,
-						"browserTarget": "tabletop-character-sheet:build:production"
+						"buildTarget": "tabletop-character-sheet:build:production"
 					}
 				}
 			}
