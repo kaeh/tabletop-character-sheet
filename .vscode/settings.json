@@ -24,7 +24,10 @@
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[html]": {
-		"editor.defaultFormatter": null
+		"editor.defaultFormatter": null,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"[scss]": {
