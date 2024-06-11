@@ -19,3 +19,5 @@ jobs:
             secrets.FIREBASE_SERVICE_ACCOUNT_TABLETOP_CHARACTER_SHEET_63388 }}
           channelId: live
           projectId: tabletop-character-sheet-63388
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
