@@ -5,9 +5,12 @@
   @for (party of (partiesList$ | async); track party.id) {
   <mat-card class="w-80 items-center cursor-pointer party-card" [routerLink]="[party.id]">
     <mat-card-header class="text-align-center">
-      <div *ngIf="party.gameMaster | appRefToDoc | async | appToPersistedUser as gameMaster" mat-card-avatar class="bg-cover" [style.background-image]="'url(' + (gameMaster.avatar | appUserAvatarFallback) + ')'"
-        [matTooltip]="gameMaster.displayName">
-      </div>
+      @if (party.gameMaster | appRefToDoc | async | appToPersistedUser; as gameMaster) {
+        <div mat-card-avatar class="bg-cover"
+          [style.background-image]="'url(' + (gameMaster.avatar | appUserAvatarFallback) + ')'"
+          [matTooltip]="gameMaster.displayName">
+        </div>
+      }
       <mat-card-title>{{ party.name | titlecase }}</mat-card-title>
       <mat-card-subtitle>{{ party.gameId | appGameIdToTitle | async }}</mat-card-subtitle>
     </mat-card-header>
