@@ -1,17 +1,24 @@
-import { type ApplicationConfig, importProvidersFrom } from "@angular/core";
-import { provideRouter } from "@angular/router";
-
+import { type ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from "@angular/core";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from "@angular/material/snack-bar";
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideRouter } from "@angular/router";
 import { routes } from "./app.routes";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
+		// Angular
+		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes),
 		provideAnimations(),
+		// Material
+		importProvidersFrom(MatSnackBarModule),
+		{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 25000 } },
+		// Firebase
+		provideAuth(() => getAuth()),
+		provideFirestore(() => getFirestore()),
 		provideFirebaseApp(() =>
 			initializeApp({
 				projectId: "tabletop-character-sheet-63388",
@@ -22,9 +29,5 @@ export const appConfig: ApplicationConfig = {
 				messagingSenderId: "492259526847",
 			}),
 		),
-		provideAuth(() => getAuth()),
-		provideFirestore(() => getFirestore()),
-		importProvidersFrom(MatSnackBarModule),
-		{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 25000 } },
 	],
 };
