@@ -5,7 +5,7 @@ import type { BasePersistedParty } from "@models";
 import { SnackbarService } from "@services";
 import { UsersService } from "@stores";
 import { GameIdToTitlePipe } from "@ui/pipes";
-import { firstValueFrom, type Observable } from "rxjs";
+import { type Observable, firstValueFrom } from "rxjs";
 import { PlayerCardComponent } from "../player-card/player-card.component";
 
 @Component({

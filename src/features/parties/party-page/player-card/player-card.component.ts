@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, computed, inject, input, output, signal, type Signal } from "@angular/core";
+import { Component, Input, type Signal, computed, inject, input, output, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { docData } from "@angular/fire/firestore";
 import { MatButtonModule } from "@angular/material/button";
@@ -13,7 +13,7 @@ import { RoutesConstants } from "@constants";
 import type { BasePersistedCharacter, PersistedUser, Player } from "@models";
 import { UsersService } from "@stores";
 import { CharacterAvatarFallbackPipe, UserAvatarFallbackPipe } from "@ui/pipes";
-import { ReplaySubject, filter, map, of, switchMap, tap, type Observable } from "rxjs";
+import { type Observable, ReplaySubject, filter, map, of, switchMap, tap } from "rxjs";
 
 @Component({
 	selector: "app-player-card",
@@ -37,7 +37,7 @@ import { ReplaySubject, filter, map, of, switchMap, tap, type Observable } from 
 export class PlayerCardComponent {
 	public readonly gameId = input.required<string>();
 
-  // TODO : Find a way to use input signal
+	// TODO : Find a way to use input signal
 	@Input({ required: true })
 	public set player(value: Player) {
 		this._updateUser$.next(value.ref);

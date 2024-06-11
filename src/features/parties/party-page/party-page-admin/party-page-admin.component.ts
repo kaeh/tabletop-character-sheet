@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, input, signal, type OnChanges, type Signal, type SimpleChanges } from "@angular/core";
+import { Component, type OnChanges, type Signal, type SimpleChanges, inject, input, signal } from "@angular/core";
 import { Firestore, deleteDoc, doc, docData, updateDoc } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -8,7 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { outCurrentUser, toMinimalUser, type BasePersistedParty, type PartyDocRef } from "@models";
+import { type BasePersistedParty, type PartyDocRef, outCurrentUser, toMinimalUser } from "@models";
 import { SnackbarService } from "@services";
 import { UsersService } from "@stores";
 import { IrreversibleChangeDialog } from "@ui/components/irreversible-change-dialog";

@@ -12,7 +12,8 @@
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.codeActionsOnSave": {
 		"quickfix.biome": "explicit",
-		"source.organizeImports.biome": "explicit"
+		"source.organizeImports.biome": "explicit",
+		"source.organizeImports": "never"
 	},
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
@@ -25,13 +26,13 @@
 	},
 	"[html]": {
 		"editor.defaultFormatter": null,
-    "editor.formatOnSave": false,
-    "editor.formatOnPaste": false,
-    "editor.formatOnType": false,
+		"editor.formatOnSave": false,
+		"editor.formatOnPaste": false,
+		"editor.formatOnType": false
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"[scss]": {
 		"editor.defaultFormatter": "vscode.css-language-features"
 	},
-  "editor.tabSize": 2
+	"editor.tabSize": 2
 }

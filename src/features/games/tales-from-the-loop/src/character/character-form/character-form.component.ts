@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, input, type OnInit } from "@angular/core";
-import { ControlContainer, ReactiveFormsModule, type ControlValueAccessor } from "@angular/forms";
+import { Component, type OnInit, inject, input } from "@angular/core";
+import { ControlContainer, type ControlValueAccessor, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { ImageSelectorComponent } from "@ui/components/image-selector";
