@@ -11,8 +11,8 @@
 	"cSpell.words": ["appspot", "devkit", "firebaseapp", "Firestore", "fontawesome", "fortawesome", "ghpages", "packagr", "uuidv"],
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.codeActionsOnSave": {
-		"quickfix.biome": true,
-		"source.organizeImports.biome": true
+		"quickfix.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
 	},
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
