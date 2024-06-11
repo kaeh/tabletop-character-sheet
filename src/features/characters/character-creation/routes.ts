@@ -1,7 +1,7 @@
-import { Route } from "@angular/router";
+import type { Route } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { gameLabels as TalesFromTheLoopLabels } from "@features/games/tales-from-the-loop/src/constants/game-labels";
-import { GameSelectionRouteData } from "@ui/components/game-selection";
+import type { GameSelectionRouteData } from "@ui/components/game-selection";
 
 const baseTitle = "Création de personnage";
 

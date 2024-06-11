@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, inject } from "@angular/core";
-import { ControlValueAccessor, FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { type ControlValueAccessor, FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { NoopValueAccessorDirective, injectNgControl } from "@utils";
 
 @Component({

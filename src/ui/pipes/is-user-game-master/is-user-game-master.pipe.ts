@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform, inject } from "@angular/core";
-import { DocumentReference } from "@angular/fire/firestore";
+import { Pipe, type PipeTransform, inject } from "@angular/core";
+import type { DocumentReference } from "@angular/fire/firestore";
 import { UsersService } from "@stores";
 
 @Pipe({

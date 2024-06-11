@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, type PipeTransform } from "@angular/core";
 import { gameId as TalesFromTheLoopId } from "@features/games/tales-from-the-loop/src/constants/game-id";
 
 @Pipe({

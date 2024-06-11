@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivateFn, Router } from "@angular/router";
+import { type ActivatedRouteSnapshot, type CanActivateFn, Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { UsersService } from "@stores";
 import { map } from "rxjs";

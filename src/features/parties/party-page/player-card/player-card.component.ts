@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output, Signal, computed, inject, signal } from "@angular/core";
+import { Component, EventEmitter, Input, Output, type Signal, computed, inject, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { docData } from "@angular/fire/firestore";
 import { MatButtonModule } from "@angular/material/button";
@@ -10,10 +10,10 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { BasePersistedCharacter, PersistedUser, Player } from "@models";
+import type { BasePersistedCharacter, PersistedUser, Player } from "@models";
 import { UsersService } from "@stores";
 import { CharacterAvatarFallbackPipe, UserAvatarFallbackPipe } from "@ui/pipes";
-import { Observable, ReplaySubject, filter, map, of, switchMap, tap } from "rxjs";
+import { type Observable, ReplaySubject, filter, map, of, switchMap, tap } from "rxjs";
 
 @Component({
 	selector: "app-player-card",

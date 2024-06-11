@@ -1,4 +1,4 @@
-import { BasePersistedCharacter } from "@models";
+import type { BasePersistedCharacter } from "@models";
 
 export interface PersistedCharacter extends BasePersistedCharacter {
 	general: {

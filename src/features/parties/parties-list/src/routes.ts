@@ -1,4 +1,4 @@
-import { Route } from "@angular/router";
+import type { Route } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { PartyTitleResolver } from "@features/parties/party-page";
 import { partyExists } from "@guards";

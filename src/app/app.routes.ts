@@ -1,5 +1,5 @@
 import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from "@angular/fire/auth-guard";
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 import { RoutesConstants } from "@constants";
 
 const redirectLoggedInToBase = () => redirectLoggedInTo(["/"]);

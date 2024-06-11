@@ -1,5 +1,5 @@
-import { CollectionReference, DocumentReference } from "@angular/fire/firestore";
-import { PartyDocRef } from "./base-persisted-party.interface";
+import type { CollectionReference, DocumentReference } from "@angular/fire/firestore";
+import type { PartyDocRef } from "./base-persisted-party.interface";
 
 export interface PersistedUser {
 	id: string;

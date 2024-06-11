@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Signal, inject, signal } from "@angular/core";
+import { Component, type Signal, inject, signal } from "@angular/core";
 import { Firestore, addDoc, collection } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -7,12 +7,12 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { BasePersistedParty, PartyDocRef, outCurrentUser } from "@models";
+import { type BasePersistedParty, type PartyDocRef, outCurrentUser } from "@models";
 import { SnackbarService } from "@services";
 import { UsersService } from "@stores";
 import { buildAsyncFormStatusSignal } from "@utils";
 import { map } from "rxjs";
-import { PartyCreationRouteData } from "./party-creation-route-data.interface";
+import type { PartyCreationRouteData } from "./party-creation-route-data.interface";
 
 @Component({
 	selector: "app-party-creation",

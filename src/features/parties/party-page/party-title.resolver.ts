@@ -1,6 +1,6 @@
-import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import type { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { Observable, map } from "rxjs";
+import { type Observable, map } from "rxjs";
 import { injectPartyName } from "./party-name.injector";
 
 export const PartyTitleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot): Observable<string> =>

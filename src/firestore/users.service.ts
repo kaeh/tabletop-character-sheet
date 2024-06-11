@@ -1,9 +1,9 @@
 import { Injectable, inject } from "@angular/core";
 import { Auth, updateProfile } from "@angular/fire/auth";
 import { Firestore, addDoc, arrayRemove, arrayUnion, collection, collectionData, deleteDoc, doc, docData, query, updateDoc, where } from "@angular/fire/firestore";
-import { PersistedCharacter } from "@features/games/tales-from-the-loop/src/models";
-import { BasePersistedCharacter, BasePersistedParty, CharacterDocRef, CharactersCollectionRef, PartyDocRef, PersistedUser, UserDocRef, UsersCollectionRef } from "@models";
-import { Observable, filter, map, of, switchMap, zip } from "rxjs";
+import type { PersistedCharacter } from "@features/games/tales-from-the-loop/src/models";
+import type { BasePersistedCharacter, BasePersistedParty, CharacterDocRef, CharactersCollectionRef, PartyDocRef, PersistedUser, UserDocRef, UsersCollectionRef } from "@models";
+import { type Observable, filter, map, of, switchMap, zip } from "rxjs";
 
 @Injectable({
 	providedIn: "root",

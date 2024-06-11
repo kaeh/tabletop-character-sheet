@@ -1,4 +1,4 @@
-import { CollectionReference, DocumentReference } from "@angular/fire/firestore";
+import type { CollectionReference, DocumentReference } from "@angular/fire/firestore";
 
 export interface BasePersistedCharacter {
 	id: string;

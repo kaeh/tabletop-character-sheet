@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Signal, computed, inject, signal } from "@angular/core";
+import { Component, type Signal, computed, inject, signal } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -12,7 +12,7 @@ import { tap } from "rxjs";
 import { gameId } from "../../constants/game-id";
 import { gameLabels } from "../../constants/game-labels";
 import { gameRules } from "../../constants/game-rules";
-import { PersistedCharacter } from "../../models";
+import type { PersistedCharacter } from "../../models";
 import { buildCharacterForm } from "../../utils/character-form.injector";
 import { CharacterFormComponent } from "../character-form/character-form.component";
 

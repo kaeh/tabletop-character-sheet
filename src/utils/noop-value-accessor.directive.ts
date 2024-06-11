@@ -1,5 +1,5 @@
 import { Directive } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 /**
  * @see https://netbasal.com/forwarding-form-controls-to-custom-control-components-in-angular-701e8406cc55

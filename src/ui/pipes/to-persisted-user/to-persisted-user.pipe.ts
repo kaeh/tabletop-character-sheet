@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { PersistedUser } from "@models";
+import { Pipe, type PipeTransform } from "@angular/core";
+import type { PersistedUser } from "@models";
 
 @Pipe({
 	name: "appToPersistedUser",

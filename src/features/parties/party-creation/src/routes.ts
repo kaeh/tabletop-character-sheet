@@ -1,9 +1,9 @@
-import { Route } from "@angular/router";
+import type { Route } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { gameId } from "@features/games/tales-from-the-loop/src/constants/game-id";
 import { gameLabels as TalesFromTheLoopLabels } from "@features/games/tales-from-the-loop/src/constants/game-labels";
-import { GameSelectionRouteData } from "@ui/components/game-selection";
-import { PartyCreationRouteData } from "./party-creation-route-data.interface";
+import type { GameSelectionRouteData } from "@ui/components/game-selection";
+import type { PartyCreationRouteData } from "./party-creation-route-data.interface";
 
 const baseTitle = "Création de partie";
 

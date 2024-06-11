@@ -1,4 +1,4 @@
-import { Route } from "@angular/router";
+import type { Route } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { characterExists } from "@guards";
 

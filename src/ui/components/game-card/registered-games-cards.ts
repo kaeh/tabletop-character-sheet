@@ -1,6 +1,6 @@
 import { gameId as TalesFromTheLoopId } from "@features/games/tales-from-the-loop/src/constants/game-id";
 import { gameLabels as TalesFromTheLoopLabel } from "@features/games/tales-from-the-loop/src/constants/game-labels";
-import { GameCard } from "./game-card.interface";
+import type { GameCard } from "./game-card.interface";
 
 export const registeredGameCard: GameCard[] = [
 	{

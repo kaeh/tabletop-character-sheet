@@ -1,7 +1,7 @@
-import { DocumentReference } from "@angular/fire/firestore";
-import { BasePersistedCharacter } from "./base-persisted-character.interface";
-import { UserDocRef } from "./persisted-user.interface";
-import { Player } from "./player.interface";
+import type { DocumentReference } from "@angular/fire/firestore";
+import type { BasePersistedCharacter } from "./base-persisted-character.interface";
+import type { UserDocRef } from "./persisted-user.interface";
+import type { Player } from "./player.interface";
 
 export interface BasePersistedParty<TCharacter = BasePersistedCharacter> {
 	id: string;

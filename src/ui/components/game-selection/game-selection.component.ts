@@ -3,7 +3,7 @@ import { Component, inject } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { GameCardComponent } from "../game-card";
 import { registeredGameCard } from "../game-card/registered-games-cards";
-import { GameSelectionRouteData } from "./game-selection-route-data.interface";
+import type { GameSelectionRouteData } from "./game-selection-route-data.interface";
 
 @Component({
 	selector: "app-game-selection",

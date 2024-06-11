@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { DocumentReference, docData } from "@angular/fire/firestore";
+import { Pipe, type PipeTransform } from "@angular/core";
+import { type DocumentReference, docData } from "@angular/fire/firestore";
 
 @Pipe({
 	name: "appRefToDoc",

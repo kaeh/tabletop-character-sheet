@@ -1,4 +1,4 @@
-import { PersistedCharacter } from "../models";
+import type { PersistedCharacter } from "../models";
 
 const computeSumOfPropertiesValues = <T extends Record<string, number>>(object: T) => Object.values(object).reduce((sum, value) => sum + value, 0);
 

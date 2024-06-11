@@ -1,14 +1,14 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { DocumentReference, updateDoc } from "@angular/fire/firestore";
+import { type DocumentReference, updateDoc } from "@angular/fire/firestore";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
 import { UsersService } from "@stores";
 import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from "rxjs";
 import { gameLabels } from "../../constants/game-labels";
-import { PersistedCharacter } from "../../models";
+import type { PersistedCharacter } from "../../models";
 import { buildCharacterForm } from "../../utils/character-form.injector";
 import { CharacterFormComponent } from "../character-form/character-form.component";
 

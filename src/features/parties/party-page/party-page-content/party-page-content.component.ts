@@ -1,11 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, inject } from "@angular/core";
 import { Firestore, doc, docData, updateDoc } from "@angular/fire/firestore";
-import { BasePersistedParty } from "@models";
+import type { BasePersistedParty } from "@models";
 import { SnackbarService } from "@services";
 import { UsersService } from "@stores";
 import { GameIdToTitlePipe } from "@ui/pipes";
-import { Observable, firstValueFrom } from "rxjs";
+import { type Observable, firstValueFrom } from "rxjs";
 import { PlayerCardComponent } from "../player-card/player-card.component";
 
 @Component({

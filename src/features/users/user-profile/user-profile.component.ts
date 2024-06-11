@@ -3,7 +3,7 @@ import { Component, inject } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
-import { PersistedUser } from "@models";
+import type { PersistedUser } from "@models";
 import { SnackbarService } from "@services";
 import { UsersService } from "@stores";
 
