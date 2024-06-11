@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output, type Signal, computed, inject, signal } from "@angular/core";
+import { Component, Input, computed, inject, input, output, signal, type Signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { docData } from "@angular/fire/firestore";
 import { MatButtonModule } from "@angular/material/button";
@@ -13,7 +13,7 @@ import { RoutesConstants } from "@constants";
 import type { BasePersistedCharacter, PersistedUser, Player } from "@models";
 import { UsersService } from "@stores";
 import { CharacterAvatarFallbackPipe, UserAvatarFallbackPipe } from "@ui/pipes";
-import { type Observable, ReplaySubject, filter, map, of, switchMap, tap } from "rxjs";
+import { ReplaySubject, filter, map, of, switchMap, tap, type Observable } from "rxjs";
 
 @Component({
 	selector: "app-player-card",
@@ -35,7 +35,7 @@ import { type Observable, ReplaySubject, filter, map, of, switchMap, tap } from 
 	templateUrl: "./player-card.component.html",
 })
 export class PlayerCardComponent {
-	@Input({ required: true }) public gameId!: string;
+  public readonly gameId = input.required<string>();
 
 	@Input({ required: true })
 	public set player(value: Player) {
@@ -43,7 +43,7 @@ export class PlayerCardComponent {
 		this._updateCharacter$.next(value.character);
 	}
 
-	@Output() public readonly characterChanged = new EventEmitter<string | null>();
+  public readonly characterChanged = output<string | null>();
 
 	protected readonly user$$: Signal<PersistedUser | undefined>;
 	protected readonly character$$: Signal<BasePersistedCharacter | undefined>;
@@ -69,7 +69,7 @@ export class PlayerCardComponent {
 		// Get characters of current user, filter out those with a different game id
 		this.characters$ = user$.pipe(
 			filter(({ id }) => id === uid),
-			switchMap(() => this._userService.getUserCharactersByGame(uid, this.gameId)),
+			switchMap(() => this._userService.getUserCharactersByGame(uid, this.gameId())),
 			map((characters) => characters.filter((x) => x.id !== this.character$$()?.id).sort((a, b) => a.general.firstName.localeCompare(b.general.firstName))),
 			tap((characters) => this.hasCharacters$$.set(characters.length > 0)),
 		);

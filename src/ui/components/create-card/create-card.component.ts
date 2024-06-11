@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -20,5 +20,5 @@ import { RouterLink } from "@angular/router";
 	templateUrl: "./create-card.component.html",
 })
 export class CreateCardComponent {
-	@Input({ required: true }) public routerLink!: RouterLink["routerLink"];
+	public readonly routerLink = input.required<RouterLink["routerLink"]>();
 }

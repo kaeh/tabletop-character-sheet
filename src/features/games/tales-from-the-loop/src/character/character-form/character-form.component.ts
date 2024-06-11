@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, type OnInit, inject } from "@angular/core";
-import { ControlContainer, type ControlValueAccessor, ReactiveFormsModule } from "@angular/forms";
+import { Component, inject, input, type OnInit } from "@angular/core";
+import { ControlContainer, ReactiveFormsModule, type ControlValueAccessor } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { ImageSelectorComponent } from "@ui/components/image-selector";
@@ -26,8 +26,8 @@ import { buildCharacterForm } from "../../utils/character-form.injector";
 	templateUrl: "./character-form.component.html",
 })
 export class CharacterFormComponent implements OnInit, ControlValueAccessor {
-	@Input() public remainingAttributePoints?: number;
-	@Input() public remainingSkillPoints?: number;
+	public readonly remainingAttributePoints = input<number>();
+	public readonly remainingSkillPoints = input<number>();
 
 	protected characterForm = buildCharacterForm();
 	protected readonly Labels = gameLabels;

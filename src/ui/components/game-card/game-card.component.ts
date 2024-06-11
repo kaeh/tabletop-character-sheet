@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from "@angular/common";
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 
 @Component({
 	selector: "app-game-card",
@@ -13,7 +13,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameCardComponent {
-	@Input({ required: true }) title!: string;
-	@Input({ required: true }) image!: string;
-	@Input({ required: true }) description!: string;
+	public readonly title = input.required<string>();
+	public readonly image = input.required<string>();
+	public readonly description = input.required<string>();
 }

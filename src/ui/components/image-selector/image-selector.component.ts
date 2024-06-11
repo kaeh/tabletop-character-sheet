@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, inject } from "@angular/core";
-import { type ControlValueAccessor, FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { Component, inject, input } from "@angular/core";
+import { FormBuilder, ReactiveFormsModule, type ControlValueAccessor } from "@angular/forms";
 import { NoopValueAccessorDirective, injectNgControl } from "@utils";
 
 @Component({
@@ -15,10 +15,9 @@ import { NoopValueAccessorDirective, injectNgControl } from "@utils";
 	hostDirectives: [NoopValueAccessorDirective],
 })
 export class ImageSelectorComponent implements ControlValueAccessor {
-	@Input({ required: true }) public label!: string;
+	public readonly label = input.required<string>();
 
 	protected readonly ngControl = injectNgControl();
-
 	protected readonly tmpControl = inject(FormBuilder).control("");
 
 	public writeValue(obj: unknown): void {

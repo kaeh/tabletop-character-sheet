@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, type OnChanges, type Signal, type SimpleChanges, inject, signal } from "@angular/core";
+import { Component, inject, input, signal, type OnChanges, type Signal, type SimpleChanges } from "@angular/core";
 import { Firestore, deleteDoc, doc, docData, updateDoc } from "@angular/fire/firestore";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -8,7 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { Router } from "@angular/router";
 import { RoutesConstants } from "@constants";
-import { type BasePersistedParty, type PartyDocRef, outCurrentUser, toMinimalUser } from "@models";
+import { outCurrentUser, toMinimalUser, type BasePersistedParty, type PartyDocRef } from "@models";
 import { SnackbarService } from "@services";
 import { UsersService } from "@stores";
 import { IrreversibleChangeDialog } from "@ui/components/irreversible-change-dialog";
@@ -32,7 +32,7 @@ import { firstValueFrom, map, switchMap } from "rxjs";
 	styleUrl: "./party-page-admin.component.scss",
 })
 export class PartyPageAdminComponent implements OnChanges {
-	@Input({ required: true }) party!: BasePersistedParty;
+	public readonly party = input.required<BasePersistedParty>();
 
 	protected readonly updateDisabled$$: Signal<boolean>;
 
@@ -82,10 +82,10 @@ export class PartyPageAdminComponent implements OnChanges {
 
 		try {
 			const formValue = this.form.getRawValue();
-			const addedPlayersIds = formValue.players.filter((playerId) => !this.party.players.map((player) => player.ref.id).includes(playerId));
-			const removedPlayersIds = this.party.players.map((player) => player.ref.id).filter((player) => !formValue.players.includes(player));
+			const addedPlayersIds = formValue.players.filter((playerId) => !this.party().players.map((player) => player.ref.id).includes(playerId));
+			const removedPlayersIds = this.party().players.map((player) => player.ref.id).filter((player) => !formValue.players.includes(player));
 
-			const updatedPlayers = this.party.players.filter((player) => !removedPlayersIds.includes(player.ref.id));
+			const updatedPlayers = this.party().players.filter((player) => !removedPlayersIds.includes(player.ref.id));
 			updatedPlayers.push(...addedPlayersIds.map((playerId) => ({ ref: this._usersService.buildUserDocRef(playerId) })));
 
 			const partyChanges: Partial<BasePersistedParty> = {
@@ -95,7 +95,7 @@ export class PartyPageAdminComponent implements OnChanges {
 				players: updatedPlayers,
 			};
 
-			const partyDoc = doc(this._firestore, "parties", this.party.id) as PartyDocRef;
+			const partyDoc = doc(this._firestore, "parties", this.party().id) as PartyDocRef;
 			const partyUpdatePromise = updateDoc(partyDoc, partyChanges);
 
 			// Remove party from removed players
@@ -121,9 +121,9 @@ export class PartyPageAdminComponent implements OnChanges {
 
 		// If confirmed then remove party from every players
 		if (confirmed) {
-			const partyDoc = doc(this._firestore, "parties", this.party.id) as PartyDocRef;
-			const playersIds = this.party.players.map((player) => player.ref.id);
-			playersIds.push(this.party.gameMaster.id);
+			const partyDoc = doc(this._firestore, "parties", this.party().id) as PartyDocRef;
+			const playersIds = this.party().players.map((player) => player.ref.id);
+			playersIds.push(this.party().gameMaster.id);
 			const playersPartyRemovalPromises = this._buildPlayersPartyRemovalPromises(playersIds, partyDoc);
 
 			Promise.all([...playersPartyRemovalPromises]);
@@ -137,10 +137,10 @@ export class PartyPageAdminComponent implements OnChanges {
 		const confirm = await firstValueFrom(this._dialog.open(IrreversibleChangeDialog).afterClosed());
 
 		if (confirm) {
-			const partyDoc = doc(this._firestore, "parties", this.party.id);
+			const partyDoc = doc(this._firestore, "parties", this.party().id);
 			const partyPlayersData = (((await firstValueFrom(docData(partyDoc))) as BasePersistedParty).players ?? []) as BasePersistedParty["players"];
 			const newGameMasterDoc = this._usersService.buildUserDocRef(newGameMasterId);
-			const oldGameMasterDoc = this._usersService.buildUserDocRef(this.party.gameMaster.id);
+			const oldGameMasterDoc = this._usersService.buildUserDocRef(this.party().gameMaster.id);
 
 			// Switch new game master with old game master in party players
 			const updatedPlayers = partyPlayersData.map((player) => {
@@ -153,7 +153,7 @@ export class PartyPageAdminComponent implements OnChanges {
 
 			await updateDoc(partyDoc, { gameMaster: newGameMasterDoc, players: updatedPlayers });
 		} else {
-			this.gameMasterControl.setValue(this.party.gameMaster.id);
+			this.gameMasterControl.setValue(this.party().gameMaster.id);
 		}
 	}
 

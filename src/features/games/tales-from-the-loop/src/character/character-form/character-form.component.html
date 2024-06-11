@@ -67,8 +67,8 @@
     <h3>
       Attributs
 
-      @if (remainingAttributePoints !== null && remainingAttributePoints !== undefined) {
-      <span [class.text-red-500]="remainingAttributePoints !== 0">({{ remainingAttributePoints }} points
+      @if (remainingAttributePoints() !== null && remainingAttributePoints() !== undefined) {
+      <span [class.text-red-500]="remainingAttributePoints() !== 0">({{ remainingAttributePoints() }} points
         restants)</span>
       }
     </h3>
@@ -88,8 +88,8 @@
     <h3>
       Compétences
 
-      @if (remainingSkillPoints !== null && remainingSkillPoints !== undefined) {
-      <span [class.text-red-500]="remainingSkillPoints !== 0">({{ remainingSkillPoints }} points
+      @if (remainingSkillPoints() !== null && remainingSkillPoints() !== undefined) {
+      <span [class.text-red-500]="remainingSkillPoints() !== 0">({{ remainingSkillPoints() }} points
         restants)</span>
       }
     </h3>

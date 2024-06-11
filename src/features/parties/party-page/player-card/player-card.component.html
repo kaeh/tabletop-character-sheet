@@ -31,7 +31,7 @@
             <mat-icon color="primary">edit</mat-icon>
             <span>Changer de personnage</span>
           </button>
-          <button mat-menu-item (click)="characterChanged.next(null)">
+          <button mat-menu-item (click)="characterChanged.emit(null)">
             <mat-icon color="warn">cancel</mat-icon>
             <span>Enlever le personnage</span>
           </button>
@@ -40,7 +40,7 @@
 
       <mat-menu #charactersSubMenu="matMenu">
         @for (character of (characters$ | async); track character.id) {
-          <button mat-menu-item (click)="characterChanged.next(character.id)">
+          <button mat-menu-item (click)="characterChanged.emit(character.id)">
             {{character.general.firstName | titlecase }} {{ character.general.lastName | uppercase }}
           </button>
         }
@@ -48,5 +48,5 @@
     }
   </mat-card-content>
 
-  <img mat-card-image [src]="character$$()?.general?.avatar | appCharacterAvatarFallback: gameId" [class.cursor-pointer]="!!character$$()" (click)="openCharacterSheet()" />
+  <img mat-card-image [src]="character$$()?.general?.avatar | appCharacterAvatarFallback: gameId()" [class.cursor-pointer]="!!character$$()" (click)="openCharacterSheet()" />
 </mat-card>
